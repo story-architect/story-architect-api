@@ -1,7 +1,9 @@
-from pydantic import BaseModel, ConfigDict
-from typing import Optional
 from datetime import datetime
+from typing import Optional
 from uuid import UUID
+
+from pydantic import BaseModel, ConfigDict
+
 
 class CharacterArchitectureReportResponse(BaseModel):
     id: UUID
@@ -18,6 +20,7 @@ class CharacterArchitectureReportResponse(BaseModel):
     updated_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
 
 class RelationshipArchitectureReportResponse(BaseModel):
     id: UUID

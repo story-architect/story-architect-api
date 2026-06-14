@@ -80,6 +80,22 @@ To run the tests:
 pytest
 ```
 
+## Linting and Formatting
+
+We use `ruff` for linting and `black` for code formatting.
+
+To check formatting and linting:
+```bash
+ruff check .
+black --check .
+```
+
+To auto-format the code:
+```bash
+black .
+ruff check . --fix
+```
+
 ---
 
 ## Example API Calls

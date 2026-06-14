@@ -1,8 +1,11 @@
-from pydantic import BaseModel, ConfigDict
-from typing import Optional, List, Any
 from datetime import datetime
+from typing import Any, List, Optional
 from uuid import UUID
+
+from pydantic import BaseModel, ConfigDict
+
 from app.models.discovery import FlowTypeEnum
+
 
 class DiscoveryQuestionResponse(BaseModel):
     id: UUID
@@ -15,6 +18,7 @@ class DiscoveryQuestionResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
+
 class DiscoveryAnswerBase(BaseModel):
     story_id: UUID
     character_id: Optional[UUID] = None
@@ -23,12 +27,15 @@ class DiscoveryAnswerBase(BaseModel):
     selected_answer: Optional[str] = None
     custom_answer: Optional[str] = None
 
+
 class DiscoveryAnswerCreate(DiscoveryAnswerBase):
     pass
+
 
 class DiscoveryAnswerUpdate(BaseModel):
     selected_answer: Optional[str] = None
     custom_answer: Optional[str] = None
+
 
 class DiscoveryAnswerResponse(DiscoveryAnswerBase):
     id: UUID

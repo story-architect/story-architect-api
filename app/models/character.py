@@ -1,18 +1,22 @@
 import enum
-from sqlalchemy import String, Integer, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from typing import List, TYPE_CHECKING
 import uuid
+from typing import TYPE_CHECKING, List
+
+from sqlalchemy import ForeignKey, Integer, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from app.models.base import Base, TimestampMixin, UUIDMixin
 
 if TYPE_CHECKING:
-    from app.models.story import Story
     from app.models.discovery import DiscoveryAnswer
     from app.models.report import CharacterArchitectureReport
+    from app.models.story import Story
+
 
 class RoleEnum(str, enum.Enum):
     MAIN_CHARACTER = "MAIN_CHARACTER"
     SUPPORTING_CHARACTER = "SUPPORTING_CHARACTER"
+
 
 class Character(Base, UUIDMixin, TimestampMixin):
     __tablename__ = "characters"
@@ -24,5 +28,9 @@ class Character(Base, UUIDMixin, TimestampMixin):
     archetype: Mapped[str] = mapped_column(String(100), nullable=True)
 
     story: Mapped["Story"] = relationship(back_populates="characters")
-    discovery_answers: Mapped[List["DiscoveryAnswer"]] = relationship(back_populates="character", cascade="all, delete-orphan")
-    report: Mapped["CharacterArchitectureReport"] = relationship(back_populates="character", uselist=False, cascade="all, delete-orphan")
+    discovery_answers: Mapped[List["DiscoveryAnswer"]] = relationship(
+        back_populates="character", cascade="all, delete-orphan"
+    )
+    report: Mapped["CharacterArchitectureReport"] = relationship(
+        back_populates="character", uselist=False, cascade="all, delete-orphan"
+    )

@@ -1,15 +1,18 @@
 import enum
-from sqlalchemy import String, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from typing import List, TYPE_CHECKING
 import uuid
+from typing import TYPE_CHECKING, List
+
+from sqlalchemy import ForeignKey, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from app.models.base import Base, TimestampMixin, UUIDMixin
 
 if TYPE_CHECKING:
-    from app.models.story import Story
     from app.models.character import Character
     from app.models.discovery import DiscoveryAnswer
     from app.models.report import RelationshipArchitectureReport
+    from app.models.story import Story
+
 
 class RelationshipTypeEnum(str, enum.Enum):
     ROMANCE = "ROMANCE"
@@ -18,6 +21,7 @@ class RelationshipTypeEnum(str, enum.Enum):
     RIVALRY = "RIVALRY"
     MENTOR = "MENTOR"
     OTHER = "OTHER"
+
 
 class Relationship(Base, UUIDMixin, TimestampMixin):
     __tablename__ = "relationships"
@@ -28,9 +32,13 @@ class Relationship(Base, UUIDMixin, TimestampMixin):
     relationship_type: Mapped[RelationshipTypeEnum] = mapped_column(String(50))
 
     story: Mapped["Story"] = relationship(back_populates="relationships")
-    
+
     character_a: Mapped["Character"] = relationship(foreign_keys=[character_a_id])
     character_b: Mapped["Character"] = relationship(foreign_keys=[character_b_id])
 
-    discovery_answers: Mapped[List["DiscoveryAnswer"]] = relationship(back_populates="relationship_", cascade="all, delete-orphan")
-    report: Mapped["RelationshipArchitectureReport"] = relationship(back_populates="relationship_", uselist=False, cascade="all, delete-orphan")
+    discovery_answers: Mapped[List["DiscoveryAnswer"]] = relationship(
+        back_populates="relationship_", cascade="all, delete-orphan"
+    )
+    report: Mapped["RelationshipArchitectureReport"] = relationship(
+        back_populates="relationship_", uselist=False, cascade="all, delete-orphan"
+    )
