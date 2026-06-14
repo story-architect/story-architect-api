@@ -1,20 +1,23 @@
+import os
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.api.dependencies import get_db
-from app.core.database import Base
 from app.main import app
+from app.core.database import Base
+from app.api.dependencies import get_db
 
-# Use SQLite in-memory database for fast testing
-SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+# Use SQLite in-memory database for fast testing, but allow override for CI
+SQLALCHEMY_DATABASE_URL = os.getenv("TEST_DATABASE_URL", "sqlite:///:memory:")
+
+connect_args = {"check_same_thread": False} if "sqlite" in SQLALCHEMY_DATABASE_URL else {}
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
-    connect_args={"check_same_thread": False},
-    poolclass=StaticPool,
+    connect_args=connect_args,
+    poolclass=StaticPool if "sqlite" in SQLALCHEMY_DATABASE_URL else None,
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
