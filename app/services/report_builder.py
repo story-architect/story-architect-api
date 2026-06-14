@@ -1,0 +1,110 @@
+from sqlalchemy.orm import Session
+from uuid import UUID
+from app.models import DiscoveryAnswer, DiscoveryQuestion, CharacterArchitectureReport, RelationshipArchitectureReport, Character, Relationship
+
+def get_answer_text(db: Session, question_key: str, character_id: UUID = None, relationship_id: UUID = None) -> str:
+    query = db.query(DiscoveryAnswer).join(DiscoveryQuestion).filter(DiscoveryQuestion.question_key == question_key)
+    
+    if character_id:
+        query = query.filter(DiscoveryAnswer.character_id == character_id)
+    elif relationship_id:
+        query = query.filter(DiscoveryAnswer.relationship_id == relationship_id)
+        
+    answer = query.first()
+    
+    if not answer:
+        return "Not discovered yet."
+        
+    # Prioritize custom answer over selected answer
+    if answer.custom_answer:
+        return answer.custom_answer
+    elif answer.selected_answer:
+        return answer.selected_answer
+    else:
+        return "Not discovered yet."
+
+def generate_character_report(db: Session, character_id: UUID) -> CharacterArchitectureReport:
+    character = db.query(Character).filter(Character.id == character_id).first()
+    
+    # Mapping based on deterministic rules
+    character_core = f"{character.name}, {character.age} - {character.role.value}" + (f" ({character.archetype})" if character.archetype else "")
+    
+    emotional_wound = get_answer_text(db, "char_wound", character_id=character_id)
+    deepest_fear = get_answer_text(db, "char_fear", character_id=character_id)
+    protective_lie = get_answer_text(db, "char_lie", character_id=character_id)
+    behavior = get_answer_text(db, "char_behavior", character_id=character_id)
+    narrative_consequence = get_answer_text(db, "char_consequence", character_id=character_id)
+    conflict_created = get_answer_text(db, "char_conflict", character_id=character_id)
+    transformation = get_answer_text(db, "char_transformation", character_id=character_id)
+
+    # Check if report already exists
+    report = db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
+    
+    if report:
+        report.character_core = character_core
+        report.emotional_wound = emotional_wound
+        report.deepest_fear = deepest_fear
+        report.protective_lie = protective_lie
+        report.behavior = behavior
+        report.narrative_consequence = narrative_consequence
+        report.conflict_created = conflict_created
+        report.transformation = transformation
+    else:
+        report = CharacterArchitectureReport(
+            character_id=character_id,
+            character_core=character_core,
+            emotional_wound=emotional_wound,
+            deepest_fear=deepest_fear,
+            protective_lie=protective_lie,
+            behavior=behavior,
+            narrative_consequence=narrative_consequence,
+            conflict_created=conflict_created,
+            transformation=transformation
+        )
+        db.add(report)
+
+    db.commit()
+    db.refresh(report)
+    return report
+
+def generate_relationship_report(db: Session, relationship_id: UUID) -> RelationshipArchitectureReport:
+    # Check if relationship exists
+    rel = db.query(Relationship).filter(Relationship.id == relationship_id).first()
+    
+    # Defaulting the emotional_effect to combine answers from both A -> B and B -> A truth.
+    truth_a_b = get_answer_text(db, "rel_truth_a", relationship_id=relationship_id)
+    truth_b_a = get_answer_text(db, "rel_truth_b", relationship_id=relationship_id)
+    combined_emotional_effect = f"Truth Character A hides: {truth_a_b}\nTruth Character B hides: {truth_b_a}"
+    if truth_a_b == "Not discovered yet." and truth_b_a == "Not discovered yet.":
+        combined_emotional_effect = "Not discovered yet."
+
+    current_result = get_answer_text(db, "rel_importance", relationship_id=relationship_id)
+    story_consequence = get_answer_text(db, "rel_protect", relationship_id=relationship_id)
+    relationship_law = get_answer_text(db, "rel_misunderstanding", relationship_id=relationship_id)
+    current_relationship_risk = get_answer_text(db, "rel_risk", relationship_id=relationship_id)
+    turning_point = get_answer_text(db, "rel_truth_demand", relationship_id=relationship_id)
+
+    report = db.query(RelationshipArchitectureReport).filter(RelationshipArchitectureReport.relationship_id == relationship_id).first()
+    
+    if report:
+        report.current_result = current_result
+        report.emotional_effect = combined_emotional_effect
+        report.story_consequence = story_consequence
+        report.current_relationship_risk = current_relationship_risk
+        report.turning_point = turning_point
+        report.relationship_law = relationship_law
+    else:
+        report = RelationshipArchitectureReport(
+            relationship_id=relationship_id,
+            current_result=current_result,
+            emotional_effect=combined_emotional_effect,
+            story_consequence=story_consequence,
+            current_relationship_risk=current_relationship_risk,
+            turning_point=turning_point,
+            relationship_law=relationship_law
+        )
+        db.add(report)
+
+    db.commit()
+    db.refresh(report)
+    return report
