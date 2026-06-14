@@ -105,6 +105,15 @@ To run the type checker:
 mypy .
 ```
 
+## SonarQube Cloud
+
+This project is configured for static code analysis using SonarQube Cloud.
+To use it in your own GitHub repository:
+1. Create a project in SonarQube Cloud.
+2. Update the `sonar.organization` and `sonar.projectKey` inside `sonar-project.properties`.
+3. Add a secret named `SONAR_TOKEN` to your GitHub repository secrets.
+The GitHub Actions workflow will automatically run the scan on pushes and pull requests.
+
 ---
 
 ## Example API Calls

@@ -55,3 +55,9 @@ jobs:
         env:
           TEST_DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/story_architect_test
         run: pytest
+
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
