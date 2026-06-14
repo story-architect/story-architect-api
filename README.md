@@ -96,6 +96,15 @@ black .
 ruff check . --fix
 ```
 
+## Type Checking
+
+We use `mypy` for static type checking.
+
+To run the type checker:
+```bash
+mypy .
+```
+
 ---
 
 ## Example API Calls
