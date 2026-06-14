@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 
 
 def test_root_health_check(client: TestClient):
-    response = client.get("/api/v1/")
+    response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to Story Architect API"}
 

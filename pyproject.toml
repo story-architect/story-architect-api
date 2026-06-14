@@ -56,3 +56,4 @@ ignore_missing_imports = true
 # Start with less strict rules
 strict_optional = false
 check_untyped_defs = true
+explicit_package_bases = true

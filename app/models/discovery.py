@@ -3,15 +3,17 @@ import uuid
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING, Any, List, Optional
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, JSON
 from sqlalchemy.dialects.postgresql import JSONB
+
+CustomJSON = JSON().with_variant(JSONB, "postgresql")
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base, TimestampMixin, UUIDMixin
 
 if TYPE_CHECKING:
     from app.models.character import Character
-    from app.models.relationship import Relationship as StoryRelationship
+    from app.models.relationship import Relationship
     from app.models.story import Story
 
 
@@ -27,7 +29,7 @@ class DiscoveryQuestion(Base, UUIDMixin):
     question_key: Mapped[str] = mapped_column(String(100), unique=True, index=True)
     question_text: Mapped[str] = mapped_column(Text)
     order_index: Mapped[int] = mapped_column(Integer)
-    suggested_answers: Mapped[List[Any]] = mapped_column(JSONB, default=list)
+    suggested_answers: Mapped[List[Any]] = mapped_column(CustomJSON, default=list)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
 
@@ -48,5 +50,7 @@ class DiscoveryAnswer(Base, UUIDMixin, TimestampMixin):
 
     story: Mapped["Story"] = relationship(back_populates="discovery_answers")
     character: Mapped[Optional["Character"]] = relationship(back_populates="discovery_answers")
-    relationship_: Mapped[Optional["StoryRelationship"]] = relationship(back_populates="discovery_answers")
+    relationship_: Mapped[Optional["Relationship"]] = relationship(
+        "Relationship", back_populates="discovery_answers"
+    )
     question: Mapped["DiscoveryQuestion"] = relationship()
