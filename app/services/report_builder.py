@@ -85,7 +85,7 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
 
 def generate_relationship_report(db: Session, relationship_id: UUID) -> RelationshipArchitectureReport:
     # Check if relationship exists
-    rel = db.query(Relationship).filter(Relationship.id == relationship_id).first()
+    db.query(Relationship).filter(Relationship.id == relationship_id).first()
 
     # Defaulting the emotional_effect to combine answers from both A -> B and B -> A truth.
     truth_a_b = get_answer_text(db, "rel_truth_a", relationship_id=relationship_id)

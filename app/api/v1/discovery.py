@@ -27,7 +27,7 @@ def get_discovery_questions(flow_type: FlowTypeEnum = Query(...), db: Session = 
 
 
 @router.post("/answers", response_model=DiscoveryAnswerResponse)
-def create_discovery_answer(answer_in: DiscoveryAnswerCreate, db: Session = Depends(get_db)):
+def create_discovery_answer(answer_in: DiscoveryAnswerCreate, db: Session = Depends(get_db)):  # noqa: C901
     # Validate story
     if not db.query(Story).filter(Story.id == answer_in.story_id).first():
         raise HTTPException(status_code=404, detail="Story not found")

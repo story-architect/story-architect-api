@@ -1,13 +1,14 @@
 import os
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.main import app
-from app.core.database import Base
 from app.api.dependencies import get_db
+from app.core.database import Base
+from app.main import app
 
 # Use SQLite in-memory database for fast testing, but allow override for CI
 SQLALCHEMY_DATABASE_URL = os.getenv("TEST_DATABASE_URL", "sqlite:///:memory:")
