@@ -70,6 +70,18 @@ The easiest way to run the application is using Docker and Docker Compose.
 
 The API documentation will be available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
+## Running Tests
+
+We use `pytest` for testing. The tests are configured to use an in-memory SQLite database for speed and isolation.
+
+To run the tests:
+```bash
+# Make sure your virtual environment is activated
+pytest
+```
+
+---
+
 ## Example API Calls
 
 **Create a Story:**
