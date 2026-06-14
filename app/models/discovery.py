@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING, Any, List, Optional
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, JSON
+from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.dialects.postgresql import JSONB
 
 CustomJSON = JSON().with_variant(JSONB, "postgresql")
@@ -50,7 +50,5 @@ class DiscoveryAnswer(Base, UUIDMixin, TimestampMixin):
 
     story: Mapped["Story"] = relationship(back_populates="discovery_answers")
     character: Mapped[Optional["Character"]] = relationship(back_populates="discovery_answers")
-    relationship_: Mapped[Optional["Relationship"]] = relationship(
-        "Relationship", back_populates="discovery_answers"
-    )
+    relationship_: Mapped[Optional["Relationship"]] = relationship("Relationship", back_populates="discovery_answers")
     question: Mapped["DiscoveryQuestion"] = relationship()
