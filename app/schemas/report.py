@@ -90,10 +90,10 @@ class RelationshipConsequenceResponse(BaseModel):
     relationship_pattern: str
     consequence_summary: str
 
+
 class PatternEmergingResponse(BaseModel):
     title: str
     pattern_name: str
     insight: str
     supporting_text: str
     next_discovery_hint: str
-

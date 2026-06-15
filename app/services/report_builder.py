@@ -13,7 +13,6 @@ from app.models import (
 from app.services.insight_generator import get_character_deterministic_fields, get_relationship_deterministic_fields
 
 
-
 def get_answer_text(db: Session, question_key: str, character_id: UUID = None, relationship_id: UUID = None) -> str:
     query = db.query(DiscoveryAnswer).join(DiscoveryQuestion).filter(DiscoveryQuestion.question_key == question_key)
 
@@ -39,7 +38,7 @@ def get_answer_text(db: Session, question_key: str, character_id: UUID = None, r
 def generate_character_report(db: Session, character_id: UUID) -> CharacterArchitectureReport:
     character = db.query(Character).filter(Character.id == character_id).first()
 
-    role_str = character.role.value if hasattr(character.role, 'value') else character.role
+    role_str = character.role.value if hasattr(character.role, "value") else character.role
     character_core = f"{character.name}, {character.age} - {role_str.replace('_', ' ').title()}" + (
         f" ({character.archetype})" if character.archetype else ""
     )
@@ -55,10 +54,10 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
     answers = {
         "char_lie": protective_lie,
         "char_consequence": narrative_consequence,
-        "char_relationship_pattern": get_answer_text(db, "char_relationship_pattern", character_id=character_id)
+        "char_relationship_pattern": get_answer_text(db, "char_relationship_pattern", character_id=character_id),
     }
     insights = get_character_deterministic_fields(db, character_id, answers)
-    
+
     # Check if report already exists
     report = (
         db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
@@ -95,7 +94,7 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
             dramatic_potential=insights["dramatic_potential"],
             inciting_relationship=insights["inciting_relationship"],
             central_conflict=insights["central_conflict"],
-            story_beginning_summary=insights["story_beginning_summary"]
+            story_beginning_summary=insights["story_beginning_summary"],
         )
         db.add(report)
 
@@ -121,9 +120,7 @@ def generate_relationship_report(db: Session, relationship_id: UUID) -> Relation
     current_relationship_risk = get_answer_text(db, "rel_risk", relationship_id=relationship_id)
     turning_point = get_answer_text(db, "rel_truth_demand", relationship_id=relationship_id)
 
-    answers = {
-        "rel_protect": story_consequence
-    }
+    answers = {"rel_protect": story_consequence}
     insights = get_relationship_deterministic_fields(db, relationship_id, answers)
 
     report = (
@@ -153,7 +150,7 @@ def generate_relationship_report(db: Session, relationship_id: UUID) -> Relation
             relationship_law=relationship_law,
             relationship_risk=insights["relationship_risk"],
             relationship_pattern=insights["relationship_pattern"],
-            consequence_summary=insights["consequence_summary"]
+            consequence_summary=insights["consequence_summary"],
         )
         db.add(report)
 

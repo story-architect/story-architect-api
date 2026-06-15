@@ -96,16 +96,16 @@ def create_discovery_answer(answer_in: DiscoveryAnswerCreate, db: Session = Depe
 
     answer_val = final_answer.custom_answer or final_answer.selected_answer or ""
     unlocked = handle_question_answered(
-        db, 
-        story_id=answer_in.story_id, 
-        question_text=question.question_text, 
-        answer_text=answer_val, 
-        character_id=answer_in.character_id, 
-        relationship_id=answer_in.relationship_id
+        db,
+        story_id=answer_in.story_id,
+        question_text=question.question_text,
+        answer_text=answer_val,
+        character_id=answer_in.character_id,
+        relationship_id=answer_in.relationship_id,
     )
     # We set unlocked_events dynamically on the response object
     # Pydantic will pick it up since the model allows extra/dynamic fields or we mapped it
-    setattr(final_answer, 'unlocked_events', unlocked)
+    final_answer.unlocked_events = unlocked
     return final_answer
 
 

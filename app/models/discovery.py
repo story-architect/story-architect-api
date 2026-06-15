@@ -32,7 +32,6 @@ class EventTypeEnum(str, enum.Enum):
     DISCOVERY_COMPLETED = "DISCOVERY_COMPLETED"
 
 
-
 class DiscoveryQuestion(Base, UUIDMixin):
     __tablename__ = "discovery_questions"
 
@@ -75,11 +74,13 @@ class DiscoveryEvent(Base, UUIDMixin):
     relationship_id: Mapped[Optional[uuid.UUID]] = mapped_column(
         ForeignKey("relationships.id", ondelete="CASCADE"), nullable=True, index=True
     )
-    
+
     event_type: Mapped[EventTypeEnum] = mapped_column(String(50), index=True)
     title: Mapped[str] = mapped_column(String(255))
     description: Mapped[str] = mapped_column(Text)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True
+    )
 
     story: Mapped["Story"] = relationship()
     character: Mapped[Optional["Character"]] = relationship()

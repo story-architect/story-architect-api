@@ -39,4 +39,3 @@ class CharacterPulseResponse(BaseModel):
     lie: str
     most_likely_conflict: str
     latest_discovery: str
-

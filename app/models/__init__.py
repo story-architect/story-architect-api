@@ -1,6 +1,6 @@
 from app.models.base import Base
 from app.models.character import Character, RoleEnum
-from app.models.discovery import DiscoveryAnswer, DiscoveryQuestion, FlowTypeEnum, DiscoveryEvent, EventTypeEnum
+from app.models.discovery import DiscoveryAnswer, DiscoveryEvent, DiscoveryQuestion, EventTypeEnum, FlowTypeEnum
 from app.models.relationship import Relationship, RelationshipTypeEnum
 from app.models.report import CharacterArchitectureReport, RelationshipArchitectureReport
 from app.models.story import Story

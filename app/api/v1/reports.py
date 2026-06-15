@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 from app.api.dependencies import get_db
 from app.models import Character, CharacterArchitectureReport, Relationship, RelationshipArchitectureReport
 from app.schemas.report import CharacterArchitectureReportResponse, RelationshipArchitectureReportResponse
-from app.services.report_builder import generate_character_report, generate_relationship_report
 from app.services.event_service import handle_report_generated
+from app.services.report_builder import generate_character_report, generate_relationship_report
 
 router = APIRouter()
 
@@ -20,11 +20,11 @@ def generate_report_for_character(character_id: UUID, db: Session = Depends(get_
 
     report = generate_character_report(db, character_id)
     handle_report_generated(
-        db, 
-        story_id=character.story_id, 
-        title="Character Report Generated", 
+        db,
+        story_id=character.story_id,
+        title="Character Report Generated",
         description=f"Generated architecture report for {character.name}.",
-        character_id=character_id
+        character_id=character_id,
     )
     return report
 
@@ -46,17 +46,17 @@ def generate_report_for_relationship(relationship_id: UUID, db: Session = Depend
         raise HTTPException(status_code=404, detail="Relationship not found")
 
     report = generate_relationship_report(db, relationship_id)
-    
+
     char_a = db.query(Character).filter(Character.id == relationship.character_a_id).first()
     char_b = db.query(Character).filter(Character.id == relationship.character_b_id).first()
     rel_name = f"{char_a.name} & {char_b.name}" if char_a and char_b else "Relationship"
 
     handle_report_generated(
-        db, 
-        story_id=relationship.story_id, 
-        title="Relationship Report Generated", 
+        db,
+        story_id=relationship.story_id,
+        title="Relationship Report Generated",
         description=f"Generated relationship report for {rel_name}.",
-        relationship_id=relationship_id
+        relationship_id=relationship_id,
     )
     return report
 

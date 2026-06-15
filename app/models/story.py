@@ -45,7 +45,15 @@ class Story(Base, UUIDMixin, TimestampMixin):
             return "Add Characters"
 
         char_insights = ["Wound", "Fear", "Lie", "Behavior", "Consequence", "Conflict", "Transformation"]
-        rel_insights = ["Importance", "Hidden Truth A", "Hidden Truth B", "Protection", "Misunderstanding", "Relationship Risk", "Turning Point"]
+        rel_insights = [
+            "Importance",
+            "Hidden Truth A",
+            "Hidden Truth B",
+            "Protection",
+            "Misunderstanding",
+            "Relationship Risk",
+            "Turning Point",
+        ]
 
         for char in self.characters:
             char_ans = [a for a in self.discovery_answers if a.character_id == char.id]

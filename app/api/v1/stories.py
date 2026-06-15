@@ -5,9 +5,16 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.dependencies import get_db
-from app.models import Story, DiscoveryEvent, Character, Relationship
-from app.schemas.story import StoryCreate, StoryResponse, StoryUpdate, LatestDiscoveryResponse, ActivityFeedItemResponse, NextDiscoveryResponse
+from app.models import Character, DiscoveryEvent, Relationship, Story
 from app.schemas.discovery import DiscoveryEventResponse
+from app.schemas.story import (
+    ActivityFeedItemResponse,
+    LatestDiscoveryResponse,
+    NextDiscoveryResponse,
+    StoryCreate,
+    StoryResponse,
+    StoryUpdate,
+)
 
 router = APIRouter()
 
@@ -60,31 +67,48 @@ def delete_story(story_id: UUID, db: Session = Depends(get_db)):
 
 @router.get("/{story_id}/latest-discovery", response_model=LatestDiscoveryResponse)
 def get_latest_discovery(story_id: UUID, db: Session = Depends(get_db)):
-    event = db.query(DiscoveryEvent).filter(DiscoveryEvent.story_id == story_id).order_by(DiscoveryEvent.created_at.desc()).first()
+    event = (
+        db.query(DiscoveryEvent)
+        .filter(DiscoveryEvent.story_id == story_id)
+        .order_by(DiscoveryEvent.created_at.desc())
+        .first()
+    )
     if not event:
         raise HTTPException(status_code=404, detail="No discoveries found")
-    return LatestDiscoveryResponse(
-        title=event.title,
-        summary=event.description,
-        created_at=event.created_at
-    )
+    return LatestDiscoveryResponse(title=event.title, summary=event.description, created_at=event.created_at)
+
 
 @router.get("/{story_id}/discovery-journal", response_model=List[DiscoveryEventResponse])
 def get_discovery_journal(story_id: UUID, db: Session = Depends(get_db)):
-    events = db.query(DiscoveryEvent).filter(DiscoveryEvent.story_id == story_id).order_by(DiscoveryEvent.created_at.desc()).limit(50).all()
+    events = (
+        db.query(DiscoveryEvent)
+        .filter(DiscoveryEvent.story_id == story_id)
+        .order_by(DiscoveryEvent.created_at.desc())
+        .limit(50)
+        .all()
+    )
     return events
+
 
 @router.get("/{story_id}/activity-feed", response_model=List[ActivityFeedItemResponse])
 def get_activity_feed(story_id: UUID, db: Session = Depends(get_db)):
-    events = db.query(DiscoveryEvent).filter(DiscoveryEvent.story_id == story_id).order_by(DiscoveryEvent.created_at.desc()).limit(50).all()
+    events = (
+        db.query(DiscoveryEvent)
+        .filter(DiscoveryEvent.story_id == story_id)
+        .order_by(DiscoveryEvent.created_at.desc())
+        .limit(50)
+        .all()
+    )
     return [
         ActivityFeedItemResponse(
             title=e.title,
             description=e.description,
             event_type=e.event_type.value if hasattr(e.event_type, "value") else e.event_type,
-            timestamp=e.created_at
-        ) for e in events
+            timestamp=e.created_at,
+        )
+        for e in events
     ]
+
 
 @router.get("/{story_id}/next-discovery", response_model=NextDiscoveryResponse)
 def get_next_discovery(story_id: UUID, db: Session = Depends(get_db)):
@@ -93,18 +117,14 @@ def get_next_discovery(story_id: UUID, db: Session = Depends(get_db)):
     chars = db.query(Character).filter(Character.story_id == story_id).count()
     rels = db.query(Relationship).filter(Relationship.story_id == story_id).count()
     events = db.query(DiscoveryEvent).filter(DiscoveryEvent.story_id == story_id).count()
-    
+
     progress = min(100, int((events / 20) * 100)) if chars > 0 else 0
-    
+
     if chars == 0:
         next_disc = "Create your first Character"
     elif rels == 0 and chars > 1:
         next_disc = "Form a Relationship"
     else:
         next_disc = "Continue Discovery Questions"
-        
-    return NextDiscoveryResponse(
-        next_discovery=next_disc,
-        progress=progress
-    )
 
+    return NextDiscoveryResponse(next_discovery=next_disc, progress=progress)

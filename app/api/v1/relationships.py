@@ -5,11 +5,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.dependencies import get_db
-from app.models import Character, Relationship, Story, RelationshipArchitectureReport
+from app.models import Character, Relationship, RelationshipArchitectureReport, Story
 from app.schemas.relationship import RelationshipCreate, RelationshipResponse, RelationshipUpdate
 from app.schemas.report import RelationshipConsequenceResponse
-from app.services.report_builder import generate_relationship_report
 from app.services.event_service import handle_relationship_created
+from app.services.report_builder import generate_relationship_report
 
 router = APIRouter()
 
@@ -84,7 +84,11 @@ def delete_relationship(relationship_id: UUID, db: Session = Depends(get_db)):
 
 @router.get("/relationships/{relationship_id}/consequence", response_model=RelationshipConsequenceResponse)
 def get_relationship_consequence(relationship_id: UUID, db: Session = Depends(get_db)):
-    report = db.query(RelationshipArchitectureReport).filter(RelationshipArchitectureReport.relationship_id == relationship_id).first()
+    report = (
+        db.query(RelationshipArchitectureReport)
+        .filter(RelationshipArchitectureReport.relationship_id == relationship_id)
+        .first()
+    )
     if not report:
         report = generate_relationship_report(db, relationship_id)
     return RelationshipConsequenceResponse(
@@ -96,5 +100,5 @@ def get_relationship_consequence(relationship_id: UUID, db: Session = Depends(ge
         relationship_law=report.relationship_law or "Not discovered yet.",
         relationship_risk=report.relationship_risk or "Not discovered yet.",
         relationship_pattern=report.relationship_pattern or "Not discovered yet.",
-        consequence_summary=report.consequence_summary or "Not discovered yet."
+        consequence_summary=report.consequence_summary or "Not discovered yet.",
     )

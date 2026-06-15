@@ -30,10 +30,12 @@ class StoryResponse(StoryBase):
 
     model_config = ConfigDict(from_attributes=True)
 
+
 class LatestDiscoveryResponse(BaseModel):
     title: str
     summary: str
     created_at: datetime
+
 
 class ActivityFeedItemResponse(BaseModel):
     title: str
@@ -41,7 +43,7 @@ class ActivityFeedItemResponse(BaseModel):
     event_type: str
     timestamp: datetime
 
+
 class NextDiscoveryResponse(BaseModel):
     next_discovery: str
     progress: int
-

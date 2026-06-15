@@ -24,7 +24,7 @@ class CharacterArchitectureReport(Base, UUIDMixin, TimestampMixin):
     narrative_consequence: Mapped[str] = mapped_column(Text, nullable=True)
     conflict_created: Mapped[str] = mapped_column(Text, nullable=True)
     transformation: Mapped[str] = mapped_column(Text, nullable=True)
-    
+
     relationship_pattern: Mapped[str] = mapped_column(Text, nullable=True)
     story_engine_summary: Mapped[str] = mapped_column(Text, nullable=True)
     dramatic_potential: Mapped[str] = mapped_column(Text, nullable=True)
@@ -46,7 +46,7 @@ class RelationshipArchitectureReport(Base, UUIDMixin, TimestampMixin):
     current_relationship_risk: Mapped[str] = mapped_column(Text, nullable=True)
     turning_point: Mapped[str] = mapped_column(Text, nullable=True)
     relationship_law: Mapped[str] = mapped_column(Text, nullable=True)
-    
+
     relationship_risk: Mapped[str] = mapped_column(Text, nullable=True)
     relationship_pattern: Mapped[str] = mapped_column(Text, nullable=True)
     consequence_summary: Mapped[str] = mapped_column(Text, nullable=True)
