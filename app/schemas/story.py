@@ -32,14 +32,16 @@ class StoryResponse(StoryBase):
 
 
 class LatestDiscoveryResponse(BaseModel):
-    title: str
-    summary: str
+    title: Optional[str] = None
+    summary: Optional[str] = None
+    event_metadata: dict
     created_at: datetime
 
 
 class ActivityFeedItemResponse(BaseModel):
-    title: str
-    description: str
+    title: Optional[str] = None
+    description: Optional[str] = None
+    event_metadata: dict
     event_type: str
     timestamp: datetime
 

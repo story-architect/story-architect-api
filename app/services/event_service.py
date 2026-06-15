@@ -11,8 +11,7 @@ def create_event(
     db: Session,
     story_id: uuid.UUID,
     event_type: EventTypeEnum,
-    title: str,
-    description: str,
+    event_metadata: dict,
     character_id: Optional[uuid.UUID] = None,
     relationship_id: Optional[uuid.UUID] = None,
 ):
@@ -21,8 +20,9 @@ def create_event(
         character_id=character_id,
         relationship_id=relationship_id,
         event_type=event_type,
-        title=title,
-        description=description,
+        event_metadata=event_metadata,
+        title=None,
+        description=None,
     )
     db.add(event)
     db.commit()
@@ -36,8 +36,7 @@ def handle_character_created(db: Session, story_id: uuid.UUID, character_id: uui
         story_id=story_id,
         character_id=character_id,
         event_type=EventTypeEnum.CHARACTER_CREATED,
-        title="Character Discovered",
-        description=f"You added {character_name} to the story.",
+        event_metadata={"name": character_name},
     )
 
 
@@ -49,16 +48,14 @@ def handle_relationship_created(
         story_id=story_id,
         relationship_id=relationship_id,
         event_type=EventTypeEnum.RELATIONSHIP_CREATED,
-        title="Relationship Formed",
-        description=f"A connection between {char_a_name} and {char_b_name} was established.",
+        event_metadata={"charA": char_a_name, "charB": char_b_name},
     )
 
 
 def handle_report_generated(
     db: Session,
     story_id: uuid.UUID,
-    title: str,
-    description: str,
+    event_metadata: dict,
     character_id: Optional[uuid.UUID] = None,
     relationship_id: Optional[uuid.UUID] = None,
 ):
@@ -68,8 +65,7 @@ def handle_report_generated(
         character_id=character_id,
         relationship_id=relationship_id,
         event_type=EventTypeEnum.REPORT_GENERATED,
-        title=title,
-        description=description,
+        event_metadata=event_metadata,
     )
 
 
@@ -81,16 +77,16 @@ def handle_question_answered(
     character_id: Optional[uuid.UUID] = None,
     relationship_id: Optional[uuid.UUID] = None,
 ):
-    # Truncate answer for feed
-    short_answer = answer_text if len(answer_text) < 50 else answer_text[:47] + "..."
     create_event(
         db,
         story_id=story_id,
         character_id=character_id,
         relationship_id=relationship_id,
         event_type=EventTypeEnum.QUESTION_ANSWERED,
-        title="Discovery Answered",
-        description=f"{question_text} - {short_answer}",
+        event_metadata={
+            "question": question_text,
+            "answer": answer_text,
+        },
     )
 
     unlocked_events = []
@@ -109,25 +105,31 @@ def handle_question_answered(
 
         # Check pattern emerging
         pattern_fields = get_pattern_emerging_fields(db, character_id, answers)
-        if pattern_fields["pattern_name"] != "Emotional Defense Emerging":
+        # Note: 'insights.patterns.emotional_defense.name' is the fallback pattern key
+        if pattern_fields["pattern_name"] != "insights.patterns.emotional_defense.name":
             # Check if this exact pattern was already recorded
-            existing = (
+            existing_patterns = (
                 db.query(DiscoveryEvent)
                 .filter(
                     DiscoveryEvent.character_id == character_id,
                     DiscoveryEvent.event_type == EventTypeEnum.PATTERN_EMERGING,
-                    DiscoveryEvent.title == f"Pattern: {pattern_fields['pattern_name']}",
                 )
-                .first()
+                .all()
             )
-            if not existing:
+            already_recorded = any(
+                e.event_metadata.get("pattern_key") == pattern_fields["pattern_name"]
+                for e in existing_patterns
+            )
+            if not already_recorded:
                 new_event = create_event(
                     db,
                     story_id=story_id,
                     character_id=character_id,
                     event_type=EventTypeEnum.PATTERN_EMERGING,
-                    title=f"Pattern: {pattern_fields['pattern_name']}",
-                    description=pattern_fields["insight"],
+                    event_metadata={
+                        "pattern_key": pattern_fields["pattern_name"],
+                        "insight_key": pattern_fields["insight"],
+                    },
                 )
                 unlocked_events.append(new_event)
 
@@ -135,29 +137,30 @@ def handle_question_answered(
         insight_fields = get_character_deterministic_fields(db, character_id, answers)
 
         # Example insight: Central Conflict
-        if (
-            insight_fields["central_conflict"] != "Not discovered yet."
-            and "need" not in insight_fields["central_conflict"].lower()
-        ):
+        # Note: default central conflict key is "insights.character.default.central_conflict"
+        if insight_fields["central_conflict"] != "insights.character.default.central_conflict":
             # A valid insight has been generated
-            insight_title = "Insight Unlocked: Central Conflict"
-            existing = (
+            existing_insights = (
                 db.query(DiscoveryEvent)
                 .filter(
                     DiscoveryEvent.character_id == character_id,
                     DiscoveryEvent.event_type == EventTypeEnum.INSIGHT_UNLOCKED,
-                    DiscoveryEvent.title == insight_title,
                 )
-                .first()
+                .all()
             )
-            if not existing:
+            already_recorded = any(
+                e.event_metadata.get("insight_key") == insight_fields["central_conflict"]
+                for e in existing_insights
+            )
+            if not already_recorded:
                 new_event = create_event(
                     db,
                     story_id=story_id,
                     character_id=character_id,
                     event_type=EventTypeEnum.INSIGHT_UNLOCKED,
-                    title=insight_title,
-                    description=insight_fields["central_conflict"],
+                    event_metadata={
+                        "insight_key": insight_fields["central_conflict"],
+                    },
                 )
                 unlocked_events.append(new_event)
 

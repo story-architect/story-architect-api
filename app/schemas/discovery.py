@@ -52,8 +52,9 @@ class DiscoveryEventResponse(BaseModel):
     character_id: Optional[UUID] = None
     relationship_id: Optional[UUID] = None
     event_type: EventTypeEnum
-    title: str
-    description: str
+    title: Optional[str] = None
+    description: Optional[str] = None
+    event_metadata: dict
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

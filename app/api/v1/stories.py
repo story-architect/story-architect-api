@@ -75,7 +75,7 @@ def get_latest_discovery(story_id: UUID, db: Session = Depends(get_db)):
     )
     if not event:
         raise HTTPException(status_code=404, detail="No discoveries found")
-    return LatestDiscoveryResponse(title=event.title, summary=event.description, created_at=event.created_at)
+    return LatestDiscoveryResponse(title=event.title, summary=event.description, event_metadata=event.event_metadata, created_at=event.created_at)
 
 
 @router.get("/{story_id}/discovery-journal", response_model=List[DiscoveryEventResponse])
@@ -103,6 +103,7 @@ def get_activity_feed(story_id: UUID, db: Session = Depends(get_db)):
         ActivityFeedItemResponse(
             title=e.title,
             description=e.description,
+            event_metadata=e.event_metadata,
             event_type=e.event_type.value if hasattr(e.event_type, "value") else e.event_type,
             timestamp=e.created_at,
         )

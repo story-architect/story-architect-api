@@ -68,20 +68,20 @@ def test_character_insights_with_answers_and_custom(client: TestClient, db: Sess
     res = client.get(f"/api/v1/characters/{char.id}/why-this-matters")
     assert res.status_code == 200
     data = res.json()
-    assert "perfectionism" in data["dramatic_potential"]  # From the 'perfect' keyword logic
+    assert "insights.character.perfection" in data["dramatic_potential"]  # From the 'perfect' keyword logic
 
     # Check Narrative Consequence
     res = client.get(f"/api/v1/characters/{char.id}/narrative-consequence")
     assert res.status_code == 200
     data = res.json()
-    assert "flawless" in data["story_consequence"]
+    assert "insights.character.perfection.consequence" in data["story_consequence"]
     assert "i must be perfect" in data["main_statement"]
 
     # Check Where Story Begins
     res = client.get(f"/api/v1/characters/{char.id}/where-story-begins")
     assert res.status_code == 200
     data = res.json()
-    assert "perfection and authenticity" in data["central_conflict"]
+    assert "insights.character.perfection.central_conflict" in data["central_conflict"]
 
 
 def test_relationship_insights(client: TestClient, db: Session):
@@ -120,8 +120,8 @@ def test_relationship_insights(client: TestClient, db: Session):
     assert res.status_code == 200
     data = res.json()
     assert data["story_consequence"] == "We keep distance to avoid fights."
-    assert "gulf" in data["consequence_summary"]  # Generated from 'distance' logic
-    assert "severed" in data["relationship_risk"]  # Generated from 'distance' logic
+    assert "insights.relationship.distance" in data["consequence_summary"]  # Generated from 'distance' logic
+    assert "insights.relationship.distance" in data["relationship_risk"]  # Generated from 'distance' logic
 
 
 def test_existing_report_endpoints_still_work(client: TestClient, db: Session):
@@ -161,7 +161,7 @@ def test_pattern_emerging_insights(client: TestClient, db: Session):
     # Default fallback
     res = client.get(f"/api/v1/characters/{char.id}/pattern-emerging")
     assert res.status_code == 200
-    assert res.json()["pattern_name"] == "Emotional Defense Emerging"
+    assert res.json()["pattern_name"] == "insights.patterns.emotional_defense.name"
 
     # Match protective lie 'perfect'
     ans_lie = DiscoveryAnswer(
@@ -177,7 +177,7 @@ def test_pattern_emerging_insights(client: TestClient, db: Session):
 
     res = client.get(f"/api/v1/characters/{char.id}/pattern-emerging")
     assert res.status_code == 200
-    assert res.json()["pattern_name"] == "Conditional Worth"
+    assert res.json()["pattern_name"] == "insights.patterns.conditional_worth.name"
 
     # Custom answer overrides and matches 'abandon'
     ans_fear = DiscoveryAnswer(
@@ -203,4 +203,4 @@ def test_pattern_emerging_insights(client: TestClient, db: Session):
 
     res = client.get(f"/api/v1/characters/{char.id}/pattern-emerging")
     assert res.status_code == 200
-    assert res.json()["pattern_name"] == "Fear of Abandonment"
+    assert res.json()["pattern_name"] == "insights.patterns.fear_abandonment.name"

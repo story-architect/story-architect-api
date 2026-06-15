@@ -12,11 +12,11 @@ def get_character_deterministic_fields(db: Session, character_id: UUID, answers:
     protective_lie = answers.get("char_lie", "Not discovered yet.").lower()
 
     # Defaults
-    story_consequence = answers.get("char_consequence", "Not discovered yet.")
-    relationship_pattern = answers.get("char_relationship_pattern", "Keeps people at a distance.")
-    inciting_relationship = "Someone enters their life who refuses to leave."
-    central_conflict = "They must choose between safety and connection."
-    dramatic_potential = "Because this character fears their wound, they protect themselves. The more someone cares about them, the more likely they are to push them away. This creates the central emotional conflict of the story."
+    story_consequence = "insights.character.default.consequence"
+    relationship_pattern = "insights.character.default.relationship_pattern"
+    inciting_relationship = "insights.character.default.inciting_relationship"
+    central_conflict = "insights.character.default.central_conflict"
+    dramatic_potential = "insights.character.default.dramatic_potential"
 
     # Keyword templates for protective lie
     if (
@@ -24,23 +24,23 @@ def get_character_deterministic_fields(db: Session, character_id: UUID, answers:
         or "dont need anyone" in protective_lie
         or "do not need anyone" in protective_lie
     ):
-        story_consequence = "Every attempt to protect themselves creates the loneliness they fear."
-        relationship_pattern = "Pushes away those who try to help."
-        dramatic_potential = "Because this character fears abandonment, they protect themselves through independence. The more someone cares about them, the more likely they are to push them away. This creates the central emotional conflict of the story."
-        inciting_relationship = "Someone enters their life who refuses to leave."
-        central_conflict = "They must choose between safety and connection."
+        story_consequence = "insights.character.independence.consequence"
+        relationship_pattern = "insights.character.independence.relationship_pattern"
+        dramatic_potential = "insights.character.independence.dramatic_potential"
+        inciting_relationship = "insights.character.independence.inciting_relationship"
+        central_conflict = "insights.character.independence.central_conflict"
     elif "perfect" in protective_lie or "flawless" in protective_lie:
-        story_consequence = "Every attempt to be flawless creates pressure they cannot survive."
-        relationship_pattern = "Hides their true self to maintain an image."
-        dramatic_potential = "Because this character fears judgment, they protect themselves through perfectionism. The closer someone gets, the harder they work to maintain the facade. This creates the central emotional conflict of the story."
-        inciting_relationship = "Someone sees through their perfect facade and accepts their flaws."
-        central_conflict = "They must choose between perfection and authenticity."
+        story_consequence = "insights.character.perfection.consequence"
+        relationship_pattern = "insights.character.perfection.relationship_pattern"
+        dramatic_potential = "insights.character.perfection.dramatic_potential"
+        inciting_relationship = "insights.character.perfection.inciting_relationship"
+        central_conflict = "insights.character.perfection.central_conflict"
     elif "control" in protective_lie:
-        story_consequence = "Every attempt to stay in control pushes them further from real connection."
-        relationship_pattern = "Dictates terms of engagement to avoid vulnerability."
-        dramatic_potential = "Because this character fears chaos, they protect themselves through control. The more they try to control their environment, the more chaotic their relationships become. This creates the central emotional conflict of the story."
-        inciting_relationship = "An unpredictable element forces them to surrender control."
-        central_conflict = "They must choose between control and trust."
+        story_consequence = "insights.character.control.consequence"
+        relationship_pattern = "insights.character.control.relationship_pattern"
+        dramatic_potential = "insights.character.control.dramatic_potential"
+        inciting_relationship = "insights.character.control.inciting_relationship"
+        central_conflict = "insights.character.control.central_conflict"
 
     # For any answer that is "Not discovered yet.", keep the defaults or the original answer if provided.
 
@@ -50,8 +50,8 @@ def get_character_deterministic_fields(db: Session, character_id: UUID, answers:
         "dramatic_potential": dramatic_potential,
         "inciting_relationship": inciting_relationship,
         "central_conflict": central_conflict,
-        "story_engine_summary": "This is not a character trait. This is a story waiting to happen.",
-        "story_beginning_summary": "Because this character fears their deepest wound, they protect themselves through their lie.",
+        "story_engine_summary": "insights.character.summary.story_engine",
+        "story_beginning_summary": "insights.character.summary.story_beginning",
     }
 
 
@@ -60,22 +60,22 @@ def get_relationship_deterministic_fields(db: Session, relationship_id: UUID, an
     protection_pattern = answers.get("rel_protect", "Not discovered yet.").lower()
 
     # Defaults
-    consequence_summary = "The more they try to protect each other, the less they truly know each other."
-    relationship_risk = "If neither speaks honestly, they may lose the relationship they are both trying to save."
-    relationship_pattern = "Honesty is sacrificed for comfort."
+    consequence_summary = "insights.relationship.default.consequence"
+    relationship_risk = "insights.relationship.default.risk"
+    relationship_pattern = "insights.relationship.default.pattern"
 
     if "truth" in protection_pattern or "hide" in protection_pattern:
-        consequence_summary = "The more they try to protect each other, the less they truly know each other."
-        relationship_risk = "If neither speaks honestly, they may lose the relationship they are both trying to save."
-        relationship_pattern = "Honesty is sacrificed for comfort."
+        consequence_summary = "insights.relationship.hiding.consequence"
+        relationship_risk = "insights.relationship.hiding.risk"
+        relationship_pattern = "insights.relationship.hiding.pattern"
     elif "distance" in protection_pattern or "space" in protection_pattern:
-        consequence_summary = "Their attempts to give each other space has created an unbridgeable gulf."
-        relationship_risk = "They may drift so far apart that the connection is completely severed."
-        relationship_pattern = "Intimacy is replaced by polite distance."
+        consequence_summary = "insights.relationship.distance.consequence"
+        relationship_risk = "insights.relationship.distance.risk"
+        relationship_pattern = "insights.relationship.distance.pattern"
     elif "fix" in protection_pattern or "help" in protection_pattern:
-        consequence_summary = "Their need to fix each other prevents them from accepting each other."
-        relationship_risk = "They may destroy the relationship by trying to perfect it."
-        relationship_pattern = "Support has become a form of control."
+        consequence_summary = "insights.relationship.fixing.consequence"
+        relationship_risk = "insights.relationship.fixing.risk"
+        relationship_pattern = "insights.relationship.fixing.pattern"
 
     return {
         "consequence_summary": consequence_summary,
@@ -98,57 +98,57 @@ def get_pattern_emerging_fields(db: Session, character_id: UUID, answers: dict) 
         or "do not need anyone" in protective_lie
     ):
         return {
-            "pattern_name": "Protective Independence",
-            "insight": "Your answers suggest this character protects themselves by refusing to need anyone.",
-            "supporting_text": "Their independence may look like strength, but it also keeps others at a distance.",
-            "next_discovery_hint": "Next, discover what this protection costs them.",
+            "pattern_name": "insights.patterns.protective_independence.name",
+            "insight": "insights.patterns.protective_independence.insight",
+            "supporting_text": "insights.patterns.protective_independence.supporting_text",
+            "next_discovery_hint": "insights.patterns.protective_independence.next_discovery_hint",
         }
 
     if "perfect" in protective_lie or "flawless" in protective_lie:
         return {
-            "pattern_name": "Conditional Worth",
-            "insight": "Your answers suggest this character believes they must be perfect to be safe or accepted.",
-            "supporting_text": "Their need to perform strength may hide a deeper fear of rejection.",
-            "next_discovery_hint": "Next, discover what pressure this creates.",
+            "pattern_name": "insights.patterns.conditional_worth.name",
+            "insight": "insights.patterns.conditional_worth.insight",
+            "supporting_text": "insights.patterns.conditional_worth.supporting_text",
+            "next_discovery_hint": "insights.patterns.conditional_worth.next_discovery_hint",
         }
 
     if "control" in protective_lie:
         return {
-            "pattern_name": "Protective Control",
-            "insight": "Your answers suggest this character feels safest when they can control what happens.",
-            "supporting_text": "Control may protect them from chaos, but it can also prevent trust.",
-            "next_discovery_hint": "Next, discover what this control damages.",
+            "pattern_name": "insights.patterns.protective_control.name",
+            "insight": "insights.patterns.protective_control.insight",
+            "supporting_text": "insights.patterns.protective_control.supporting_text",
+            "next_discovery_hint": "insights.patterns.protective_control.next_discovery_hint",
         }
 
     if "not be seen" in protective_lie or "invisible" in protective_lie:
         return {
-            "pattern_name": "Protective Invisibility",
-            "insight": "Your answers suggest this character believes staying unseen keeps them safe.",
-            "supporting_text": "They may avoid attention, intimacy, or risk because being noticed feels dangerous.",
-            "next_discovery_hint": "Next, discover what they lose by hiding.",
+            "pattern_name": "insights.patterns.protective_invisibility.name",
+            "insight": "insights.patterns.protective_invisibility.insight",
+            "supporting_text": "insights.patterns.protective_invisibility.supporting_text",
+            "next_discovery_hint": "insights.patterns.protective_invisibility.next_discovery_hint",
         }
 
     # Check deepest fear
     if "alone" in deepest_fear or "abandon" in deepest_fear:
         return {
-            "pattern_name": "Fear of Abandonment",
-            "insight": "Your answers suggest this character is shaped by the fear of being left alone.",
-            "supporting_text": "They may push people away before anyone has the chance to leave.",
-            "next_discovery_hint": "Next, discover how this fear creates conflict.",
+            "pattern_name": "insights.patterns.fear_abandonment.name",
+            "insight": "insights.patterns.fear_abandonment.insight",
+            "supporting_text": "insights.patterns.fear_abandonment.supporting_text",
+            "next_discovery_hint": "insights.patterns.fear_abandonment.next_discovery_hint",
         }
 
     if "intimacy" in deepest_fear or "known" in deepest_fear:
         return {
-            "pattern_name": "Fear of Being Known",
-            "insight": "Your answers suggest this character fears closeness because being known feels unsafe.",
-            "supporting_text": "They may want connection while resisting the vulnerability connection requires.",
-            "next_discovery_hint": "Next, discover what kind of relationship challenges this creates.",
+            "pattern_name": "insights.patterns.fear_being_known.name",
+            "insight": "insights.patterns.fear_being_known.insight",
+            "supporting_text": "insights.patterns.fear_being_known.supporting_text",
+            "next_discovery_hint": "insights.patterns.fear_being_known.next_discovery_hint",
         }
 
     # Fallback
     return {
-        "pattern_name": "Emotional Defense Emerging",
-        "insight": "Your answers suggest this character's wound is beginning to shape how they protect themselves.",
-        "supporting_text": "Look at the connection between their fear and the way they choose to survive.",
-        "next_discovery_hint": "Next, discover what this protection costs them.",
+        "pattern_name": "insights.patterns.emotional_defense.name",
+        "insight": "insights.patterns.emotional_defense.insight",
+        "supporting_text": "insights.patterns.emotional_defense.supporting_text",
+        "next_discovery_hint": "insights.patterns.emotional_defense.next_discovery_hint",
     }

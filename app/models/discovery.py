@@ -76,8 +76,9 @@ class DiscoveryEvent(Base, UUIDMixin):
     )
 
     event_type: Mapped[EventTypeEnum] = mapped_column(String(50), index=True)
-    title: Mapped[str] = mapped_column(String(255))
-    description: Mapped[str] = mapped_column(Text)
+    title: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    event_metadata: Mapped[dict] = mapped_column(CustomJSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True
     )

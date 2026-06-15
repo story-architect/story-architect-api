@@ -201,11 +201,15 @@ def get_character_pulse(character_id: UUID, db: Session = Depends(get_db)):
     events_count = db.query(DiscoveryEvent).filter(DiscoveryEvent.character_id == character_id).count()
     progress = min(100, int((events_count / 10) * 100))
 
+    latest_disc_str = "CHARACTER_CREATED"
+    if latest_event:
+        latest_disc_str = latest_event.event_type.value if hasattr(latest_event.event_type, "value") else str(latest_event.event_type)
+
     return CharacterPulseResponse(
         progress=progress,
         wound=wound,
         fear=fear,
         lie=lie,
         most_likely_conflict=insights.get("central_conflict", "Not discovered yet."),
-        latest_discovery=latest_event.title if latest_event else "Character Created",
+        latest_discovery=latest_disc_str,
     )

@@ -22,8 +22,7 @@ def generate_report_for_character(character_id: UUID, db: Session = Depends(get_
     handle_report_generated(
         db,
         story_id=character.story_id,
-        title="Character Report Generated",
-        description=f"Generated architecture report for {character.name}.",
+        event_metadata={"name": character.name, "report_type": "character"},
         character_id=character_id,
     )
     return report
@@ -54,8 +53,7 @@ def generate_report_for_relationship(relationship_id: UUID, db: Session = Depend
     handle_report_generated(
         db,
         story_id=relationship.story_id,
-        title="Relationship Report Generated",
-        description=f"Generated relationship report for {rel_name}.",
+        event_metadata={"name": rel_name, "report_type": "relationship"},
         relationship_id=relationship_id,
     )
     return report
