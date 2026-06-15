@@ -20,11 +20,33 @@ services:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgresql://postgres:postgrespassword@db:5432/story_architect
-      - BACKEND_CORS_ORIGINS=["http://localhost", "http://localhost:4200"]
+      - BACKEND_CORS_ORIGINS=["http://localhost", "http://localhost:4200", "http://localhost:5173"]
     depends_on:
       - db
     volumes:
       - .:/app
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ../story_architect_frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  docs:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ../story_architect_docs:/app
+    ports:
+      - "5174:5173"
+    command: sh -c "npm install && npm run docs:dev -- --host 0.0.0.0"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
 volumes:
   postgres_data:
