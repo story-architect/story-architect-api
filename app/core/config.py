@@ -12,7 +12,10 @@ class Settings(BaseSettings):
     # CORS
     BACKEND_CORS_ORIGINS: list[str] = ["http://localhost", "http://localhost:4200"]  # Angular default port
 
-    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
+    # SonarQube
+    SONAR_TOKEN: str | None = None
+
+    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True, extra="ignore")
 
 
 settings = Settings()
