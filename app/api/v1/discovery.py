@@ -8,6 +8,7 @@ from app.api.dependencies import get_db
 from app.models import Character, DiscoveryAnswer, DiscoveryQuestion, FlowTypeEnum, Relationship, Story
 from app.schemas.discovery import (
     DiscoveryAnswerCreate,
+    DiscoveryAnswerUpdate,
     DiscoveryAnswerResponse,
     DiscoveryQuestionResponse,
 )
@@ -123,3 +124,50 @@ def get_relationship_answers(relationship_id: UUID, db: Session = Depends(get_db
         raise HTTPException(status_code=404, detail="Relationship not found")
     answers = db.query(DiscoveryAnswer).filter(DiscoveryAnswer.relationship_id == relationship_id).all()
     return answers
+
+
+@router.put("/answers/{answer_id}", response_model=DiscoveryAnswerResponse)
+def update_discovery_answer(answer_id: UUID, answer_in: DiscoveryAnswerUpdate, db: Session = Depends(get_db)):
+    answer = db.query(DiscoveryAnswer).filter(DiscoveryAnswer.id == answer_id).first()
+    if not answer:
+        raise HTTPException(status_code=404, detail="Answer not found")
+
+    update_data = answer_in.model_dump(exclude_unset=True)
+    if "selected_answer" in update_data:
+        answer.selected_answer = update_data["selected_answer"]
+    if "custom_answer" in update_data:
+        answer.custom_answer = update_data["custom_answer"]
+
+    db.commit()
+    db.refresh(answer)
+
+    from app.models.discovery import EventTypeEnum
+    from app.services.event_service import create_event
+
+    create_event(
+        db,
+        story_id=answer.story_id,
+        character_id=answer.character_id,
+        relationship_id=answer.relationship_id,
+        event_type=EventTypeEnum.ANSWER_UPDATED,
+        event_metadata={
+            "answer_id": str(answer.id),
+            "question_id": str(answer.question_id)
+        }
+    )
+
+    from app.models.report import CharacterArchitectureReport, RelationshipArchitectureReport
+    if answer.character_id:
+        report = db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == answer.character_id).first()
+        if report:
+            report.is_stale = True
+            report.stale_reason = "answer_updated"
+            db.commit()
+    elif answer.relationship_id:
+        report = db.query(RelationshipArchitectureReport).filter(RelationshipArchitectureReport.relationship_id == answer.relationship_id).first()
+        if report:
+            report.is_stale = True
+            report.stale_reason = "answer_updated"
+            db.commit()
+
+    return answer

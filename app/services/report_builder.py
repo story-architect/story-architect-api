@@ -78,6 +78,8 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
         report.inciting_relationship = insights["inciting_relationship"]
         report.central_conflict = insights["central_conflict"]
         report.story_beginning_summary = insights["story_beginning_summary"]
+        report.is_stale = False
+        report.stale_reason = None
     else:
         report = CharacterArchitectureReport(
             character_id=character_id,
@@ -95,6 +97,8 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
             inciting_relationship=insights["inciting_relationship"],
             central_conflict=insights["central_conflict"],
             story_beginning_summary=insights["story_beginning_summary"],
+            is_stale=False,
+            stale_reason=None,
         )
         db.add(report)
 
@@ -139,6 +143,8 @@ def generate_relationship_report(db: Session, relationship_id: UUID) -> Relation
         report.relationship_risk = insights["relationship_risk"]
         report.relationship_pattern = insights["relationship_pattern"]
         report.consequence_summary = insights["consequence_summary"]
+        report.is_stale = False
+        report.stale_reason = None
     else:
         report = RelationshipArchitectureReport(
             relationship_id=relationship_id,
@@ -151,6 +157,8 @@ def generate_relationship_report(db: Session, relationship_id: UUID) -> Relation
             relationship_risk=insights["relationship_risk"],
             relationship_pattern=insights["relationship_pattern"],
             consequence_summary=insights["consequence_summary"],
+            is_stale=False,
+            stale_reason=None,
         )
         db.add(report)
 

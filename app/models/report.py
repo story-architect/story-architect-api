@@ -32,6 +32,9 @@ class CharacterArchitectureReport(Base, UUIDMixin, TimestampMixin):
     central_conflict: Mapped[str] = mapped_column(Text, nullable=True)
     story_beginning_summary: Mapped[str] = mapped_column(Text, nullable=True)
 
+    is_stale: Mapped[bool] = mapped_column(default=False)
+    stale_reason: Mapped[str] = mapped_column(Text, nullable=True)
+
     character: Mapped["Character"] = relationship(back_populates="report")
 
 
@@ -50,5 +53,8 @@ class RelationshipArchitectureReport(Base, UUIDMixin, TimestampMixin):
     relationship_risk: Mapped[str] = mapped_column(Text, nullable=True)
     relationship_pattern: Mapped[str] = mapped_column(Text, nullable=True)
     consequence_summary: Mapped[str] = mapped_column(Text, nullable=True)
+
+    is_stale: Mapped[bool] = mapped_column(default=False)
+    stale_reason: Mapped[str] = mapped_column(Text, nullable=True)
 
     relationship_: Mapped["Relationship"] = relationship(back_populates="report")
