@@ -4,7 +4,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict
 
-from app.models.discovery import FlowTypeEnum
+from app.models.discovery import FlowTypeEnum, EventTypeEnum
 
 
 class DiscoveryQuestionResponse(BaseModel):
@@ -41,5 +41,18 @@ class DiscoveryAnswerResponse(DiscoveryAnswerBase):
     id: UUID
     created_at: datetime
     updated_at: datetime
+    unlocked_events: Optional[List['DiscoveryEventResponse']] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+class DiscoveryEventResponse(BaseModel):
+    id: UUID
+    story_id: UUID
+    character_id: Optional[UUID] = None
+    relationship_id: Optional[UUID] = None
+    event_type: EventTypeEnum
+    title: str
+    description: str
+    created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

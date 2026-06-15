@@ -23,5 +23,25 @@ class StoryResponse(StoryBase):
     id: UUID
     created_at: datetime
     updated_at: datetime
+    character_count: Optional[int] = 0
+    relationship_count: Optional[int] = 0
+    discovery_progress: Optional[int] = 0
+    next_insight: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+class LatestDiscoveryResponse(BaseModel):
+    title: str
+    summary: str
+    created_at: datetime
+
+class ActivityFeedItemResponse(BaseModel):
+    title: str
+    description: str
+    event_type: str
+    timestamp: datetime
+
+class NextDiscoveryResponse(BaseModel):
+    next_discovery: str
+    progress: int
+

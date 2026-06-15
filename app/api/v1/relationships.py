@@ -5,8 +5,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.dependencies import get_db
-from app.models import Character, Relationship, Story
+from app.models import Character, Relationship, Story, RelationshipArchitectureReport
 from app.schemas.relationship import RelationshipCreate, RelationshipResponse, RelationshipUpdate
+from app.schemas.report import RelationshipConsequenceResponse
+from app.services.report_builder import generate_relationship_report
+from app.services.event_service import handle_relationship_created
 
 router = APIRouter()
 
@@ -34,6 +37,7 @@ def create_relationship(story_id: UUID, relationship_in: RelationshipCreate, db:
     db.add(relationship)
     db.commit()
     db.refresh(relationship)
+    handle_relationship_created(db, story_id, relationship.id, char_a.name, char_b.name)
     return relationship
 
 
@@ -76,3 +80,21 @@ def delete_relationship(relationship_id: UUID, db: Session = Depends(get_db)):
     db.delete(relationship)
     db.commit()
     return relationship
+
+
+@router.get("/relationships/{relationship_id}/consequence", response_model=RelationshipConsequenceResponse)
+def get_relationship_consequence(relationship_id: UUID, db: Session = Depends(get_db)):
+    report = db.query(RelationshipArchitectureReport).filter(RelationshipArchitectureReport.relationship_id == relationship_id).first()
+    if not report:
+        report = generate_relationship_report(db, relationship_id)
+    return RelationshipConsequenceResponse(
+        current_result=report.current_result or "Not discovered yet.",
+        emotional_effect=report.emotional_effect or "Not discovered yet.",
+        story_consequence=report.story_consequence or "Not discovered yet.",
+        current_relationship_risk=report.current_relationship_risk or "Not discovered yet.",
+        turning_point=report.turning_point or "Not discovered yet.",
+        relationship_law=report.relationship_law or "Not discovered yet.",
+        relationship_risk=report.relationship_risk or "Not discovered yet.",
+        relationship_pattern=report.relationship_pattern or "Not discovered yet.",
+        consequence_summary=report.consequence_summary or "Not discovered yet."
+    )

@@ -30,3 +30,13 @@ class CharacterResponse(CharacterBase):
     updated_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class CharacterPulseResponse(BaseModel):
+    progress: int
+    wound: str
+    fear: str
+    lie: str
+    most_likely_conflict: str
+    latest_discovery: str
+
