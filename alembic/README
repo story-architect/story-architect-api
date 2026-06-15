@@ -1,1 +1,110 @@
-Generic single-database configuration.
+# Database Schema and Migrations
+
+This directory contains the Alembic migrations for the Story Architect Backend.
+
+## Entity-Relationship Diagram
+
+Below is the database schema used by the application:
+
+```mermaid
+erDiagram
+    Story ||--o{ Character : "has"
+    Story ||--o{ Relationship : "has"
+    Story ||--o{ DiscoveryEvent : "has"
+    
+    Character ||--o{ Relationship : "character_a"
+    Character ||--o{ Relationship : "character_b"
+    Character ||--o| CharacterArchitectureReport : "has"
+    Character ||--o{ DiscoveryAnswer : "has"
+    Character ||--o{ DiscoveryEvent : "triggers"
+    
+    Relationship ||--o| RelationshipArchitectureReport : "has"
+    Relationship ||--o{ DiscoveryAnswer : "has"
+    Relationship ||--o{ DiscoveryEvent : "triggers"
+    
+    DiscoveryQuestion ||--o{ DiscoveryAnswer : "answered_by"
+    
+    Story {
+        UUID id PK
+        string title
+        string genre
+        string one_sentence_premise
+    }
+    
+    Character {
+        UUID id PK
+        UUID story_id FK
+        string name
+        string role
+        string archetype
+    }
+    
+    Relationship {
+        UUID id PK
+        UUID story_id FK
+        UUID character_a_id FK
+        UUID character_b_id FK
+        string relationship_type
+        string dynamic
+    }
+    
+    DiscoveryQuestion {
+        UUID id PK
+        string flow_type
+        string question_key
+        string question_text
+        string array suggested_answers
+    }
+    
+    DiscoveryAnswer {
+        UUID id PK
+        UUID question_id FK
+        UUID story_id FK
+        UUID character_id FK
+        UUID relationship_id FK
+        string answer_text
+    }
+    
+    DiscoveryEvent {
+        UUID id PK
+        UUID story_id FK
+        UUID character_id FK
+        UUID relationship_id FK
+        string event_type
+        string title
+        string description
+    }
+    
+    CharacterArchitectureReport {
+        UUID id PK
+        UUID character_id FK
+        string character_core
+        string emotional_wound
+        string deepest_fear
+        string protective_lie
+        string relationship_pattern
+        string conflict_created
+        string transformation
+        string narrative_consequence
+    }
+    
+    RelationshipArchitectureReport {
+        UUID id PK
+        UUID relationship_id FK
+        string core_dynamic
+        string shared_conflict
+    }
+```
+
+## Running Migrations
+
+To upgrade the database to the latest schema:
+```bash
+alembic upgrade head
+```
+
+To create a new migration after modifying `app/models/`:
+```bash
+alembic revision --autogenerate -m "description of changes"
+```
+
