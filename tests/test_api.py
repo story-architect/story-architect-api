@@ -29,8 +29,6 @@ def test_create_and_get_story(client: TestClient):
     assert fetched_story["title"] == "Test Story"
 
 
-
-
 def test_update_answer_marks_report_stale_and_generates_event(client: TestClient, db: Session):
     response = client.post("/api/v1/stories", json={"title": "Revision Story", "genre": "Sci-Fi"})
     story_id = response.json()["id"]
