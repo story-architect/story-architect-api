@@ -34,6 +34,7 @@ class StoryResponse(StoryBase):
 class LatestDiscoveryResponse(BaseModel):
     title: Optional[str] = None
     summary: Optional[str] = None
+    event_type: str
     event_metadata: dict
     created_at: datetime
 
