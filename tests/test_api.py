@@ -1,4 +1,8 @@
 from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session
+
+from app.models.discovery import DiscoveryEvent, EventTypeEnum, FlowTypeEnum
+from app.models.report import CharacterArchitectureReport
 
 
 def test_root_health_check(client: TestClient):
@@ -25,9 +29,6 @@ def test_create_and_get_story(client: TestClient):
     assert fetched_story["title"] == "Test Story"
 
 
-from sqlalchemy.orm import Session
-from app.models.discovery import EventTypeEnum, DiscoveryEvent, FlowTypeEnum
-from app.models.report import CharacterArchitectureReport, RelationshipArchitectureReport
 
 
 def test_update_answer_marks_report_stale_and_generates_event(client: TestClient, db: Session):

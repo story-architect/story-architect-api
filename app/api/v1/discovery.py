@@ -8,8 +8,8 @@ from app.api.dependencies import get_db
 from app.models import Character, DiscoveryAnswer, DiscoveryQuestion, FlowTypeEnum, Relationship, Story
 from app.schemas.discovery import (
     DiscoveryAnswerCreate,
-    DiscoveryAnswerUpdate,
     DiscoveryAnswerResponse,
+    DiscoveryAnswerUpdate,
     DiscoveryQuestionResponse,
 )
 from app.services.event_service import handle_question_answered
