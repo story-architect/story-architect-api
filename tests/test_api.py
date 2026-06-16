@@ -29,6 +29,7 @@ from sqlalchemy.orm import Session
 from app.models.discovery import EventTypeEnum, DiscoveryEvent, FlowTypeEnum
 from app.models.report import CharacterArchitectureReport, RelationshipArchitectureReport
 
+
 def test_update_answer_marks_report_stale_and_generates_event(client: TestClient, db: Session):
     response = client.post("/api/v1/stories", json={"title": "Revision Story", "genre": "Sci-Fi"})
     story_id = response.json()["id"]
@@ -40,7 +41,9 @@ def test_update_answer_marks_report_stale_and_generates_event(client: TestClient
     from app.models import DiscoveryQuestion
 
     # Create Discovery Question
-    q = DiscoveryQuestion(flow_type=FlowTypeEnum.CHARACTER_DISCOVERY.value, question_key="char_test", question_text="Test?", order_index=1)
+    q = DiscoveryQuestion(
+        flow_type=FlowTypeEnum.CHARACTER_DISCOVERY.value, question_key="char_test", question_text="Test?", order_index=1
+    )
     db.add(q)
     db.commit()
 
@@ -48,12 +51,15 @@ def test_update_answer_marks_report_stale_and_generates_event(client: TestClient
     assert questions_response.status_code == 200, questions_response.json()
     question_id = questions_response.json()[0]["id"]
 
-    answer_response = client.post("/api/v1/discovery/answers", json={
-        "story_id": story_id,
-        "character_id": character_id,
-        "question_id": question_id,
-        "selected_answer": "Initial answer"
-    })
+    answer_response = client.post(
+        "/api/v1/discovery/answers",
+        json={
+            "story_id": story_id,
+            "character_id": character_id,
+            "question_id": question_id,
+            "selected_answer": "Initial answer",
+        },
+    )
     assert answer_response.status_code == 200, answer_response.json()
     answer_id = answer_response.json()["id"]
 
@@ -61,19 +67,28 @@ def test_update_answer_marks_report_stale_and_generates_event(client: TestClient
     assert report_response.status_code == 200
 
     import uuid
-    report = db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == uuid.UUID(character_id)).first()
+
+    report = (
+        db.query(CharacterArchitectureReport)
+        .filter(CharacterArchitectureReport.character_id == uuid.UUID(character_id))
+        .first()
+    )
     assert report.is_stale is False
 
-    update_response = client.put(f"/api/v1/discovery/answers/{answer_id}", json={
-        "custom_answer": "Updated custom answer"
-    })
+    update_response = client.put(
+        f"/api/v1/discovery/answers/{answer_id}", json={"custom_answer": "Updated custom answer"}
+    )
     assert update_response.status_code == 200
     assert update_response.json()["custom_answer"] == "Updated custom answer"
 
-    events = db.query(DiscoveryEvent).filter(
-        DiscoveryEvent.character_id == uuid.UUID(character_id),
-        DiscoveryEvent.event_type == EventTypeEnum.ANSWER_UPDATED
-    ).all()
+    events = (
+        db.query(DiscoveryEvent)
+        .filter(
+            DiscoveryEvent.character_id == uuid.UUID(character_id),
+            DiscoveryEvent.event_type == EventTypeEnum.ANSWER_UPDATED,
+        )
+        .all()
+    )
     assert len(events) > 0
 
     db.refresh(report)

@@ -203,7 +203,9 @@ def get_character_pulse(character_id: UUID, db: Session = Depends(get_db)):
 
     latest_disc_str = "CHARACTER_CREATED"
     if latest_event:
-        latest_disc_str = latest_event.event_type.value if hasattr(latest_event.event_type, "value") else str(latest_event.event_type)
+        latest_disc_str = (
+            latest_event.event_type.value if hasattr(latest_event.event_type, "value") else str(latest_event.event_type)
+        )
 
     return CharacterPulseResponse(
         progress=progress,

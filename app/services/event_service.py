@@ -117,8 +117,7 @@ def handle_question_answered(
                 .all()
             )
             already_recorded = any(
-                e.event_metadata.get("pattern_key") == pattern_fields["pattern_name"]
-                for e in existing_patterns
+                e.event_metadata.get("pattern_key") == pattern_fields["pattern_name"] for e in existing_patterns
             )
             if not already_recorded:
                 new_event = create_event(
@@ -149,8 +148,7 @@ def handle_question_answered(
                 .all()
             )
             already_recorded = any(
-                e.event_metadata.get("insight_key") == insight_fields["central_conflict"]
-                for e in existing_insights
+                e.event_metadata.get("insight_key") == insight_fields["central_conflict"] for e in existing_insights
             )
             if not already_recorded:
                 new_event = create_event(

@@ -150,21 +150,27 @@ def update_discovery_answer(answer_id: UUID, answer_in: DiscoveryAnswerUpdate, d
         character_id=answer.character_id,
         relationship_id=answer.relationship_id,
         event_type=EventTypeEnum.ANSWER_UPDATED,
-        event_metadata={
-            "answer_id": str(answer.id),
-            "question_id": str(answer.question_id)
-        }
+        event_metadata={"answer_id": str(answer.id), "question_id": str(answer.question_id)},
     )
 
     from app.models.report import CharacterArchitectureReport, RelationshipArchitectureReport
+
     if answer.character_id:
-        report = db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == answer.character_id).first()
+        report = (
+            db.query(CharacterArchitectureReport)
+            .filter(CharacterArchitectureReport.character_id == answer.character_id)
+            .first()
+        )
         if report:
             report.is_stale = True
             report.stale_reason = "answer_updated"
             db.commit()
     elif answer.relationship_id:
-        report = db.query(RelationshipArchitectureReport).filter(RelationshipArchitectureReport.relationship_id == answer.relationship_id).first()
+        report = (
+            db.query(RelationshipArchitectureReport)
+            .filter(RelationshipArchitectureReport.relationship_id == answer.relationship_id)
+            .first()
+        )
         if report:
             report.is_stale = True
             report.stale_reason = "answer_updated"
