@@ -48,7 +48,7 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
     protective_lie = get_answer_text(db, "char_lie", character_id=character_id)
     behavior = get_answer_text(db, "char_behavior", character_id=character_id)
     narrative_consequence = get_answer_text(db, "char_consequence", character_id=character_id)
-    conflict_created = get_answer_text(db, "char_conflict", character_id=character_id)
+
     transformation = get_answer_text(db, "char_transformation", character_id=character_id)
 
     answers = {

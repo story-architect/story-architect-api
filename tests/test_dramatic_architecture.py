@@ -1,6 +1,7 @@
-from starlette.testclient import TestClient
 from sqlalchemy.orm import Session
-from app.models import Story, Character, DiscoveryQuestion, DiscoveryAnswer, CharacterArchitectureReport
+from starlette.testclient import TestClient
+
+from app.models import Character, DiscoveryAnswer, DiscoveryQuestion, Story
 
 
 def test_dramatic_architecture_overrides_and_regeneration(client: TestClient, db: Session):

@@ -12,9 +12,9 @@ from app.schemas.report import (
     ReportInterpretationUpdate,
 )
 from app.services.event_service import (
-    handle_report_generated,
-    handle_interpretation_revised,
     handle_dramatic_architecture_discovered,
+    handle_interpretation_revised,
+    handle_report_generated,
 )
 from app.services.report_builder import generate_character_report, generate_relationship_report
 
