@@ -64,14 +64,29 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
     )
 
     if report:
+        outdated_fields = report.custom_outdated_fields or {}
+        
+        if report.narrative_consequence_custom and report.narrative_consequence != insights["narrative_consequence"]:
+            outdated_fields["narrative_consequence_custom"] = True
+        if report.conflict_created_custom and report.conflict_created != insights["conflict_created"]:
+            outdated_fields["conflict_created_custom"] = True
+        if report.pressure_point_custom and report.pressure_point != insights["pressure_point"]:
+            outdated_fields["pressure_point_custom"] = True
+        if report.transformation_path_custom and report.transformation_path != insights["transformation_path"]:
+            outdated_fields["transformation_path_custom"] = True
+            
+        report.custom_outdated_fields = outdated_fields
+
         report.character_core = character_core
         report.emotional_wound = emotional_wound
         report.deepest_fear = deepest_fear
         report.protective_lie = protective_lie
         report.behavior = behavior
-        report.narrative_consequence = insights["story_consequence"]
-        report.conflict_created = conflict_created
+        report.narrative_consequence = insights["narrative_consequence"]
+        report.conflict_created = insights["conflict_created"]
+        report.pressure_point = insights["pressure_point"]
         report.transformation = transformation
+        report.transformation_path = insights["transformation_path"]
         report.relationship_pattern = insights["relationship_pattern"]
         report.story_engine_summary = insights["story_engine_summary"]
         report.dramatic_potential = insights["dramatic_potential"]
@@ -88,9 +103,11 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
             deepest_fear=deepest_fear,
             protective_lie=protective_lie,
             behavior=behavior,
-            narrative_consequence=insights["story_consequence"],
-            conflict_created=conflict_created,
+            narrative_consequence=insights["narrative_consequence"],
+            conflict_created=insights["conflict_created"],
+            pressure_point=insights["pressure_point"],
             transformation=transformation,
+            transformation_path=insights["transformation_path"],
             relationship_pattern=insights["relationship_pattern"],
             story_engine_summary=insights["story_engine_summary"],
             dramatic_potential=insights["dramatic_potential"],
@@ -99,6 +116,7 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
             story_beginning_summary=insights["story_beginning_summary"],
             is_stale=False,
             stale_reason=None,
+            custom_outdated_fields={},
         )
         db.add(report)
 

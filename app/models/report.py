@@ -1,7 +1,7 @@
 import uuid
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, Text
+from sqlalchemy import ForeignKey, Text, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base, TimestampMixin, UUIDMixin
@@ -22,8 +22,20 @@ class CharacterArchitectureReport(Base, UUIDMixin, TimestampMixin):
     protective_lie: Mapped[str] = mapped_column(Text, nullable=True)
     behavior: Mapped[str] = mapped_column(Text, nullable=True)
     narrative_consequence: Mapped[str] = mapped_column(Text, nullable=True)
+    narrative_consequence_custom: Mapped[str] = mapped_column(Text, nullable=True)
+
     conflict_created: Mapped[str] = mapped_column(Text, nullable=True)
+    conflict_created_custom: Mapped[str] = mapped_column(Text, nullable=True)
+
+    pressure_point: Mapped[str] = mapped_column(Text, nullable=True)
+    pressure_point_custom: Mapped[str] = mapped_column(Text, nullable=True)
+
     transformation: Mapped[str] = mapped_column(Text, nullable=True)
+    
+    transformation_path: Mapped[str] = mapped_column(Text, nullable=True)
+    transformation_path_custom: Mapped[str] = mapped_column(Text, nullable=True)
+
+    custom_outdated_fields: Mapped[dict] = mapped_column(JSON, nullable=True)
 
     relationship_pattern: Mapped[str] = mapped_column(Text, nullable=True)
     story_engine_summary: Mapped[str] = mapped_column(Text, nullable=True)

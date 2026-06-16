@@ -68,6 +68,34 @@ def handle_report_generated(
         event_metadata=event_metadata,
     )
 
+def handle_dramatic_architecture_discovered(
+    db: Session,
+    story_id: uuid.UUID,
+    event_metadata: dict,
+    character_id: Optional[uuid.UUID] = None,
+):
+    create_event(
+        db,
+        story_id=story_id,
+        character_id=character_id,
+        event_type=EventTypeEnum.DRAMATIC_ARCHITECTURE_DISCOVERED,
+        event_metadata=event_metadata,
+    )
+
+def handle_interpretation_revised(
+    db: Session,
+    story_id: uuid.UUID,
+    event_metadata: dict,
+    character_id: Optional[uuid.UUID] = None,
+):
+    create_event(
+        db,
+        story_id=story_id,
+        character_id=character_id,
+        event_type=EventTypeEnum.INTERPRETATION_REVISED,
+        event_metadata=event_metadata,
+    )
+
 
 def handle_question_answered(
     db: Session,

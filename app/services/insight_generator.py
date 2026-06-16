@@ -17,6 +17,11 @@ def get_character_deterministic_fields(db: Session, character_id: UUID, answers:
     inciting_relationship = "insights.character.default.inciting_relationship"
     central_conflict = "insights.character.default.central_conflict"
     dramatic_potential = "insights.character.default.dramatic_potential"
+    
+    narrative_consequence = "insights.character.default.narrative_consequence"
+    conflict_created = "insights.character.default.conflict_created"
+    pressure_point = "insights.character.default.pressure_point"
+    transformation_path = "insights.character.default.transformation_path"
 
     # Keyword templates for protective lie
     if (
@@ -29,18 +34,30 @@ def get_character_deterministic_fields(db: Session, character_id: UUID, answers:
         dramatic_potential = "insights.character.independence.dramatic_potential"
         inciting_relationship = "insights.character.independence.inciting_relationship"
         central_conflict = "insights.character.independence.central_conflict"
+        narrative_consequence = "insights.character.independence.narrative_consequence"
+        conflict_created = "insights.character.independence.conflict_created"
+        pressure_point = "insights.character.independence.pressure_point"
+        transformation_path = "insights.character.independence.transformation_path"
     elif "perfect" in protective_lie or "flawless" in protective_lie:
         story_consequence = "insights.character.perfection.consequence"
         relationship_pattern = "insights.character.perfection.relationship_pattern"
         dramatic_potential = "insights.character.perfection.dramatic_potential"
         inciting_relationship = "insights.character.perfection.inciting_relationship"
         central_conflict = "insights.character.perfection.central_conflict"
+        narrative_consequence = "insights.character.perfection.narrative_consequence"
+        conflict_created = "insights.character.perfection.conflict_created"
+        pressure_point = "insights.character.perfection.pressure_point"
+        transformation_path = "insights.character.perfection.transformation_path"
     elif "control" in protective_lie:
         story_consequence = "insights.character.control.consequence"
         relationship_pattern = "insights.character.control.relationship_pattern"
         dramatic_potential = "insights.character.control.dramatic_potential"
         inciting_relationship = "insights.character.control.inciting_relationship"
         central_conflict = "insights.character.control.central_conflict"
+        narrative_consequence = "insights.character.control.narrative_consequence"
+        conflict_created = "insights.character.control.conflict_created"
+        pressure_point = "insights.character.control.pressure_point"
+        transformation_path = "insights.character.control.transformation_path"
 
     # For any answer that is "Not discovered yet.", keep the defaults or the original answer if provided.
 
@@ -50,6 +67,10 @@ def get_character_deterministic_fields(db: Session, character_id: UUID, answers:
         "dramatic_potential": dramatic_potential,
         "inciting_relationship": inciting_relationship,
         "central_conflict": central_conflict,
+        "narrative_consequence": narrative_consequence,
+        "conflict_created": conflict_created,
+        "pressure_point": pressure_point,
+        "transformation_path": transformation_path,
         "story_engine_summary": "insights.character.summary.story_engine",
         "story_beginning_summary": "insights.character.summary.story_beginning",
     }

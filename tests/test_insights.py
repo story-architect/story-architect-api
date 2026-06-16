@@ -74,7 +74,7 @@ def test_character_insights_with_answers_and_custom(client: TestClient, db: Sess
     res = client.get(f"/api/v1/characters/{char.id}/narrative-consequence")
     assert res.status_code == 200
     data = res.json()
-    assert "insights.character.perfection.consequence" in data["story_consequence"]
+    assert "insights.character.perfection.narrative_consequence" in data["story_consequence"]
     assert "i must be perfect" in data["main_statement"]
 
     # Check Where Story Begins

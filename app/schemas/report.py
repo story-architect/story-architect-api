@@ -14,8 +14,15 @@ class CharacterArchitectureReportResponse(BaseModel):
     protective_lie: Optional[str] = None
     behavior: Optional[str] = None
     narrative_consequence: Optional[str] = None
+    narrative_consequence_custom: Optional[str] = None
     conflict_created: Optional[str] = None
+    conflict_created_custom: Optional[str] = None
+    pressure_point: Optional[str] = None
+    pressure_point_custom: Optional[str] = None
     transformation: Optional[str] = None
+    transformation_path: Optional[str] = None
+    transformation_path_custom: Optional[str] = None
+    custom_outdated_fields: Optional[dict] = None
     relationship_pattern: Optional[str] = None
     story_engine_summary: Optional[str] = None
     dramatic_potential: Optional[str] = None
@@ -97,3 +104,10 @@ class PatternEmergingResponse(BaseModel):
     insight: str
     supporting_text: str
     next_discovery_hint: str
+
+class ReportInterpretationUpdate(BaseModel):
+    narrative_consequence_custom: Optional[str] = None
+    conflict_created_custom: Optional[str] = None
+    pressure_point_custom: Optional[str] = None
+    transformation_path_custom: Optional[str] = None
+    clear_outdated: Optional[list[str]] = None
