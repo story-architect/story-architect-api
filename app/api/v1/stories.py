@@ -76,11 +76,11 @@ def get_latest_discovery(story_id: UUID, db: Session = Depends(get_db)):
     if not event:
         raise HTTPException(status_code=404, detail="No discoveries found")
     return LatestDiscoveryResponse(
-        title=event.title, 
-        summary=event.description, 
+        title=event.title,
+        summary=event.description,
         event_type=event.event_type.value if hasattr(event.event_type, "value") else event.event_type,
-        event_metadata=event.event_metadata, 
-        created_at=event.created_at
+        event_metadata=event.event_metadata,
+        created_at=event.created_at,
     )
 
 
