@@ -42,3 +42,11 @@ class Relationship(Base, UUIDMixin, TimestampMixin):
     report: Mapped["RelationshipArchitectureReport"] = relationship(
         back_populates="relationship_", uselist=False, cascade="all, delete-orphan"
     )
+
+    @property
+    def character_a_name(self) -> str | None:
+        return self.character_a.name if self.character_a else None
+
+    @property
+    def character_b_name(self) -> str | None:
+        return self.character_b.name if self.character_b else None

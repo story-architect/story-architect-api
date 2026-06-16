@@ -109,12 +109,16 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
 
 def generate_relationship_report(db: Session, relationship_id: UUID) -> RelationshipArchitectureReport:
     # Check if relationship exists
-    db.query(Relationship).filter(Relationship.id == relationship_id).first()
+    relationship = db.query(Relationship).filter(Relationship.id == relationship_id).first()
+    if not relationship:
+        return None
 
     # Defaulting the emotional_effect to combine answers from both A -> B and B -> A truth.
     truth_a_b = get_answer_text(db, "rel_truth_a", relationship_id=relationship_id)
     truth_b_a = get_answer_text(db, "rel_truth_b", relationship_id=relationship_id)
-    combined_emotional_effect = f"Truth Character A hides: {truth_a_b}\nTruth Character B hides: {truth_b_a}"
+    char_a_name = relationship.character_a.name if relationship.character_a else "Character A"
+    char_b_name = relationship.character_b.name if relationship.character_b else "Character B"
+    combined_emotional_effect = f"Truth {char_a_name} hides: {truth_a_b}\nTruth {char_b_name} hides: {truth_b_a}"
     if truth_a_b == "Not discovered yet." and truth_b_a == "Not discovered yet.":
         combined_emotional_effect = "Not discovered yet."
 
