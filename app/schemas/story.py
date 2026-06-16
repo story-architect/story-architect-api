@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict
@@ -29,6 +29,13 @@ class StoryResponse(StoryBase):
     next_insight: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class StoryListResponse(BaseModel):
+    items: List[StoryResponse]
+    total: int
+    skip: int
+    limit: int
 
 
 class LatestDiscoveryResponse(BaseModel):
