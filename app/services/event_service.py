@@ -68,6 +68,7 @@ def handle_report_generated(
         event_metadata=event_metadata,
     )
 
+
 def handle_dramatic_architecture_discovered(
     db: Session,
     story_id: uuid.UUID,
@@ -81,6 +82,7 @@ def handle_dramatic_architecture_discovered(
         event_type=EventTypeEnum.DRAMATIC_ARCHITECTURE_DISCOVERED,
         event_metadata=event_metadata,
     )
+
 
 def handle_interpretation_revised(
     db: Session,

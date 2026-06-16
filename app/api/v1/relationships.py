@@ -47,7 +47,14 @@ def get_relationships_for_story(story_id: UUID, skip: int = 0, limit: int = 100,
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
 
-    relationships = db.query(Relationship).filter(Relationship.story_id == story_id).order_by(Relationship.created_at.desc()).offset(skip).limit(limit).all()
+    relationships = (
+        db.query(Relationship)
+        .filter(Relationship.story_id == story_id)
+        .order_by(Relationship.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
     return relationships
 
 

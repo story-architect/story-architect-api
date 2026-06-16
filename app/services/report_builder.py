@@ -65,7 +65,7 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
 
     if report:
         outdated_fields = report.custom_outdated_fields or {}
-        
+
         if report.narrative_consequence_custom and report.narrative_consequence != insights["narrative_consequence"]:
             outdated_fields["narrative_consequence_custom"] = True
         if report.conflict_created_custom and report.conflict_created != insights["conflict_created"]:
@@ -74,7 +74,7 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
             outdated_fields["pressure_point_custom"] = True
         if report.transformation_path_custom and report.transformation_path != insights["transformation_path"]:
             outdated_fields["transformation_path_custom"] = True
-            
+
         report.custom_outdated_fields = outdated_fields
 
         report.character_core = character_core

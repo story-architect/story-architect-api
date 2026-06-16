@@ -2,6 +2,7 @@ from starlette.testclient import TestClient
 from sqlalchemy.orm import Session
 from app.models import Story, Character, DiscoveryQuestion, DiscoveryAnswer, CharacterArchitectureReport
 
+
 def test_dramatic_architecture_overrides_and_regeneration(client: TestClient, db: Session):
     story = Story(title="Dramatic Story")
     db.add(story)
@@ -33,10 +34,13 @@ def test_dramatic_architecture_overrides_and_regeneration(client: TestClient, db
     assert report_data["narrative_consequence"] == "insights.character.perfection.narrative_consequence"
 
     # Step 1: Add custom overrides
-    res = client.patch(f"/api/v1/characters/{report_id}/interpretations", json={
-        "narrative_consequence_custom": "They alienate themselves custom.",
-        "transformation_path_custom": "Must learn custom."
-    })
+    res = client.patch(
+        f"/api/v1/characters/{report_id}/interpretations",
+        json={
+            "narrative_consequence_custom": "They alienate themselves custom.",
+            "transformation_path_custom": "Must learn custom.",
+        },
+    )
     assert res.status_code == 200
     data = res.json()
     assert data["narrative_consequence_custom"] == "They alienate themselves custom."
@@ -60,9 +64,9 @@ def test_dramatic_architecture_overrides_and_regeneration(client: TestClient, db
     assert data["custom_outdated_fields"]["transformation_path_custom"] is True  # Marked outdated
 
     # Step 4: Clear outdated interpretations
-    res = client.patch(f"/api/v1/characters/{report_id}/interpretations", json={
-        "clear_outdated": ["narrative_consequence_custom"]
-    })
+    res = client.patch(
+        f"/api/v1/characters/{report_id}/interpretations", json={"clear_outdated": ["narrative_consequence_custom"]}
+    )
     assert res.status_code == 200
     data = res.json()
     assert data["narrative_consequence_custom"] == "They alienate themselves custom."
@@ -70,9 +74,10 @@ def test_dramatic_architecture_overrides_and_regeneration(client: TestClient, db
     assert data["custom_outdated_fields"]["transformation_path_custom"] is True  # Still outdated
 
     # Step 5: Replace an interpretation
-    res = client.patch(f"/api/v1/characters/{report_id}/interpretations", json={
-        "transformation_path_custom": "New custom after refresh"
-    })
+    res = client.patch(
+        f"/api/v1/characters/{report_id}/interpretations",
+        json={"transformation_path_custom": "New custom after refresh"},
+    )
     assert res.status_code == 200
     data = res.json()
     assert data["transformation_path_custom"] == "New custom after refresh"

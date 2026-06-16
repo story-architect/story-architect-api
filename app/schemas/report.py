@@ -105,6 +105,7 @@ class PatternEmergingResponse(BaseModel):
     supporting_text: str
     next_discovery_hint: str
 
+
 class ReportInterpretationUpdate(BaseModel):
     narrative_consequence_custom: Optional[str] = None
     conflict_created_custom: Optional[str] = None

@@ -17,7 +17,7 @@ def get_character_deterministic_fields(db: Session, character_id: UUID, answers:
     inciting_relationship = "insights.character.default.inciting_relationship"
     central_conflict = "insights.character.default.central_conflict"
     dramatic_potential = "insights.character.default.dramatic_potential"
-    
+
     narrative_consequence = "insights.character.default.narrative_consequence"
     conflict_created = "insights.character.default.conflict_created"
     pressure_point = "insights.character.default.pressure_point"

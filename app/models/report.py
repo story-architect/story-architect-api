@@ -31,7 +31,7 @@ class CharacterArchitectureReport(Base, UUIDMixin, TimestampMixin):
     pressure_point_custom: Mapped[str] = mapped_column(Text, nullable=True)
 
     transformation: Mapped[str] = mapped_column(Text, nullable=True)
-    
+
     transformation_path: Mapped[str] = mapped_column(Text, nullable=True)
     transformation_path_custom: Mapped[str] = mapped_column(Text, nullable=True)
 

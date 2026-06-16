@@ -6,8 +6,16 @@ from sqlalchemy.orm.attributes import flag_modified
 
 from app.api.dependencies import get_db
 from app.models import Character, CharacterArchitectureReport, Relationship, RelationshipArchitectureReport
-from app.schemas.report import CharacterArchitectureReportResponse, RelationshipArchitectureReportResponse, ReportInterpretationUpdate
-from app.services.event_service import handle_report_generated, handle_interpretation_revised, handle_dramatic_architecture_discovered
+from app.schemas.report import (
+    CharacterArchitectureReportResponse,
+    RelationshipArchitectureReportResponse,
+    ReportInterpretationUpdate,
+)
+from app.services.event_service import (
+    handle_report_generated,
+    handle_interpretation_revised,
+    handle_dramatic_architecture_discovered,
+)
 from app.services.report_builder import generate_character_report, generate_relationship_report
 
 router = APIRouter()
@@ -46,49 +54,59 @@ def get_character_report(character_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.patch("/characters/{report_id}/interpretations", response_model=CharacterArchitectureReportResponse)
-def update_character_interpretations(report_id: UUID, interpretations: ReportInterpretationUpdate, db: Session = Depends(get_db)):
+def update_character_interpretations(
+    report_id: UUID, interpretations: ReportInterpretationUpdate, db: Session = Depends(get_db)
+):
     report = db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.id == report_id).first()
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
-        
+
     outdated_fields = report.custom_outdated_fields or {}
 
     if interpretations.narrative_consequence_custom is not None:
-        report.narrative_consequence_custom = interpretations.narrative_consequence_custom if interpretations.narrative_consequence_custom else None
+        report.narrative_consequence_custom = (
+            interpretations.narrative_consequence_custom if interpretations.narrative_consequence_custom else None
+        )
         outdated_fields.pop("narrative_consequence_custom", None)
-        
+
     if interpretations.conflict_created_custom is not None:
-        report.conflict_created_custom = interpretations.conflict_created_custom if interpretations.conflict_created_custom else None
+        report.conflict_created_custom = (
+            interpretations.conflict_created_custom if interpretations.conflict_created_custom else None
+        )
         outdated_fields.pop("conflict_created_custom", None)
 
     if interpretations.pressure_point_custom is not None:
-        report.pressure_point_custom = interpretations.pressure_point_custom if interpretations.pressure_point_custom else None
+        report.pressure_point_custom = (
+            interpretations.pressure_point_custom if interpretations.pressure_point_custom else None
+        )
         outdated_fields.pop("pressure_point_custom", None)
 
     if interpretations.transformation_path_custom is not None:
-        report.transformation_path_custom = interpretations.transformation_path_custom if interpretations.transformation_path_custom else None
+        report.transformation_path_custom = (
+            interpretations.transformation_path_custom if interpretations.transformation_path_custom else None
+        )
         outdated_fields.pop("transformation_path_custom", None)
-        
+
     if interpretations.clear_outdated:
         for field in interpretations.clear_outdated:
             outdated_fields.pop(field, None)
-            
-            
+
     report.custom_outdated_fields = outdated_fields
     flag_modified(report, "custom_outdated_fields")
     db.commit()
     db.refresh(report)
-    
+
     character = db.query(Character).filter(Character.id == report.character_id).first()
     if character:
         handle_interpretation_revised(
-            db, 
-            story_id=character.story_id, 
+            db,
+            story_id=character.story_id,
             event_metadata={"name": character.name, "report_type": "character"},
-            character_id=character.id
+            character_id=character.id,
         )
-        
+
     return report
+
 
 @router.post("/relationships/{relationship_id}/generate-report", response_model=RelationshipArchitectureReportResponse)
 def generate_report_for_relationship(relationship_id: UUID, db: Session = Depends(get_db)):
