@@ -36,12 +36,11 @@ def create_character_for_story(story_id: UUID, character_in: CharacterCreate, db
 
 
 @router.get("/stories/{story_id}/characters", response_model=List[CharacterResponse])
-def get_characters_for_story(story_id: UUID, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def get_characters(story_id: UUID, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     story = db.query(Story).filter(Story.id == story_id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
-
-    characters = db.query(Character).filter(Character.story_id == story_id).offset(skip).limit(limit).all()
+    characters = db.query(Character).filter(Character.story_id == story_id).order_by(Character.created_at.desc()).offset(skip).limit(limit).all()
     return characters
 
 
