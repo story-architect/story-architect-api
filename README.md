@@ -2,6 +2,13 @@
 
 This is the backend for the Story Architect MVP, built with FastAPI, PostgreSQL, SQLAlchemy, and Alembic.
 
+## Features
+
+- **Data-Driven Pattern Engine:** Evaluates character behavior and relationship answers against over 100+ modular, JSON-defined emotional and dramatic patterns.
+- **Composition Analysis:** Dynamically detects intersecting patterns (e.g., *Sacrifice + Fear of Abandonment*) using the engine's built-in rule compositions.
+- **Automated Localization:** Auto-generates translation placeholders in the frontend's `i18n` configurations whenever new rules or patterns are injected into the library.
+- **Robust Insights API:** Powers the frontend's real-time Character Pulse and transition overlays.
+
 ## Requirements
 - Python 3.10+
 - PostgreSQL
