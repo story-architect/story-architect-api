@@ -53,7 +53,10 @@ def test_character_insights_with_answers_and_custom(client: TestClient, db: Sess
     )
     # Trigger the 'perfect' logic in insight_generator
     ans_lie = DiscoveryAnswer(
-        story_id=story.id, character_id=char.id, question_id=q_lie.id, selected_answer="If I am flawless, I will be loved."
+        story_id=story.id,
+        character_id=char.id,
+        question_id=q_lie.id,
+        selected_answer="If I am flawless, I will be loved.",
     )
     db.add_all([ans_wound, ans_lie])
     db.commit()
@@ -165,7 +168,10 @@ def test_pattern_emerging_insights(client: TestClient, db: Session):
 
     # Match protective lie 'perfect'
     ans_lie = DiscoveryAnswer(
-        story_id=story.id, character_id=char.id, question_id=q_lie.id, selected_answer="If I am perfect, nothing can go wrong."
+        story_id=story.id,
+        character_id=char.id,
+        question_id=q_lie.id,
+        selected_answer="If I am perfect, nothing can go wrong.",
     )
     db.add(ans_lie)
     db.commit()

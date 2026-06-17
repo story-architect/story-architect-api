@@ -20,7 +20,10 @@ def test_dramatic_architecture_overrides_and_regeneration(client: TestClient, db
     db.commit()
 
     ans_lie = DiscoveryAnswer(
-        story_id=story.id, character_id=char.id, question_id=q_lie.id, selected_answer="If I am perfect, nothing can go wrong."
+        story_id=story.id,
+        character_id=char.id,
+        question_id=q_lie.id,
+        selected_answer="If I am perfect, nothing can go wrong.",
     )
     db.add(ans_lie)
     db.commit()
