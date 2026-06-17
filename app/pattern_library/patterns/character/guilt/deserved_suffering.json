@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.guilt.deserved_suffering",
+  "version": 1,
+  "family": "guilt",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["deserve", "deserve this", "punishment", "earned", "this is what I get", "have it coming", "no right to feel good"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["forgiven", "let off", "get away with", "excused", "off the hook", "move on", "healing"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["push away help", "refuse comfort", "reject kindness", "won't accept", "sabotage good things"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.guilt.deserved_suffering.narrative_consequence",
+    "conflict_created": "insights.character.guilt.deserved_suffering.conflict_created",
+    "pressure_point": "insights.character.guilt.deserved_suffering.pressure_point",
+    "transformation_path": "insights.character.guilt.deserved_suffering.transformation_path",
+    "consequence": "insights.character.guilt.deserved_suffering.consequence",
+    "relationship_pattern": "insights.character.guilt.deserved_suffering.relationship_pattern",
+    "inciting_relationship": "insights.character.guilt.deserved_suffering.inciting_relationship",
+    "central_conflict": "insights.character.guilt.deserved_suffering.central_conflict",
+    "dramatic_potential": "insights.character.guilt.deserved_suffering.dramatic_potential",
+    "pattern_name": "insights.patterns.guilt.deserved_suffering.name",
+    "pattern_insight": "insights.patterns.guilt.deserved_suffering.insight",
+    "pattern_supporting_text": "insights.patterns.guilt.deserved_suffering.supporting_text",
+    "pattern_next_hint": "insights.patterns.guilt.deserved_suffering.next_discovery_hint"
+  }
+}

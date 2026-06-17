@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.abandonment.fear_of_abandonment",
+  "version": 1,
+  "family": "abandonment",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_fear", "char_lie"],
+  "rules": [
+    {
+      "field": "char_fear",
+      "keywords": ["alone", "abandoned", "left", "nobody stays", "everyone leaves", "left behind"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["leave first", "push away", "keep distance"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.abandonment.fear_of_abandonment.narrative_consequence",
+    "conflict_created": "insights.character.abandonment.fear_of_abandonment.conflict_created",
+    "pressure_point": "insights.character.abandonment.fear_of_abandonment.pressure_point",
+    "transformation_path": "insights.character.abandonment.fear_of_abandonment.transformation_path",
+    "consequence": "insights.character.abandonment.fear_of_abandonment.consequence",
+    "relationship_pattern": "insights.character.abandonment.fear_of_abandonment.relationship_pattern",
+    "inciting_relationship": "insights.character.abandonment.fear_of_abandonment.inciting_relationship",
+    "central_conflict": "insights.character.abandonment.fear_of_abandonment.central_conflict",
+    "dramatic_potential": "insights.character.abandonment.fear_of_abandonment.dramatic_potential",
+    "pattern_name": "insights.patterns.abandonment.fear_of_abandonment.name",
+    "pattern_insight": "insights.patterns.abandonment.fear_of_abandonment.insight",
+    "pattern_supporting_text": "insights.patterns.abandonment.fear_of_abandonment.supporting_text",
+    "pattern_next_hint": "insights.patterns.abandonment.fear_of_abandonment.next_discovery_hint"
+  }
+}

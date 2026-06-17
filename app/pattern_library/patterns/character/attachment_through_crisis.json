@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.attachment.attachment_through_crisis",
+  "version": 1,
+  "family": "attachment",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_wound", "char_behavior"],
+  "rules": [
+    {
+      "field": "char_wound",
+      "keywords": ["only close during", "crisis brought us together", "only felt real when everything"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["create drama", "escalate", "need intensity"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.attachment.attachment_through_crisis.narrative_consequence",
+    "conflict_created": "insights.character.attachment.attachment_through_crisis.conflict_created",
+    "pressure_point": "insights.character.attachment.attachment_through_crisis.pressure_point",
+    "transformation_path": "insights.character.attachment.attachment_through_crisis.transformation_path",
+    "consequence": "insights.character.attachment.attachment_through_crisis.consequence",
+    "relationship_pattern": "insights.character.attachment.attachment_through_crisis.relationship_pattern",
+    "inciting_relationship": "insights.character.attachment.attachment_through_crisis.inciting_relationship",
+    "central_conflict": "insights.character.attachment.attachment_through_crisis.central_conflict",
+    "dramatic_potential": "insights.character.attachment.attachment_through_crisis.dramatic_potential",
+    "pattern_name": "insights.patterns.attachment.attachment_through_crisis.name",
+    "pattern_insight": "insights.patterns.attachment.attachment_through_crisis.insight",
+    "pattern_supporting_text": "insights.patterns.attachment.attachment_through_crisis.supporting_text",
+    "pattern_next_hint": "insights.patterns.attachment.attachment_through_crisis.next_discovery_hint"
+  }
+}

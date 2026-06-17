@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.abandonment.clinging_as_survival",
+  "version": 1,
+  "family": "abandonment",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_behavior", "char_fear"],
+  "rules": [
+    {
+      "field": "char_behavior",
+      "keywords": ["cling", "hold on", "not let go", "jealous", "possessive", "check"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["lose them", "they'll leave", "disappear"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.abandonment.clinging_as_survival.narrative_consequence",
+    "conflict_created": "insights.character.abandonment.clinging_as_survival.conflict_created",
+    "pressure_point": "insights.character.abandonment.clinging_as_survival.pressure_point",
+    "transformation_path": "insights.character.abandonment.clinging_as_survival.transformation_path",
+    "consequence": "insights.character.abandonment.clinging_as_survival.consequence",
+    "relationship_pattern": "insights.character.abandonment.clinging_as_survival.relationship_pattern",
+    "inciting_relationship": "insights.character.abandonment.clinging_as_survival.inciting_relationship",
+    "central_conflict": "insights.character.abandonment.clinging_as_survival.central_conflict",
+    "dramatic_potential": "insights.character.abandonment.clinging_as_survival.dramatic_potential",
+    "pattern_name": "insights.patterns.abandonment.clinging_as_survival.name",
+    "pattern_insight": "insights.patterns.abandonment.clinging_as_survival.insight",
+    "pattern_supporting_text": "insights.patterns.abandonment.clinging_as_survival.supporting_text",
+    "pattern_next_hint": "insights.patterns.abandonment.clinging_as_survival.next_discovery_hint"
+  }
+}

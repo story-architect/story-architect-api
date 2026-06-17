@@ -53,7 +53,7 @@ def test_character_insights_with_answers_and_custom(client: TestClient, db: Sess
     )
     # Trigger the 'perfect' logic in insight_generator
     ans_lie = DiscoveryAnswer(
-        story_id=story.id, character_id=char.id, question_id=q_lie.id, selected_answer="I must be perfect to be loved."
+        story_id=story.id, character_id=char.id, question_id=q_lie.id, selected_answer="If I am flawless, I will be loved."
     )
     db.add_all([ans_wound, ans_lie])
     db.commit()
@@ -62,7 +62,7 @@ def test_character_insights_with_answers_and_custom(client: TestClient, db: Sess
     assert res.status_code == 200
     data = res.json()
     assert data["emotional_wound"] == "Deep wound"  # Custom overridden
-    assert data["protective_lie"] == "I must be perfect to be loved."
+    assert data["protective_lie"] == "If I am flawless, I will be loved."
 
     # Check Why This Matters generated fields
     res = client.get(f"/api/v1/characters/{char.id}/why-this-matters")
@@ -75,7 +75,7 @@ def test_character_insights_with_answers_and_custom(client: TestClient, db: Sess
     assert res.status_code == 200
     data = res.json()
     assert "insights.character.perfection.narrative_consequence" in data["story_consequence"]
-    assert "i must be perfect" in data["main_statement"]
+    assert "if i am flawless" in data["main_statement"]
 
     # Check Where Story Begins
     res = client.get(f"/api/v1/characters/{char.id}/where-story-begins")
@@ -111,7 +111,7 @@ def test_relationship_insights(client: TestClient, db: Session):
         story_id=story.id,
         relationship_id=rel.id,
         question_id=q_protect.id,
-        selected_answer="We keep distance to avoid fights.",
+        selected_answer="We just keep our distance from each other.",
     )
     db.add(ans_protect)
     db.commit()
@@ -119,7 +119,7 @@ def test_relationship_insights(client: TestClient, db: Session):
     res = client.get(f"/api/v1/relationships/{rel.id}/consequence")
     assert res.status_code == 200
     data = res.json()
-    assert data["story_consequence"] == "We keep distance to avoid fights."
+    assert data["story_consequence"] == "We just keep our distance from each other."
     assert "insights.relationship.distance" in data["consequence_summary"]  # Generated from 'distance' logic
     assert "insights.relationship.distance" in data["relationship_risk"]  # Generated from 'distance' logic
 
@@ -165,7 +165,7 @@ def test_pattern_emerging_insights(client: TestClient, db: Session):
 
     # Match protective lie 'perfect'
     ans_lie = DiscoveryAnswer(
-        story_id=story.id, character_id=char.id, question_id=q_lie.id, selected_answer="I must be perfect."
+        story_id=story.id, character_id=char.id, question_id=q_lie.id, selected_answer="If I am perfect, nothing can go wrong."
     )
     db.add(ans_lie)
     db.commit()
@@ -185,12 +185,12 @@ def test_pattern_emerging_insights(client: TestClient, db: Session):
         character_id=char.id,
         question_id=q_fear.id,
         selected_answer="Ignored",
-        custom_answer="fear of abandonment",
+        custom_answer="fear of being abandoned",
     )
     db.add(ans_fear)
 
-    # Let's change lie so it doesn't match first (protective lie takes precedence if it matches, but "I must be okay" won't match)
-    ans_lie.selected_answer = "I must be okay."
+    # Let's change lie so it doesn't match first (protective lie takes precedence if it matches, but "I will be okay" won't match)
+    ans_lie.selected_answer = "I will be okay."
     db.commit()
 
     # We need to recreate the report to pick up the new answers! Wait, the endpoint calls `generate_character_report` if NOT report.
@@ -203,4 +203,4 @@ def test_pattern_emerging_insights(client: TestClient, db: Session):
 
     res = client.get(f"/api/v1/characters/{char.id}/pattern-emerging")
     assert res.status_code == 200
-    assert res.json()["pattern_name"] == "insights.patterns.fear_abandonment.name"
+    assert res.json()["pattern_name"] == "insights.patterns.abandonment.abandonment_as_certainty.name"

@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.control.power_as_safety",
+  "version": 1,
+  "family": "control",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["power", "powerful", "in charge", "authority", "position"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["powerless", "no control", "at the mercy of"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.control.power_as_safety.narrative_consequence",
+    "conflict_created": "insights.character.control.power_as_safety.conflict_created",
+    "pressure_point": "insights.character.control.power_as_safety.pressure_point",
+    "transformation_path": "insights.character.control.power_as_safety.transformation_path",
+    "consequence": "insights.character.control.power_as_safety.consequence",
+    "relationship_pattern": "insights.character.control.power_as_safety.relationship_pattern",
+    "inciting_relationship": "insights.character.control.power_as_safety.inciting_relationship",
+    "central_conflict": "insights.character.control.power_as_safety.central_conflict",
+    "dramatic_potential": "insights.character.control.power_as_safety.dramatic_potential",
+    "pattern_name": "insights.patterns.control.power_as_safety.name",
+    "pattern_insight": "insights.patterns.control.power_as_safety.insight",
+    "pattern_supporting_text": "insights.patterns.control.power_as_safety.supporting_text",
+    "pattern_next_hint": "insights.patterns.control.power_as_safety.next_discovery_hint"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.identity.false_self",
+  "version": 1,
+  "family": "identity",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_behavior"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["pretend", "act as if", "perform", "wear a mask", "who they think I am", "the version they know", "the person I show them", "playing a part"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["keep up appearances", "never break character", "maintain the image", "never slip", "always performing", "can't let anyone see behind"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["if they saw the real me", "the true version", "what's underneath", "without the performance", "stripped of the act"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.identity.false_self.narrative_consequence",
+    "conflict_created": "insights.character.identity.false_self.conflict_created",
+    "pressure_point": "insights.character.identity.false_self.pressure_point",
+    "transformation_path": "insights.character.identity.false_self.transformation_path",
+    "consequence": "insights.character.identity.false_self.consequence",
+    "relationship_pattern": "insights.character.identity.false_self.relationship_pattern",
+    "inciting_relationship": "insights.character.identity.false_self.inciting_relationship",
+    "central_conflict": "insights.character.identity.false_self.central_conflict",
+    "dramatic_potential": "insights.character.identity.false_self.dramatic_potential",
+    "pattern_name": "insights.patterns.identity.false_self.name",
+    "pattern_insight": "insights.patterns.identity.false_self.insight",
+    "pattern_supporting_text": "insights.patterns.identity.false_self.supporting_text",
+    "pattern_next_hint": "insights.patterns.identity.false_self.next_discovery_hint"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.belonging.belonging_through_caretaking",
+  "version": 1,
+  "family": "belonging",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_behavior"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["they need me", "I am needed", "make myself useful", "only stay if I'm helpful", "earn my place", "give enough to be kept", "have to contribute to belong"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["take care of", "nurture", "look after everyone", "anticipate needs", "fix problems", "put others first", "never ask for help", "step in before anyone asks"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["useless", "not needed", "become a burden", "have nothing to offer", "be abandoned when I can't give anymore"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.belonging.belonging_through_caretaking.narrative_consequence",
+    "conflict_created": "insights.character.belonging.belonging_through_caretaking.conflict_created",
+    "pressure_point": "insights.character.belonging.belonging_through_caretaking.pressure_point",
+    "transformation_path": "insights.character.belonging.belonging_through_caretaking.transformation_path",
+    "consequence": "insights.character.belonging.belonging_through_caretaking.consequence",
+    "relationship_pattern": "insights.character.belonging.belonging_through_caretaking.relationship_pattern",
+    "inciting_relationship": "insights.character.belonging.belonging_through_caretaking.inciting_relationship",
+    "central_conflict": "insights.character.belonging.belonging_through_caretaking.central_conflict",
+    "dramatic_potential": "insights.character.belonging.belonging_through_caretaking.dramatic_potential",
+    "pattern_name": "insights.patterns.belonging.belonging_through_caretaking.name",
+    "pattern_insight": "insights.patterns.belonging.belonging_through_caretaking.insight",
+    "pattern_supporting_text": "insights.patterns.belonging.belonging_through_caretaking.supporting_text",
+    "pattern_next_hint": "insights.patterns.belonging.belonging_through_caretaking.next_discovery_hint"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "composition_key": "character.grief.grief_prevents_intimacy",
+  "version": 1,
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "character.grief.grief_as_identity",
+    "character.vulnerability.openness_as_danger"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "medium",
+  "insight_key": "insights.character.grief.grief_prevents_intimacy.composed_insight"
+}

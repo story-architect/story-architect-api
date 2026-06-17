@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.belonging.exile_self_imposed",
+  "version": 1,
+  "family": "belonging",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_wound", "char_lie"],
+  "rules": [
+    {
+      "field": "char_wound",
+      "keywords": ["left", "walked away", "exiled myself", "pushed everyone away", "abandoned my own", "cut them off", "burned the bridge myself", "isolated myself before they could"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["better alone", "don't need a home", "safer on my own", "can't go back", "they're better without me", "no place waiting for me"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["hope for belonging and lose it", "let in and thrown out", "return and be rejected", "open up and be abandoned again"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.belonging.exile_self_imposed.narrative_consequence",
+    "conflict_created": "insights.character.belonging.exile_self_imposed.conflict_created",
+    "pressure_point": "insights.character.belonging.exile_self_imposed.pressure_point",
+    "transformation_path": "insights.character.belonging.exile_self_imposed.transformation_path",
+    "consequence": "insights.character.belonging.exile_self_imposed.consequence",
+    "relationship_pattern": "insights.character.belonging.exile_self_imposed.relationship_pattern",
+    "inciting_relationship": "insights.character.belonging.exile_self_imposed.inciting_relationship",
+    "central_conflict": "insights.character.belonging.exile_self_imposed.central_conflict",
+    "dramatic_potential": "insights.character.belonging.exile_self_imposed.dramatic_potential",
+    "pattern_name": "insights.patterns.belonging.exile_self_imposed.name",
+    "pattern_insight": "insights.patterns.belonging.exile_self_imposed.insight",
+    "pattern_supporting_text": "insights.patterns.belonging.exile_self_imposed.supporting_text",
+    "pattern_next_hint": "insights.patterns.belonging.exile_self_imposed.next_discovery_hint"
+  }
+}

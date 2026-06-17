@@ -32,7 +32,7 @@ def create_story(story_in: StoryCreate, db: Session = Depends(get_db)):
 @router.get("", response_model=StoryListResponse)
 def get_stories(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     total = db.query(Story).count()
-    stories = db.query(Story).order_by(Story.created_at.desc()).offset(skip).limit(limit).all()
+    stories = db.query(Story).order_by(Story.updated_at.desc()).offset(skip).limit(limit).all()
     return {"items": stories, "total": total, "skip": skip, "limit": limit}
 
 

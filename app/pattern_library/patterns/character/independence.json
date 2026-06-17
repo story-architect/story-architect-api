@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.independence",
+  "version": 1,
+  "family": "independence",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["don't need anyone", "dont need anyone", "do not need anyone", "need no one", "independent"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["dependent", "need someone", "rely on"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.character.independence.consequence",
+    "relationship_pattern": "insights.character.independence.relationship_pattern",
+    "dramatic_potential": "insights.character.independence.dramatic_potential",
+    "inciting_relationship": "insights.character.independence.inciting_relationship",
+    "central_conflict": "insights.character.independence.central_conflict",
+    "narrative_consequence": "insights.character.independence.narrative_consequence",
+    "conflict_created": "insights.character.independence.conflict_created",
+    "pressure_point": "insights.character.independence.pressure_point",
+    "transformation_path": "insights.character.independence.transformation_path",
+    "pattern_name": "insights.patterns.protective_independence.name",
+    "pattern_insight": "insights.patterns.protective_independence.insight",
+    "pattern_supporting_text": "insights.patterns.protective_independence.supporting_text",
+    "pattern_next_hint": "insights.patterns.protective_independence.next_discovery_hint"
+  }
+}

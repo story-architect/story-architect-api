@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.control",
+  "version": 1,
+  "family": "control",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["control", "in control", "maintain order", "keep things ordered"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["chaos", "lose control", "unpredictable"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.control.narrative_consequence",
+    "conflict_created": "insights.character.control.conflict_created",
+    "pressure_point": "insights.character.control.pressure_point",
+    "transformation_path": "insights.character.control.transformation_path",
+    "consequence": "insights.character.control.consequence",
+    "relationship_pattern": "insights.character.control.relationship_pattern",
+    "inciting_relationship": "insights.character.control.inciting_relationship",
+    "central_conflict": "insights.character.control.central_conflict",
+    "dramatic_potential": "insights.character.control.dramatic_potential",
+    "pattern_name": "insights.patterns.protective_control.name",
+    "pattern_insight": "insights.patterns.protective_control.insight",
+    "pattern_supporting_text": "insights.patterns.protective_control.supporting_text",
+    "pattern_next_hint": "insights.patterns.protective_control.next_discovery_hint"
+  }
+}

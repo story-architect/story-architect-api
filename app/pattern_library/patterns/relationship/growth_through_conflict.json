@@ -1,0 +1,38 @@
+{
+  "pattern_key": "relationship.growth.growth_through_conflict",
+  "version": 1,
+  "family": "growth",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_risk",
+    "rel_truth_demand"
+  ],
+  "rules": [
+    {
+      "field": "rel_risk",
+      "keywords": [
+        "conflict is also growth",
+        "struggle has value",
+        "the difficult conversations"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_truth_demand",
+      "keywords": [
+        "must be spoken for both to grow",
+        "the hard truth moves them forward"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.growth.growth_through_conflict.consequence",
+    "risk": "insights.relationship.growth.growth_through_conflict.risk",
+    "pattern": "insights.relationship.growth.growth_through_conflict.pattern",
+    "pattern_name": "insights.patterns.relationship.growth.growth_through_conflict.name",
+    "pattern_insight": "insights.patterns.relationship.growth.growth_through_conflict.insight"
+  }
+}

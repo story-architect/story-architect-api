@@ -1,0 +1,39 @@
+{
+  "pattern_key": "relationship.asymmetry.different_relationship",
+  "version": 1,
+  "family": "asymmetry",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_importance",
+    "rel_misunderstanding"
+  ],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "means different things",
+        "different understanding",
+        "different relationship"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_misunderstanding",
+      "keywords": [
+        "thinks it is something",
+        "we define it differently",
+        "different expectations"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.asymmetry.different_relationship.consequence",
+    "risk": "insights.relationship.asymmetry.different_relationship.risk",
+    "pattern": "insights.relationship.asymmetry.different_relationship.pattern",
+    "pattern_name": "insights.patterns.relationship.asymmetry.different_relationship.name",
+    "pattern_insight": "insights.patterns.relationship.asymmetry.different_relationship.insight"
+  }
+}

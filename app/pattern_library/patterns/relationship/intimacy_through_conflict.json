@@ -1,0 +1,38 @@
+{
+  "pattern_key": "relationship.intimacy.intimacy_through_conflict",
+  "version": 1,
+  "family": "intimacy",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_protect",
+    "rel_misunderstanding"
+  ],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "the closeness during conflict",
+        "fighting to connect",
+        "arguing to be seen"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_misunderstanding",
+      "keywords": [
+        "conflict as intimacy",
+        "fighting means caring"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.intimacy.intimacy_through_conflict.consequence",
+    "risk": "insights.relationship.intimacy.intimacy_through_conflict.risk",
+    "pattern": "insights.relationship.intimacy.intimacy_through_conflict.pattern",
+    "pattern_name": "insights.patterns.relationship.intimacy.intimacy_through_conflict.name",
+    "pattern_insight": "insights.patterns.relationship.intimacy.intimacy_through_conflict.insight"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "composition_key": "relationship.asymmetric_sacrifice",
+  "version": 1,
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "relationship.asymmetry.asymmetrical_investment",
+    "relationship.sacrifice.silent_sacrifice"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "medium",
+  "insight_key": "insights.relationship.asymmetric_sacrifice.composed_insight"
+}

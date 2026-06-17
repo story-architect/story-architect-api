@@ -1,0 +1,38 @@
+{
+  "pattern_key": "relationship.dependency.enmeshment",
+  "version": 1,
+  "family": "dependency",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_importance",
+    "rel_protect"
+  ],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "everything to each other",
+        "can't function without"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "separation",
+        "independence",
+        "the other being alone"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.dependency.enmeshment.consequence",
+    "risk": "insights.relationship.dependency.enmeshment.risk",
+    "pattern": "insights.relationship.dependency.enmeshment.pattern",
+    "pattern_name": "insights.patterns.relationship.dependency.enmeshment.name",
+    "pattern_insight": "insights.patterns.relationship.dependency.enmeshment.insight"
+  }
+}

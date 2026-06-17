@@ -1,0 +1,28 @@
+{
+  "pattern_key": "relationship.avoidance.mutual_avoidance",
+  "version": 1,
+  "family": "avoidance",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_protect", "rel_risk"],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": ["avoid", "not talk about", "don't bring up", "ignore", "not mention"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_risk",
+      "keywords": ["never addressed", "unspoken", "silence"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.avoidance.mutual_avoidance.consequence",
+    "risk": "insights.relationship.avoidance.mutual_avoidance.risk",
+    "pattern": "insights.relationship.avoidance.mutual_avoidance.pattern",
+    "pattern_name": "insights.patterns.relationship.avoidance.mutual_avoidance.name",
+    "pattern_insight": "insights.patterns.relationship.avoidance.mutual_avoidance.insight"
+  }
+}

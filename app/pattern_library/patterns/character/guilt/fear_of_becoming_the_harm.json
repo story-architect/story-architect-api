@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.guilt.fear_of_becoming_the_harm",
+  "version": 1,
+  "family": "guilt",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_fear", "char_wound"],
+  "rules": [
+    {
+      "field": "char_fear",
+      "keywords": ["hurt", "harm", "damage", "ruin", "destroy", "monster", "become the villain", "end up like", "turn into", "what I might do"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_wound",
+      "keywords": ["caused pain", "hurt someone", "my fault", "I did something terrible", "I was the one who", "the damage I caused"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["dangerous", "keep away", "stay back", "better off without me", "protect them from me"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.guilt.fear_of_becoming_the_harm.narrative_consequence",
+    "conflict_created": "insights.character.guilt.fear_of_becoming_the_harm.conflict_created",
+    "pressure_point": "insights.character.guilt.fear_of_becoming_the_harm.pressure_point",
+    "transformation_path": "insights.character.guilt.fear_of_becoming_the_harm.transformation_path",
+    "consequence": "insights.character.guilt.fear_of_becoming_the_harm.consequence",
+    "relationship_pattern": "insights.character.guilt.fear_of_becoming_the_harm.relationship_pattern",
+    "inciting_relationship": "insights.character.guilt.fear_of_becoming_the_harm.inciting_relationship",
+    "central_conflict": "insights.character.guilt.fear_of_becoming_the_harm.central_conflict",
+    "dramatic_potential": "insights.character.guilt.fear_of_becoming_the_harm.dramatic_potential",
+    "pattern_name": "insights.patterns.guilt.fear_of_becoming_the_harm.name",
+    "pattern_insight": "insights.patterns.guilt.fear_of_becoming_the_harm.insight",
+    "pattern_supporting_text": "insights.patterns.guilt.fear_of_becoming_the_harm.supporting_text",
+    "pattern_next_hint": "insights.patterns.guilt.fear_of_becoming_the_harm.next_discovery_hint"
+  }
+}

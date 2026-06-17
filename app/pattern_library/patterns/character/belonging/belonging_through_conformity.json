@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.belonging.belonging_through_conformity",
+  "version": 1,
+  "family": "belonging",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_behavior"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["fit in", "be like them", "don't stand out", "blend", "go along", "keep the peace", "better to agree", "can't afford to be different"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["agree with everyone", "never disagree", "adapt to whoever", "change opinions to match", "mirror whoever they're with", "suppress real feelings", "stay quiet"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["stand out", "be seen as difficult", "too much", "unwelcome", "lose the group", "alone if I'm honest"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.belonging.belonging_through_conformity.narrative_consequence",
+    "conflict_created": "insights.character.belonging.belonging_through_conformity.conflict_created",
+    "pressure_point": "insights.character.belonging.belonging_through_conformity.pressure_point",
+    "transformation_path": "insights.character.belonging.belonging_through_conformity.transformation_path",
+    "consequence": "insights.character.belonging.belonging_through_conformity.consequence",
+    "relationship_pattern": "insights.character.belonging.belonging_through_conformity.relationship_pattern",
+    "inciting_relationship": "insights.character.belonging.belonging_through_conformity.inciting_relationship",
+    "central_conflict": "insights.character.belonging.belonging_through_conformity.central_conflict",
+    "dramatic_potential": "insights.character.belonging.belonging_through_conformity.dramatic_potential",
+    "pattern_name": "insights.patterns.belonging.belonging_through_conformity.name",
+    "pattern_insight": "insights.patterns.belonging.belonging_through_conformity.insight",
+    "pattern_supporting_text": "insights.patterns.belonging.belonging_through_conformity.supporting_text",
+    "pattern_next_hint": "insights.patterns.belonging.belonging_through_conformity.next_discovery_hint"
+  }
+}

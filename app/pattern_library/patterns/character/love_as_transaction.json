@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.love.love_as_transaction",
+  "version": 1,
+  "family": "love",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_behavior"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["owe me", "I give so they should", "earn love", "deserve it back"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["keep score", "track what I give", "measure"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.love.love_as_transaction.narrative_consequence",
+    "conflict_created": "insights.character.love.love_as_transaction.conflict_created",
+    "pressure_point": "insights.character.love.love_as_transaction.pressure_point",
+    "transformation_path": "insights.character.love.love_as_transaction.transformation_path",
+    "consequence": "insights.character.love.love_as_transaction.consequence",
+    "relationship_pattern": "insights.character.love.love_as_transaction.relationship_pattern",
+    "inciting_relationship": "insights.character.love.love_as_transaction.inciting_relationship",
+    "central_conflict": "insights.character.love.love_as_transaction.central_conflict",
+    "dramatic_potential": "insights.character.love.love_as_transaction.dramatic_potential",
+    "pattern_name": "insights.patterns.love.love_as_transaction.name",
+    "pattern_insight": "insights.patterns.love.love_as_transaction.insight",
+    "pattern_supporting_text": "insights.patterns.love.love_as_transaction.supporting_text",
+    "pattern_next_hint": "insights.patterns.love.love_as_transaction.next_discovery_hint"
+  }
+}

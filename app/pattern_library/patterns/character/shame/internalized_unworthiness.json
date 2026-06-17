@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.shame.internalized_unworthiness",
+  "version": 1,
+  "family": "shame",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_wound", "char_lie"],
+  "rules": [
+    {
+      "field": "char_wound",
+      "keywords": ["worthless", "unlovable", "nothing", "good for nothing", "told me I was", "made me feel like nothing", "treated as less than", "invisible", "discarded"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["I am nothing", "unworthy", "not worthy", "don't deserve", "can't be loved", "too broken", "fundamentally wrong with me"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["accept less", "expect nothing", "settle", "don't ask for more", "grateful for scraps", "won't advocate for myself"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.shame.internalized_unworthiness.narrative_consequence",
+    "conflict_created": "insights.character.shame.internalized_unworthiness.conflict_created",
+    "pressure_point": "insights.character.shame.internalized_unworthiness.pressure_point",
+    "transformation_path": "insights.character.shame.internalized_unworthiness.transformation_path",
+    "consequence": "insights.character.shame.internalized_unworthiness.consequence",
+    "relationship_pattern": "insights.character.shame.internalized_unworthiness.relationship_pattern",
+    "inciting_relationship": "insights.character.shame.internalized_unworthiness.inciting_relationship",
+    "central_conflict": "insights.character.shame.internalized_unworthiness.central_conflict",
+    "dramatic_potential": "insights.character.shame.internalized_unworthiness.dramatic_potential",
+    "pattern_name": "insights.patterns.shame.internalized_unworthiness.name",
+    "pattern_insight": "insights.patterns.shame.internalized_unworthiness.insight",
+    "pattern_supporting_text": "insights.patterns.shame.internalized_unworthiness.supporting_text",
+    "pattern_next_hint": "insights.patterns.shame.internalized_unworthiness.next_discovery_hint"
+  }
+}

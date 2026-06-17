@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.grief.grief_as_identity",
+  "version": 1,
+  "family": "grief",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_wound", "char_lie"],
+  "rules": [
+    {
+      "field": "char_wound",
+      "keywords": ["grief", "loss", "lost everything", "defining loss", "lost someone"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["grief is all I have left", "to stop grieving is to forget"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.grief.grief_as_identity.narrative_consequence",
+    "conflict_created": "insights.character.grief.grief_as_identity.conflict_created",
+    "pressure_point": "insights.character.grief.grief_as_identity.pressure_point",
+    "transformation_path": "insights.character.grief.grief_as_identity.transformation_path",
+    "consequence": "insights.character.grief.grief_as_identity.consequence",
+    "relationship_pattern": "insights.character.grief.grief_as_identity.relationship_pattern",
+    "inciting_relationship": "insights.character.grief.grief_as_identity.inciting_relationship",
+    "central_conflict": "insights.character.grief.grief_as_identity.central_conflict",
+    "dramatic_potential": "insights.character.grief.grief_as_identity.dramatic_potential",
+    "pattern_name": "insights.patterns.grief.grief_as_identity.name",
+    "pattern_insight": "insights.patterns.grief.grief_as_identity.insight",
+    "pattern_supporting_text": "insights.patterns.grief.grief_as_identity.supporting_text",
+    "pattern_next_hint": "insights.patterns.grief.grief_as_identity.next_discovery_hint"
+  }
+}

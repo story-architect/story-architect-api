@@ -1,0 +1,40 @@
+{
+  "pattern_key": "relationship.attachment.attachment_through_responsibility",
+  "version": 1,
+  "family": "attachment",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_protect",
+    "rel_importance"
+  ],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "responsible",
+        "take care",
+        "look after",
+        "feel responsible for them"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "need to protect",
+        "responsibility",
+        "my duty to them"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.attachment.attachment_through_responsibility.consequence",
+    "risk": "insights.relationship.attachment.attachment_through_responsibility.risk",
+    "pattern": "insights.relationship.attachment.attachment_through_responsibility.pattern",
+    "pattern_name": "insights.patterns.relationship.attachment.attachment_through_responsibility.name",
+    "pattern_insight": "insights.patterns.relationship.attachment.attachment_through_responsibility.insight"
+  }
+}

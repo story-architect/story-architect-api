@@ -1,0 +1,28 @@
+{
+  "pattern_key": "relationship.trust.trust_without_honesty",
+  "version": 1,
+  "family": "trust",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_protect", "rel_truth_a"],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": ["trust but", "can't tell", "wouldn't understand", "trust doesn't mean"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_truth_a",
+      "keywords": ["can't tell them", "they couldn't handle"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.trust.trust_without_honesty.consequence",
+    "risk": "insights.relationship.trust.trust_without_honesty.risk",
+    "pattern": "insights.relationship.trust.trust_without_honesty.pattern",
+    "pattern_name": "insights.patterns.relationship.trust.trust_without_honesty.name",
+    "pattern_insight": "insights.patterns.relationship.trust.trust_without_honesty.insight"
+  }
+}

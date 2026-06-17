@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.grief.grief_denied",
+  "version": 1,
+  "family": "grief",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_behavior", "char_lie"],
+  "rules": [
+    {
+      "field": "char_behavior",
+      "keywords": ["don't look back", "moved on", "put it behind", "not dwell"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["fine", "over it", "doesn't affect me", "in the past"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.grief.grief_denied.narrative_consequence",
+    "conflict_created": "insights.character.grief.grief_denied.conflict_created",
+    "pressure_point": "insights.character.grief.grief_denied.pressure_point",
+    "transformation_path": "insights.character.grief.grief_denied.transformation_path",
+    "consequence": "insights.character.grief.grief_denied.consequence",
+    "relationship_pattern": "insights.character.grief.grief_denied.relationship_pattern",
+    "inciting_relationship": "insights.character.grief.grief_denied.inciting_relationship",
+    "central_conflict": "insights.character.grief.grief_denied.central_conflict",
+    "dramatic_potential": "insights.character.grief.grief_denied.dramatic_potential",
+    "pattern_name": "insights.patterns.grief.grief_denied.name",
+    "pattern_insight": "insights.patterns.grief.grief_denied.insight",
+    "pattern_supporting_text": "insights.patterns.grief.grief_denied.supporting_text",
+    "pattern_next_hint": "insights.patterns.grief.grief_denied.next_discovery_hint"
+  }
+}

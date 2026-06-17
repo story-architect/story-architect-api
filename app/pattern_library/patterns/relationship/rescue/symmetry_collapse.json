@@ -1,0 +1,28 @@
+﻿{
+  "pattern_key": "relationship.rescue.symmetry_collapse",
+  "version": 1,
+  "family": "rescue",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_importance", "rel_risk"],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": ["used to be equal", "once balanced", "has shifted"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_risk",
+      "keywords": ["imbalance", "unequal", "one has all the power now"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.rescue.symmetry_collapse.consequence",
+    "risk": "insights.relationship.rescue.symmetry_collapse.risk",
+    "pattern": "insights.relationship.rescue.symmetry_collapse.pattern",
+    "pattern_name": "insights.patterns.relationship.rescue.symmetry_collapse.name",
+    "pattern_insight": "insights.patterns.relationship.rescue.symmetry_collapse.insight"
+  }
+}

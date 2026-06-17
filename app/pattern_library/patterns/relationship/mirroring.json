@@ -1,0 +1,39 @@
+{
+  "pattern_key": "relationship.projection.mirroring",
+  "version": 1,
+  "family": "projection",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_protect",
+    "rel_importance"
+  ],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "their own perspective",
+        "agreeing",
+        "reflecting back what the other needs"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "understand each other perfectly",
+        "always agree",
+        "finish each other's"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.projection.mirroring.consequence",
+    "risk": "insights.relationship.projection.mirroring.risk",
+    "pattern": "insights.relationship.projection.mirroring.pattern",
+    "pattern_name": "insights.patterns.relationship.projection.mirroring.name",
+    "pattern_insight": "insights.patterns.relationship.projection.mirroring.insight"
+  }
+}

@@ -29,6 +29,12 @@ class CharacterArchitectureReportResponse(BaseModel):
     inciting_relationship: Optional[str] = None
     central_conflict: Optional[str] = None
     story_beginning_summary: Optional[str] = None
+    is_stale: Optional[bool] = None
+    stale_reason: Optional[str] = None
+    # Pattern engine metadata
+    pattern_detected: Optional[str] = None
+    pattern_version: Optional[int] = None
+    composition_detected: Optional[str] = None
     created_at: datetime
     updated_at: datetime
 
@@ -47,6 +53,12 @@ class RelationshipArchitectureReportResponse(BaseModel):
     relationship_risk: Optional[str] = None
     relationship_pattern: Optional[str] = None
     consequence_summary: Optional[str] = None
+    is_stale: Optional[bool] = None
+    stale_reason: Optional[str] = None
+    # Pattern engine metadata
+    pattern_detected: Optional[str] = None
+    pattern_version: Optional[int] = None
+    composition_detected: Optional[str] = None
     created_at: datetime
     updated_at: datetime
 

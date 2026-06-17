@@ -1,0 +1,17 @@
+{
+  "pattern_key": "relationship.default",
+  "version": 1,
+  "family": "default",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [],
+  "rules": [],
+  "insight_keys": {
+    "consequence": "insights.relationship.default.consequence",
+    "risk": "insights.relationship.default.risk",
+    "pattern": "insights.relationship.default.pattern",
+    "pattern_name": "insights.patterns.relationship.default.name",
+    "pattern_insight": "insights.patterns.relationship.default.insight"
+  }
+}

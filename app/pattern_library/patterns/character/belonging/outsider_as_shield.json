@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.belonging.outsider_as_shield",
+  "version": 1,
+  "family": "belonging",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["don't belong", "not like the others", "outsider", "never fit in", "apart", "on the outside", "always been different", "not built for belonging"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["rejection", "excluded", "cast out", "abandoned by the group", "found out they were never wanted", "pushed out", "told to leave"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_wound",
+      "keywords": ["was rejected", "kicked out", "pushed to the edges", "never chosen", "left out growing up", "was the one who didn't fit"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.belonging.outsider_as_shield.narrative_consequence",
+    "conflict_created": "insights.character.belonging.outsider_as_shield.conflict_created",
+    "pressure_point": "insights.character.belonging.outsider_as_shield.pressure_point",
+    "transformation_path": "insights.character.belonging.outsider_as_shield.transformation_path",
+    "consequence": "insights.character.belonging.outsider_as_shield.consequence",
+    "relationship_pattern": "insights.character.belonging.outsider_as_shield.relationship_pattern",
+    "inciting_relationship": "insights.character.belonging.outsider_as_shield.inciting_relationship",
+    "central_conflict": "insights.character.belonging.outsider_as_shield.central_conflict",
+    "dramatic_potential": "insights.character.belonging.outsider_as_shield.dramatic_potential",
+    "pattern_name": "insights.patterns.belonging.outsider_as_shield.name",
+    "pattern_insight": "insights.patterns.belonging.outsider_as_shield.insight",
+    "pattern_supporting_text": "insights.patterns.belonging.outsider_as_shield.supporting_text",
+    "pattern_next_hint": "insights.patterns.belonging.outsider_as_shield.next_discovery_hint"
+  }
+}

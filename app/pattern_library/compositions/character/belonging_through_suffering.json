@@ -1,0 +1,14 @@
+{
+  "composition_key": "character.belonging.belonging_through_suffering",
+  "version": 1,
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "character.belonging.belonging_through_caretaking",
+    "character.sacrifice.martyrdom"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "medium",
+  "insight_key": "insights.character.belonging.belonging_through_suffering.composed_insight"
+}

@@ -1,0 +1,39 @@
+{
+  "pattern_key": "relationship.growth.asymmetric_growth",
+  "version": 1,
+  "family": "growth",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_importance",
+    "rel_risk"
+  ],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "changed me",
+        "grew because of",
+        "became more because of them"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_risk",
+      "keywords": [
+        "growing apart",
+        "one has changed",
+        "different people now"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.growth.asymmetric_growth.consequence",
+    "risk": "insights.relationship.growth.asymmetric_growth.risk",
+    "pattern": "insights.relationship.growth.asymmetric_growth.pattern",
+    "pattern_name": "insights.patterns.relationship.growth.asymmetric_growth.name",
+    "pattern_insight": "insights.patterns.relationship.growth.asymmetric_growth.insight"
+  }
+}

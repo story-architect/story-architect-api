@@ -1,0 +1,14 @@
+{
+  "composition_key": "character.control.abandonment_through_control",
+  "version": 1,
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "character.abandonment.fear_of_abandonment",
+    "character.control"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "high",
+  "insight_key": "insights.character.control.abandonment_through_control.composed_insight"
+}

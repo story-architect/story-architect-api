@@ -1,0 +1,28 @@
+{
+  "pattern_key": "relationship.avoidance.comfortable_silence",
+  "version": 1,
+  "family": "avoidance",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_protect", "rel_misunderstanding"],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": ["peace", "harmony", "don't disturb", "comfortable"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_misunderstanding",
+      "keywords": ["silence means acceptance", "don't need to say"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.avoidance.comfortable_silence.consequence",
+    "risk": "insights.relationship.avoidance.comfortable_silence.risk",
+    "pattern": "insights.relationship.avoidance.comfortable_silence.pattern",
+    "pattern_name": "insights.patterns.relationship.avoidance.comfortable_silence.name",
+    "pattern_insight": "insights.patterns.relationship.avoidance.comfortable_silence.insight"
+  }
+}

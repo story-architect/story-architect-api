@@ -1,0 +1,39 @@
+{
+  "pattern_key": "relationship.loyalty.shared_history_as_trap",
+  "version": 1,
+  "family": "loyalty",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_importance",
+    "rel_protect"
+  ],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "history",
+        "everything we've been through",
+        "too much history"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "what we had",
+        "the past",
+        "shared memory"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.loyalty.shared_history_as_trap.consequence",
+    "risk": "insights.relationship.loyalty.shared_history_as_trap.risk",
+    "pattern": "insights.relationship.loyalty.shared_history_as_trap.pattern",
+    "pattern_name": "insights.patterns.relationship.loyalty.shared_history_as_trap.name",
+    "pattern_insight": "insights.patterns.relationship.loyalty.shared_history_as_trap.insight"
+  }
+}

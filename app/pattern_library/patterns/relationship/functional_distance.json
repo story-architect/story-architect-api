@@ -1,0 +1,40 @@
+{
+  "pattern_key": "relationship.distance.functional_distance",
+  "version": 1,
+  "family": "distance",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_importance",
+    "rel_protect"
+  ],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "practical",
+        "work well together",
+        "functional",
+        "good team"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "the comfort zone",
+        "disrupting what works",
+        "emotional territory"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.distance.functional_distance.consequence",
+    "risk": "insights.relationship.distance.functional_distance.risk",
+    "pattern": "insights.relationship.distance.functional_distance.pattern",
+    "pattern_name": "insights.patterns.relationship.distance.functional_distance.name",
+    "pattern_insight": "insights.patterns.relationship.distance.functional_distance.insight"
+  }
+}

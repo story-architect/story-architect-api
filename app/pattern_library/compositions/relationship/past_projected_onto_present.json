@@ -1,0 +1,14 @@
+{
+  "composition_key": "relationship.past_projected_onto_present",
+  "version": 1,
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "relationship.projection.projecting_past_onto_present",
+    "relationship.trust.trust_without_honesty"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "medium",
+  "insight_key": "insights.relationship.past_projected_onto_present.composed_insight"
+}

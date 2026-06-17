@@ -1,0 +1,28 @@
+{
+  "pattern_key": "relationship.avoidance.avoidance_as_care",
+  "version": 1,
+  "family": "avoidance",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_protect", "rel_misunderstanding"],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": ["protect from the truth", "spare them", "don't want to hurt", "shield"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_misunderstanding",
+      "keywords": ["thinks the other doesn't know", "sparing each other"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.avoidance.avoidance_as_care.consequence",
+    "risk": "insights.relationship.avoidance.avoidance_as_care.risk",
+    "pattern": "insights.relationship.avoidance.avoidance_as_care.pattern",
+    "pattern_name": "insights.patterns.relationship.avoidance.avoidance_as_care.name",
+    "pattern_insight": "insights.patterns.relationship.avoidance.avoidance_as_care.insight"
+  }
+}

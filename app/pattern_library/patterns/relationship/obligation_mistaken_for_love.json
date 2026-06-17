@@ -1,0 +1,28 @@
+{
+  "pattern_key": "relationship.loyalty.obligation_mistaken_for_love",
+  "version": 1,
+  "family": "loyalty",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_importance", "rel_protect"],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": ["have to", "obligation", "duty", "supposed to", "expected to"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": ["the relationship itself", "what people expect", "appearances"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.loyalty.obligation_mistaken_for_love.consequence",
+    "risk": "insights.relationship.loyalty.obligation_mistaken_for_love.risk",
+    "pattern": "insights.relationship.loyalty.obligation_mistaken_for_love.pattern",
+    "pattern_name": "insights.patterns.relationship.loyalty.obligation_mistaken_for_love.name",
+    "pattern_insight": "insights.patterns.relationship.loyalty.obligation_mistaken_for_love.insight"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "pattern_key": "relationship.intimacy.proximity_without_presence",
+  "version": 1,
+  "family": "intimacy",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_importance",
+    "rel_protect"
+  ],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "always there",
+        "constant presence",
+        "together all the time"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "emotional absence",
+        "not having to feel",
+        "being there without engaging"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.intimacy.proximity_without_presence.consequence",
+    "risk": "insights.relationship.intimacy.proximity_without_presence.risk",
+    "pattern": "insights.relationship.intimacy.proximity_without_presence.pattern",
+    "pattern_name": "insights.patterns.relationship.intimacy.proximity_without_presence.name",
+    "pattern_insight": "insights.patterns.relationship.intimacy.proximity_without_presence.insight"
+  }
+}

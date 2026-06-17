@@ -1,0 +1,39 @@
+{
+  "pattern_key": "relationship.rescue.helplessness_as_power",
+  "version": 1,
+  "family": "rescue",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_importance",
+    "rel_protect"
+  ],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "need them",
+        "can't manage without",
+        "helpless"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "their fragility",
+        "how much they need",
+        "the dependency"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.rescue.helplessness_as_power.consequence",
+    "risk": "insights.relationship.rescue.helplessness_as_power.risk",
+    "pattern": "insights.relationship.rescue.helplessness_as_power.pattern",
+    "pattern_name": "insights.patterns.relationship.rescue.helplessness_as_power.name",
+    "pattern_insight": "insights.patterns.relationship.rescue.helplessness_as_power.insight"
+  }
+}

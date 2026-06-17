@@ -1,0 +1,28 @@
+{
+  "pattern_key": "relationship.trust.honesty_mistaken_for_cruelty",
+  "version": 1,
+  "family": "trust",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_misunderstanding", "rel_protect"],
+  "rules": [
+    {
+      "field": "rel_misunderstanding",
+      "keywords": ["honesty as attack", "truth is cruelty", "hurts when honest"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": ["feelings", "from the truth", "harsh reality"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.trust.honesty_mistaken_for_cruelty.consequence",
+    "risk": "insights.relationship.trust.honesty_mistaken_for_cruelty.risk",
+    "pattern": "insights.relationship.trust.honesty_mistaken_for_cruelty.pattern",
+    "pattern_name": "insights.patterns.relationship.trust.honesty_mistaken_for_cruelty.name",
+    "pattern_insight": "insights.patterns.relationship.trust.honesty_mistaken_for_cruelty.insight"
+  }
+}

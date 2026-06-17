@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.worth.worth_through_usefulness",
+  "version": 1,
+  "family": "worth",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["useful", "helpful", "needed", "be of use", "indispensable"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["useless", "not needed", "no purpose", "burden"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.worth.worth_through_usefulness.narrative_consequence",
+    "conflict_created": "insights.character.worth.worth_through_usefulness.conflict_created",
+    "pressure_point": "insights.character.worth.worth_through_usefulness.pressure_point",
+    "transformation_path": "insights.character.worth.worth_through_usefulness.transformation_path",
+    "consequence": "insights.character.worth.worth_through_usefulness.consequence",
+    "relationship_pattern": "insights.character.worth.worth_through_usefulness.relationship_pattern",
+    "inciting_relationship": "insights.character.worth.worth_through_usefulness.inciting_relationship",
+    "central_conflict": "insights.character.worth.worth_through_usefulness.central_conflict",
+    "dramatic_potential": "insights.character.worth.worth_through_usefulness.dramatic_potential",
+    "pattern_name": "insights.patterns.worth.worth_through_usefulness.name",
+    "pattern_insight": "insights.patterns.worth.worth_through_usefulness.insight",
+    "pattern_supporting_text": "insights.patterns.worth.worth_through_usefulness.supporting_text",
+    "pattern_next_hint": "insights.patterns.worth.worth_through_usefulness.next_discovery_hint"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "composition_key": "relationship.obligated_presence",
+  "version": 1,
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "relationship.debt.emotional_debt",
+    "relationship.loyalty.loyalty_against_self_interest"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "high",
+  "insight_key": "insights.relationship.obligated_presence.composed_insight"
+}

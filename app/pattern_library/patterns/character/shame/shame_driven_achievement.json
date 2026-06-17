@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.shame.shame_driven_achievement",
+  "version": 1,
+  "family": "shame",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["not enough", "prove myself", "achieve", "succeed to be accepted", "if I achieve", "earn my place", "show them", "keep achieving", "have to be the best"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["found out", "exposed", "discovered", "see through me", "realise I'm not", "see the real me", "know the truth about me"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_wound",
+      "keywords": ["made to feel small", "never good enough", "told I wouldn't amount", "not smart enough", "defective", "broken"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.shame.shame_driven_achievement.narrative_consequence",
+    "conflict_created": "insights.character.shame.shame_driven_achievement.conflict_created",
+    "pressure_point": "insights.character.shame.shame_driven_achievement.pressure_point",
+    "transformation_path": "insights.character.shame.shame_driven_achievement.transformation_path",
+    "consequence": "insights.character.shame.shame_driven_achievement.consequence",
+    "relationship_pattern": "insights.character.shame.shame_driven_achievement.relationship_pattern",
+    "inciting_relationship": "insights.character.shame.shame_driven_achievement.inciting_relationship",
+    "central_conflict": "insights.character.shame.shame_driven_achievement.central_conflict",
+    "dramatic_potential": "insights.character.shame.shame_driven_achievement.dramatic_potential",
+    "pattern_name": "insights.patterns.shame.shame_driven_achievement.name",
+    "pattern_insight": "insights.patterns.shame.shame_driven_achievement.insight",
+    "pattern_supporting_text": "insights.patterns.shame.shame_driven_achievement.supporting_text",
+    "pattern_next_hint": "insights.patterns.shame.shame_driven_achievement.next_discovery_hint"
+  }
+}

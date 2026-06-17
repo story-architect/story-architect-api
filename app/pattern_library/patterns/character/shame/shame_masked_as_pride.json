@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.shame.shame_masked_as_pride",
+  "version": 1,
+  "family": "shame",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["better than", "above", "superior", "too good", "beneath me", "not worth my time", "I'm different from them", "on another level"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["ordinary", "like everyone else", "average", "common", "just like them", "no better than", "mediocre", "unremarkable"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_wound",
+      "keywords": ["looked down on", "laughed at", "seen as lesser", "humiliated in front of", "made to feel small", "never measured up"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.shame.shame_masked_as_pride.narrative_consequence",
+    "conflict_created": "insights.character.shame.shame_masked_as_pride.conflict_created",
+    "pressure_point": "insights.character.shame.shame_masked_as_pride.pressure_point",
+    "transformation_path": "insights.character.shame.shame_masked_as_pride.transformation_path",
+    "consequence": "insights.character.shame.shame_masked_as_pride.consequence",
+    "relationship_pattern": "insights.character.shame.shame_masked_as_pride.relationship_pattern",
+    "inciting_relationship": "insights.character.shame.shame_masked_as_pride.inciting_relationship",
+    "central_conflict": "insights.character.shame.shame_masked_as_pride.central_conflict",
+    "dramatic_potential": "insights.character.shame.shame_masked_as_pride.dramatic_potential",
+    "pattern_name": "insights.patterns.shame.shame_masked_as_pride.name",
+    "pattern_insight": "insights.patterns.shame.shame_masked_as_pride.insight",
+    "pattern_supporting_text": "insights.patterns.shame.shame_masked_as_pride.supporting_text",
+    "pattern_next_hint": "insights.patterns.shame.shame_masked_as_pride.next_discovery_hint"
+  }
+}

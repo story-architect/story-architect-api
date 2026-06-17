@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.sacrifice.martyrdom",
+  "version": 1,
+  "family": "sacrifice",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_behavior", "char_lie"],
+  "rules": [
+    {
+      "field": "char_behavior",
+      "keywords": ["martyr", "suffer so others don't", "my sacrifice", "suffer for others"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["no one suffers like I do", "only I carry this"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.sacrifice.martyrdom.narrative_consequence",
+    "conflict_created": "insights.character.sacrifice.martyrdom.conflict_created",
+    "pressure_point": "insights.character.sacrifice.martyrdom.pressure_point",
+    "transformation_path": "insights.character.sacrifice.martyrdom.transformation_path",
+    "consequence": "insights.character.sacrifice.martyrdom.consequence",
+    "relationship_pattern": "insights.character.sacrifice.martyrdom.relationship_pattern",
+    "inciting_relationship": "insights.character.sacrifice.martyrdom.inciting_relationship",
+    "central_conflict": "insights.character.sacrifice.martyrdom.central_conflict",
+    "dramatic_potential": "insights.character.sacrifice.martyrdom.dramatic_potential",
+    "pattern_name": "insights.patterns.sacrifice.martyrdom.name",
+    "pattern_insight": "insights.patterns.sacrifice.martyrdom.insight",
+    "pattern_supporting_text": "insights.patterns.sacrifice.martyrdom.supporting_text",
+    "pattern_next_hint": "insights.patterns.sacrifice.martyrdom.next_discovery_hint"
+  }
+}

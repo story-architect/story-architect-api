@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.abandonment.abandonment_as_certainty",
+  "version": 1,
+  "family": "abandonment",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_wound", "char_lie"],
+  "rules": [
+    {
+      "field": "char_wound",
+      "keywords": ["abandoned", "left", "walked out", "never came back", "disappeared"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["everyone leaves eventually", "don't get attached"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.abandonment.abandonment_as_certainty.narrative_consequence",
+    "conflict_created": "insights.character.abandonment.abandonment_as_certainty.conflict_created",
+    "pressure_point": "insights.character.abandonment.abandonment_as_certainty.pressure_point",
+    "transformation_path": "insights.character.abandonment.abandonment_as_certainty.transformation_path",
+    "consequence": "insights.character.abandonment.abandonment_as_certainty.consequence",
+    "relationship_pattern": "insights.character.abandonment.abandonment_as_certainty.relationship_pattern",
+    "inciting_relationship": "insights.character.abandonment.abandonment_as_certainty.inciting_relationship",
+    "central_conflict": "insights.character.abandonment.abandonment_as_certainty.central_conflict",
+    "dramatic_potential": "insights.character.abandonment.abandonment_as_certainty.dramatic_potential",
+    "pattern_name": "insights.patterns.abandonment.abandonment_as_certainty.name",
+    "pattern_insight": "insights.patterns.abandonment.abandonment_as_certainty.insight",
+    "pattern_supporting_text": "insights.patterns.abandonment.abandonment_as_certainty.supporting_text",
+    "pattern_next_hint": "insights.patterns.abandonment.abandonment_as_certainty.next_discovery_hint"
+  }
+}

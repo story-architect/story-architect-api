@@ -1,0 +1,31 @@
+{
+  "pattern_key": "relationship.rescue.power_through_protection",
+  "version": 1,
+  "family": "rescue",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_protect"
+  ],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "protect",
+        "keep safe",
+        "shelter",
+        "shield from",
+        "prevent harm"
+      ],
+      "weight": 2.0
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.rescue.power_through_protection.consequence",
+    "risk": "insights.relationship.rescue.power_through_protection.risk",
+    "pattern": "insights.relationship.rescue.power_through_protection.pattern",
+    "pattern_name": "insights.patterns.relationship.rescue.power_through_protection.name",
+    "pattern_insight": "insights.patterns.relationship.rescue.power_through_protection.insight"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "pattern_key": "character.default",
+  "version": 1,
+  "family": "default",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [],
+  "rules": [],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.default.narrative_consequence",
+    "conflict_created": "insights.character.default.conflict_created",
+    "pressure_point": "insights.character.default.pressure_point",
+    "transformation_path": "insights.character.default.transformation_path",
+    "consequence": "insights.character.default.consequence",
+    "relationship_pattern": "insights.character.default.relationship_pattern",
+    "inciting_relationship": "insights.character.default.inciting_relationship",
+    "central_conflict": "insights.character.default.central_conflict",
+    "dramatic_potential": "insights.character.default.dramatic_potential",
+    "pattern_name": "insights.patterns.emotional_defense.name",
+    "pattern_insight": "insights.patterns.emotional_defense.insight",
+    "pattern_supporting_text": "insights.patterns.emotional_defense.supporting_text",
+    "pattern_next_hint": "insights.patterns.emotional_defense.next_discovery_hint"
+  }
+}

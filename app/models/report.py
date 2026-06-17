@@ -47,6 +47,11 @@ class CharacterArchitectureReport(Base, UUIDMixin, TimestampMixin):
     is_stale: Mapped[bool] = mapped_column(default=False)
     stale_reason: Mapped[str] = mapped_column(Text, nullable=True)
 
+    # Pattern engine metadata
+    pattern_detected: Mapped[str] = mapped_column(Text, nullable=True)
+    pattern_version: Mapped[int] = mapped_column(nullable=True)
+    composition_detected: Mapped[str] = mapped_column(Text, nullable=True)
+
     character: Mapped["Character"] = relationship(back_populates="report")
 
 
@@ -68,5 +73,10 @@ class RelationshipArchitectureReport(Base, UUIDMixin, TimestampMixin):
 
     is_stale: Mapped[bool] = mapped_column(default=False)
     stale_reason: Mapped[str] = mapped_column(Text, nullable=True)
+
+    # Pattern engine metadata
+    pattern_detected: Mapped[str] = mapped_column(Text, nullable=True)
+    pattern_version: Mapped[int] = mapped_column(nullable=True)
+    composition_detected: Mapped[str] = mapped_column(Text, nullable=True)
 
     relationship_: Mapped["Relationship"] = relationship(back_populates="report")

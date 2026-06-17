@@ -1,0 +1,14 @@
+{
+  "composition_key": "relationship.enmeshment_without_honesty",
+  "version": 1,
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "relationship.dependency.enmeshment",
+    "relationship.avoidance.conflict_avoidance"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "medium",
+  "insight_key": "insights.relationship.enmeshment_without_honesty.composed_insight"
+}

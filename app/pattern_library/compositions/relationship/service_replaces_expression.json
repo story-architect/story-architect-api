@@ -1,0 +1,14 @@
+{
+  "composition_key": "relationship.service_replaces_expression",
+  "version": 1,
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "relationship.service.love_through_service",
+    "relationship.attachment.attachment_through_responsibility"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "medium",
+  "insight_key": "insights.relationship.service_replaces_expression.composed_insight"
+}

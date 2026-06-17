@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.worth.love_through_performance",
+  "version": 1,
+  "family": "worth",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_behavior", "char_fear"],
+  "rules": [
+    {
+      "field": "char_behavior",
+      "keywords": ["perform", "show", "demonstrate", "prove I am", "earn love"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["stop performing", "if I stop", "disappear"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.worth.love_through_performance.narrative_consequence",
+    "conflict_created": "insights.character.worth.love_through_performance.conflict_created",
+    "pressure_point": "insights.character.worth.love_through_performance.pressure_point",
+    "transformation_path": "insights.character.worth.love_through_performance.transformation_path",
+    "consequence": "insights.character.worth.love_through_performance.consequence",
+    "relationship_pattern": "insights.character.worth.love_through_performance.relationship_pattern",
+    "inciting_relationship": "insights.character.worth.love_through_performance.inciting_relationship",
+    "central_conflict": "insights.character.worth.love_through_performance.central_conflict",
+    "dramatic_potential": "insights.character.worth.love_through_performance.dramatic_potential",
+    "pattern_name": "insights.patterns.worth.love_through_performance.name",
+    "pattern_insight": "insights.patterns.worth.love_through_performance.insight",
+    "pattern_supporting_text": "insights.patterns.worth.love_through_performance.supporting_text",
+    "pattern_next_hint": "insights.patterns.worth.love_through_performance.next_discovery_hint"
+  }
+}

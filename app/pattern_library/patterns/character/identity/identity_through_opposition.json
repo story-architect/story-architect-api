@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.identity.identity_through_opposition",
+  "version": 1,
+  "family": "identity",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_wound"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["not like them", "different", "refuse to be", "I am not my", "nothing like", "the opposite of", "would never become", "defined by what I'm not"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_wound",
+      "keywords": ["became what I hated", "turned into them", "just like the person who", "saw myself in them", "realized I was no different", "repeated the pattern"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["become my father", "become my mother", "end up like", "repeat what was done", "same mistakes", "the same person"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.identity.identity_through_opposition.narrative_consequence",
+    "conflict_created": "insights.character.identity.identity_through_opposition.conflict_created",
+    "pressure_point": "insights.character.identity.identity_through_opposition.pressure_point",
+    "transformation_path": "insights.character.identity.identity_through_opposition.transformation_path",
+    "consequence": "insights.character.identity.identity_through_opposition.consequence",
+    "relationship_pattern": "insights.character.identity.identity_through_opposition.relationship_pattern",
+    "inciting_relationship": "insights.character.identity.identity_through_opposition.inciting_relationship",
+    "central_conflict": "insights.character.identity.identity_through_opposition.central_conflict",
+    "dramatic_potential": "insights.character.identity.identity_through_opposition.dramatic_potential",
+    "pattern_name": "insights.patterns.identity.identity_through_opposition.name",
+    "pattern_insight": "insights.patterns.identity.identity_through_opposition.insight",
+    "pattern_supporting_text": "insights.patterns.identity.identity_through_opposition.supporting_text",
+    "pattern_next_hint": "insights.patterns.identity.identity_through_opposition.next_discovery_hint"
+  }
+}

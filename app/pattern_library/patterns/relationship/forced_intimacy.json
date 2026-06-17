@@ -1,0 +1,39 @@
+{
+  "pattern_key": "relationship.intimacy.forced_intimacy",
+  "version": 1,
+  "family": "intimacy",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_importance",
+    "rel_protect"
+  ],
+  "rules": [
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "thrown together",
+        "circumstance",
+        "no choice but to be close",
+        "crisis brought"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "the closeness from being examined",
+        "the situation"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.intimacy.forced_intimacy.consequence",
+    "risk": "insights.relationship.intimacy.forced_intimacy.risk",
+    "pattern": "insights.relationship.intimacy.forced_intimacy.pattern",
+    "pattern_name": "insights.patterns.relationship.intimacy.forced_intimacy.name",
+    "pattern_insight": "insights.patterns.relationship.intimacy.forced_intimacy.insight"
+  }
+}

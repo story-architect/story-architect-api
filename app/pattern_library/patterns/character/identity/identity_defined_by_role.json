@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.identity.identity_defined_by_role",
+  "version": 1,
+  "family": "identity",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["who I am", "purpose", "I am the one who", "without this role", "defined by", "this is what I do", "my whole identity", "I exist to"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["no one", "nothing without", "lose my purpose", "who am I without", "if I stop being", "irrelevant", "obsolete", "replaced"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_wound",
+      "keywords": ["only valued for what I do", "had to become", "no choice but to be", "raised to be", "only way I mattered"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.identity.identity_defined_by_role.narrative_consequence",
+    "conflict_created": "insights.character.identity.identity_defined_by_role.conflict_created",
+    "pressure_point": "insights.character.identity.identity_defined_by_role.pressure_point",
+    "transformation_path": "insights.character.identity.identity_defined_by_role.transformation_path",
+    "consequence": "insights.character.identity.identity_defined_by_role.consequence",
+    "relationship_pattern": "insights.character.identity.identity_defined_by_role.relationship_pattern",
+    "inciting_relationship": "insights.character.identity.identity_defined_by_role.inciting_relationship",
+    "central_conflict": "insights.character.identity.identity_defined_by_role.central_conflict",
+    "dramatic_potential": "insights.character.identity.identity_defined_by_role.dramatic_potential",
+    "pattern_name": "insights.patterns.identity.identity_defined_by_role.name",
+    "pattern_insight": "insights.patterns.identity.identity_defined_by_role.insight",
+    "pattern_supporting_text": "insights.patterns.identity.identity_defined_by_role.supporting_text",
+    "pattern_next_hint": "insights.patterns.identity.identity_defined_by_role.next_discovery_hint"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "pattern_key": "relationship.loyalty.loyalty_against_self_interest",
+  "version": 1,
+  "family": "loyalty",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_protect", "rel_risk"],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": ["stay for them", "won't leave", "loyalty", "despite everything", "remain"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_risk",
+      "keywords": ["self-harm", "own needs ignored", "staying when shouldn't"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.loyalty.loyalty_against_self_interest.consequence",
+    "risk": "insights.relationship.loyalty.loyalty_against_self_interest.risk",
+    "pattern": "insights.relationship.loyalty.loyalty_against_self_interest.pattern",
+    "pattern_name": "insights.patterns.relationship.loyalty.loyalty_against_self_interest.name",
+    "pattern_insight": "insights.patterns.relationship.loyalty.loyalty_against_self_interest.insight"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.sacrifice.self_worth_through_suffering",
+  "version": 1,
+  "family": "sacrifice",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_fear", "char_behavior"],
+  "rules": [
+    {
+      "field": "char_fear",
+      "keywords": ["too easy", "unearned", "deserve pain", "earned through difficulty"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["deny myself", "suffer for", "don't allow pleasure"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.sacrifice.self_worth_through_suffering.narrative_consequence",
+    "conflict_created": "insights.character.sacrifice.self_worth_through_suffering.conflict_created",
+    "pressure_point": "insights.character.sacrifice.self_worth_through_suffering.pressure_point",
+    "transformation_path": "insights.character.sacrifice.self_worth_through_suffering.transformation_path",
+    "consequence": "insights.character.sacrifice.self_worth_through_suffering.consequence",
+    "relationship_pattern": "insights.character.sacrifice.self_worth_through_suffering.relationship_pattern",
+    "inciting_relationship": "insights.character.sacrifice.self_worth_through_suffering.inciting_relationship",
+    "central_conflict": "insights.character.sacrifice.self_worth_through_suffering.central_conflict",
+    "dramatic_potential": "insights.character.sacrifice.self_worth_through_suffering.dramatic_potential",
+    "pattern_name": "insights.patterns.sacrifice.self_worth_through_suffering.name",
+    "pattern_insight": "insights.patterns.sacrifice.self_worth_through_suffering.insight",
+    "pattern_supporting_text": "insights.patterns.sacrifice.self_worth_through_suffering.supporting_text",
+    "pattern_next_hint": "insights.patterns.sacrifice.self_worth_through_suffering.next_discovery_hint"
+  }
+}

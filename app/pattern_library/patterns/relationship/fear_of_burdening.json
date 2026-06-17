@@ -1,0 +1,40 @@
+{
+  "pattern_key": "relationship.service.fear_of_burdening",
+  "version": 1,
+  "family": "service",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_protect",
+    "rel_truth_a"
+  ],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "burden",
+        "too much",
+        "bother them",
+        "their problems",
+        "weigh them down"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_truth_a",
+      "keywords": [
+        "I don't want to be too much",
+        "hiding my needs"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.service.fear_of_burdening.consequence",
+    "risk": "insights.relationship.service.fear_of_burdening.risk",
+    "pattern": "insights.relationship.service.fear_of_burdening.pattern",
+    "pattern_name": "insights.patterns.relationship.service.fear_of_burdening.name",
+    "pattern_insight": "insights.patterns.relationship.service.fear_of_burdening.insight"
+  }
+}

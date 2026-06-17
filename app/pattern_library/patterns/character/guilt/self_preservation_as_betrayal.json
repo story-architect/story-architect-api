@@ -1,0 +1,41 @@
+{
+  "pattern_key": "character.guilt.self_preservation_as_betrayal",
+  "version": 1,
+  "family": "guilt",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["protect", "keep them safe", "leave first", "before they leave", "run away", "if I go first", "get out before"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["hurt them", "betray", "let down", "abandon", "leave them behind", "choosing myself"],
+      "weight": 1.5
+    },
+    {
+      "field": "char_wound",
+      "keywords": ["left behind", "had to leave", "chose myself", "ran", "wasn't there"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.guilt.self_preservation_as_betrayal.narrative_consequence",
+    "conflict_created": "insights.character.guilt.self_preservation_as_betrayal.conflict_created",
+    "pressure_point": "insights.character.guilt.self_preservation_as_betrayal.pressure_point",
+    "transformation_path": "insights.character.guilt.self_preservation_as_betrayal.transformation_path",
+    "consequence": "insights.character.guilt.self_preservation_as_betrayal.consequence",
+    "relationship_pattern": "insights.character.guilt.self_preservation_as_betrayal.relationship_pattern",
+    "inciting_relationship": "insights.character.guilt.self_preservation_as_betrayal.inciting_relationship",
+    "central_conflict": "insights.character.guilt.self_preservation_as_betrayal.central_conflict",
+    "dramatic_potential": "insights.character.guilt.self_preservation_as_betrayal.dramatic_potential",
+    "pattern_name": "insights.patterns.guilt.self_preservation_as_betrayal.name",
+    "pattern_insight": "insights.patterns.guilt.self_preservation_as_betrayal.insight",
+    "pattern_supporting_text": "insights.patterns.guilt.self_preservation_as_betrayal.supporting_text",
+    "pattern_next_hint": "insights.patterns.guilt.self_preservation_as_betrayal.next_discovery_hint"
+  }
+}

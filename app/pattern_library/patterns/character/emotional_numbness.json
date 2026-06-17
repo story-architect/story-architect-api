@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.vulnerability.emotional_numbness",
+  "version": 1,
+  "family": "vulnerability",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_behavior", "char_lie"],
+  "rules": [
+    {
+      "field": "char_behavior",
+      "keywords": ["feel nothing", "numb", "shut off", "stop feeling", "don't let it affect"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["I don't feel", "emotions are weakness"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.vulnerability.emotional_numbness.narrative_consequence",
+    "conflict_created": "insights.character.vulnerability.emotional_numbness.conflict_created",
+    "pressure_point": "insights.character.vulnerability.emotional_numbness.pressure_point",
+    "transformation_path": "insights.character.vulnerability.emotional_numbness.transformation_path",
+    "consequence": "insights.character.vulnerability.emotional_numbness.consequence",
+    "relationship_pattern": "insights.character.vulnerability.emotional_numbness.relationship_pattern",
+    "inciting_relationship": "insights.character.vulnerability.emotional_numbness.inciting_relationship",
+    "central_conflict": "insights.character.vulnerability.emotional_numbness.central_conflict",
+    "dramatic_potential": "insights.character.vulnerability.emotional_numbness.dramatic_potential",
+    "pattern_name": "insights.patterns.vulnerability.emotional_numbness.name",
+    "pattern_insight": "insights.patterns.vulnerability.emotional_numbness.insight",
+    "pattern_supporting_text": "insights.patterns.vulnerability.emotional_numbness.supporting_text",
+    "pattern_next_hint": "insights.patterns.vulnerability.emotional_numbness.next_discovery_hint"
+  }
+}

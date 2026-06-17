@@ -1,0 +1,14 @@
+{
+  "composition_key": "character.sacrifice.love_through_self_denial",
+  "version": 1,
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "character.sacrifice.sacrifice_as_proof_of_love",
+    "character.sacrifice.self_worth_through_suffering"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "high",
+  "insight_key": "insights.character.sacrifice.love_through_self_denial.composed_insight"
+}

@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.grief.frozen_in_time",
+  "version": 1,
+  "family": "grief",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_wound", "char_behavior"],
+  "rules": [
+    {
+      "field": "char_wound",
+      "keywords": ["since then", "after that", "everything stopped", "never moved on"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_behavior",
+      "keywords": ["relive", "revisit", "go back", "can't leave it behind"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.grief.frozen_in_time.narrative_consequence",
+    "conflict_created": "insights.character.grief.frozen_in_time.conflict_created",
+    "pressure_point": "insights.character.grief.frozen_in_time.pressure_point",
+    "transformation_path": "insights.character.grief.frozen_in_time.transformation_path",
+    "consequence": "insights.character.grief.frozen_in_time.consequence",
+    "relationship_pattern": "insights.character.grief.frozen_in_time.relationship_pattern",
+    "inciting_relationship": "insights.character.grief.frozen_in_time.inciting_relationship",
+    "central_conflict": "insights.character.grief.frozen_in_time.central_conflict",
+    "dramatic_potential": "insights.character.grief.frozen_in_time.dramatic_potential",
+    "pattern_name": "insights.patterns.grief.frozen_in_time.name",
+    "pattern_insight": "insights.patterns.grief.frozen_in_time.insight",
+    "pattern_supporting_text": "insights.patterns.grief.frozen_in_time.supporting_text",
+    "pattern_next_hint": "insights.patterns.grief.frozen_in_time.next_discovery_hint"
+  }
+}

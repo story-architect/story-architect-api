@@ -1,0 +1,14 @@
+{
+  "composition_key": "relationship.control_as_love",
+  "version": 1,
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "relationship.rescue.power_through_protection",
+    "relationship.distance.protective_distance"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "high",
+  "insight_key": "insights.relationship.control_as_love.composed_insight"
+}

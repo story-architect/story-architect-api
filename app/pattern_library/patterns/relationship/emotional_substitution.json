@@ -1,0 +1,41 @@
+{
+  "pattern_key": "relationship.substitution.emotional_substitution",
+  "version": 1,
+  "family": "substitution",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_protect",
+    "rel_importance"
+  ],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "replace",
+        "fill the void",
+        "instead of",
+        "substitute",
+        "stand in for"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_importance",
+      "keywords": [
+        "reminds me of",
+        "like someone else",
+        "fills what was lost"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.substitution.emotional_substitution.consequence",
+    "risk": "insights.relationship.substitution.emotional_substitution.risk",
+    "pattern": "insights.relationship.substitution.emotional_substitution.pattern",
+    "pattern_name": "insights.patterns.relationship.substitution.emotional_substitution.name",
+    "pattern_insight": "insights.patterns.relationship.substitution.emotional_substitution.insight"
+  }
+}

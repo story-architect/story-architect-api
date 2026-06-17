@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.control.hypervigilance",
+  "version": 1,
+  "family": "control",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_behavior", "char_fear"],
+  "rules": [
+    {
+      "field": "char_behavior",
+      "keywords": ["watch", "monitor", "vigilant", "alert", "scan", "check everything"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["caught off guard", "surprised by danger", "unprepared"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.control.hypervigilance.narrative_consequence",
+    "conflict_created": "insights.character.control.hypervigilance.conflict_created",
+    "pressure_point": "insights.character.control.hypervigilance.pressure_point",
+    "transformation_path": "insights.character.control.hypervigilance.transformation_path",
+    "consequence": "insights.character.control.hypervigilance.consequence",
+    "relationship_pattern": "insights.character.control.hypervigilance.relationship_pattern",
+    "inciting_relationship": "insights.character.control.hypervigilance.inciting_relationship",
+    "central_conflict": "insights.character.control.hypervigilance.central_conflict",
+    "dramatic_potential": "insights.character.control.hypervigilance.dramatic_potential",
+    "pattern_name": "insights.patterns.control.hypervigilance.name",
+    "pattern_insight": "insights.patterns.control.hypervigilance.insight",
+    "pattern_supporting_text": "insights.patterns.control.hypervigilance.supporting_text",
+    "pattern_next_hint": "insights.patterns.control.hypervigilance.next_discovery_hint"
+  }
+}

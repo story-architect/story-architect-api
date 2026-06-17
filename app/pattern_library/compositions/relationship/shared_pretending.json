@@ -1,0 +1,14 @@
+{
+  "composition_key": "relationship.shared_pretending",
+  "version": 1,
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "patterns": [
+    "relationship.delusion.shared_delusion",
+    "relationship.avoidance.mutual_avoidance"
+  ],
+  "min_pattern_score": 1.5,
+  "confidence": "high",
+  "insight_key": "insights.relationship.shared_pretending.composed_insight"
+}

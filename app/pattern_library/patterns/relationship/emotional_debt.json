@@ -1,0 +1,28 @@
+{
+  "pattern_key": "relationship.debt.emotional_debt",
+  "version": 1,
+  "family": "debt",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_protect", "rel_risk"],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": ["owe", "debt", "obligation", "because of what you did", "after everything"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_risk",
+      "keywords": ["debt unpaid", "resentment", "keeping score"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.debt.emotional_debt.consequence",
+    "risk": "insights.relationship.debt.emotional_debt.risk",
+    "pattern": "insights.relationship.debt.emotional_debt.pattern",
+    "pattern_name": "insights.patterns.relationship.debt.emotional_debt.name",
+    "pattern_insight": "insights.patterns.relationship.debt.emotional_debt.insight"
+  }
+}

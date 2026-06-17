@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.love.love_as_loss_of_self",
+  "version": 1,
+  "family": "love",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_fear", "char_lie"],
+  "rules": [
+    {
+      "field": "char_fear",
+      "keywords": ["lose myself", "disappear into", "swallowed up", "consumed by", "absorbed"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_lie",
+      "keywords": ["keep distance", "maintain independence", "not get too close"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.love.love_as_loss_of_self.narrative_consequence",
+    "conflict_created": "insights.character.love.love_as_loss_of_self.conflict_created",
+    "pressure_point": "insights.character.love.love_as_loss_of_self.pressure_point",
+    "transformation_path": "insights.character.love.love_as_loss_of_self.transformation_path",
+    "consequence": "insights.character.love.love_as_loss_of_self.consequence",
+    "relationship_pattern": "insights.character.love.love_as_loss_of_self.relationship_pattern",
+    "inciting_relationship": "insights.character.love.love_as_loss_of_self.inciting_relationship",
+    "central_conflict": "insights.character.love.love_as_loss_of_self.central_conflict",
+    "dramatic_potential": "insights.character.love.love_as_loss_of_self.dramatic_potential",
+    "pattern_name": "insights.patterns.love.love_as_loss_of_self.name",
+    "pattern_insight": "insights.patterns.love.love_as_loss_of_self.insight",
+    "pattern_supporting_text": "insights.patterns.love.love_as_loss_of_self.supporting_text",
+    "pattern_next_hint": "insights.patterns.love.love_as_loss_of_self.next_discovery_hint"
+  }
+}

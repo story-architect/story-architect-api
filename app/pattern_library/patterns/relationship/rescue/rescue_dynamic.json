@@ -1,0 +1,33 @@
+﻿{
+  "pattern_key": "relationship.rescue.rescue_dynamic",
+  "version": 1,
+  "family": "rescue",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["rel_protect", "rel_importance", "rel_risk"],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": ["save", "rescue", "fix them", "help them survive", "protect from themselves"],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_importance",
+      "keywords": ["need me", "saves me", "rescued"],
+      "weight": 1.5
+    },
+    {
+      "field": "rel_risk",
+      "keywords": ["rescuer burns out", "rescued never grows", "dependency"],
+      "weight": 1.0
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.rescue.rescue_dynamic.consequence",
+    "risk": "insights.relationship.rescue.rescue_dynamic.risk",
+    "pattern": "insights.relationship.rescue.rescue_dynamic.pattern",
+    "pattern_name": "insights.patterns.relationship.rescue.rescue_dynamic.name",
+    "pattern_insight": "insights.patterns.relationship.rescue.rescue_dynamic.insight"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.abandonment.testing_loyalty",
+  "version": 1,
+  "family": "abandonment",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_behavior", "char_fear"],
+  "rules": [
+    {
+      "field": "char_behavior",
+      "keywords": ["test", "push to see", "check if", "sabotage", "create conflict to see"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["not really loved", "they'll leave when", "not real"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.abandonment.testing_loyalty.narrative_consequence",
+    "conflict_created": "insights.character.abandonment.testing_loyalty.conflict_created",
+    "pressure_point": "insights.character.abandonment.testing_loyalty.pressure_point",
+    "transformation_path": "insights.character.abandonment.testing_loyalty.transformation_path",
+    "consequence": "insights.character.abandonment.testing_loyalty.consequence",
+    "relationship_pattern": "insights.character.abandonment.testing_loyalty.relationship_pattern",
+    "inciting_relationship": "insights.character.abandonment.testing_loyalty.inciting_relationship",
+    "central_conflict": "insights.character.abandonment.testing_loyalty.central_conflict",
+    "dramatic_potential": "insights.character.abandonment.testing_loyalty.dramatic_potential",
+    "pattern_name": "insights.patterns.abandonment.testing_loyalty.name",
+    "pattern_insight": "insights.patterns.abandonment.testing_loyalty.insight",
+    "pattern_supporting_text": "insights.patterns.abandonment.testing_loyalty.supporting_text",
+    "pattern_next_hint": "insights.patterns.abandonment.testing_loyalty.next_discovery_hint"
+  }
+}

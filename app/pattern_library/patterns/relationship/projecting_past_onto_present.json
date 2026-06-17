@@ -1,0 +1,38 @@
+{
+  "pattern_key": "relationship.projection.projecting_past_onto_present",
+  "version": 1,
+  "family": "projection",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_misunderstanding",
+    "rel_protect"
+  ],
+  "rules": [
+    {
+      "field": "rel_misunderstanding",
+      "keywords": [
+        "like someone from the past",
+        "reminds me of",
+        "treat them as if they were"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "themselves from the pattern repeating",
+        "being hurt again"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.projection.projecting_past_onto_present.consequence",
+    "risk": "insights.relationship.projection.projecting_past_onto_present.risk",
+    "pattern": "insights.relationship.projection.projecting_past_onto_present.pattern",
+    "pattern_name": "insights.patterns.relationship.projection.projecting_past_onto_present.name",
+    "pattern_insight": "insights.patterns.relationship.projection.projecting_past_onto_present.insight"
+  }
+}

@@ -51,10 +51,15 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
 
     transformation = get_answer_text(db, "char_transformation", character_id=character_id)
 
+    # Pass ALL answer fields so the engine can do multi-field scoring
     answers = {
+        "char_wound": emotional_wound,
+        "char_fear": deepest_fear,
         "char_lie": protective_lie,
+        "char_behavior": behavior,
         "char_consequence": narrative_consequence,
-        "char_relationship_pattern": get_answer_text(db, "char_relationship_pattern", character_id=character_id),
+        "char_conflict": get_answer_text(db, "char_conflict", character_id=character_id),
+        "char_transformation": transformation,
     }
     insights = get_character_deterministic_fields(db, character_id, answers)
 
@@ -93,6 +98,9 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
         report.inciting_relationship = insights["inciting_relationship"]
         report.central_conflict = insights["central_conflict"]
         report.story_beginning_summary = insights["story_beginning_summary"]
+        report.pattern_detected = insights.get("pattern_detected")
+        report.pattern_version = insights.get("pattern_version")
+        report.composition_detected = insights.get("composition_detected")
         report.is_stale = False
         report.stale_reason = None
     else:
@@ -114,6 +122,9 @@ def generate_character_report(db: Session, character_id: UUID) -> CharacterArchi
             inciting_relationship=insights["inciting_relationship"],
             central_conflict=insights["central_conflict"],
             story_beginning_summary=insights["story_beginning_summary"],
+            pattern_detected=insights.get("pattern_detected"),
+            pattern_version=insights.get("pattern_version"),
+            composition_detected=insights.get("composition_detected"),
             is_stale=False,
             stale_reason=None,
             custom_outdated_fields={},
@@ -146,7 +157,16 @@ def generate_relationship_report(db: Session, relationship_id: UUID) -> Relation
     current_relationship_risk = get_answer_text(db, "rel_risk", relationship_id=relationship_id)
     turning_point = get_answer_text(db, "rel_truth_demand", relationship_id=relationship_id)
 
-    answers = {"rel_protect": story_consequence}
+    # Pass ALL answer fields so the engine can do multi-field scoring
+    answers = {
+        "rel_importance": current_result,
+        "rel_truth_a": truth_a_b,
+        "rel_truth_b": truth_b_a,
+        "rel_protect": story_consequence,
+        "rel_misunderstanding": relationship_law,
+        "rel_risk": current_relationship_risk,
+        "rel_truth_demand": turning_point,
+    }
     insights = get_relationship_deterministic_fields(db, relationship_id, answers)
 
     report = (
@@ -165,6 +185,9 @@ def generate_relationship_report(db: Session, relationship_id: UUID) -> Relation
         report.relationship_risk = insights["relationship_risk"]
         report.relationship_pattern = insights["relationship_pattern"]
         report.consequence_summary = insights["consequence_summary"]
+        report.pattern_detected = insights.get("pattern_detected")
+        report.pattern_version = insights.get("pattern_version")
+        report.composition_detected = insights.get("composition_detected")
         report.is_stale = False
         report.stale_reason = None
     else:
@@ -179,6 +202,9 @@ def generate_relationship_report(db: Session, relationship_id: UUID) -> Relation
             relationship_risk=insights["relationship_risk"],
             relationship_pattern=insights["relationship_pattern"],
             consequence_summary=insights["consequence_summary"],
+            pattern_detected=insights.get("pattern_detected"),
+            pattern_version=insights.get("pattern_version"),
+            composition_detected=insights.get("composition_detected"),
             is_stale=False,
             stale_reason=None,
         )

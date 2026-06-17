@@ -1,0 +1,38 @@
+{
+  "pattern_key": "relationship.distance.distance_as_love",
+  "version": 1,
+  "family": "distance",
+  "scope": "relationship",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": [
+    "rel_protect",
+    "rel_truth_a"
+  ],
+  "rules": [
+    {
+      "field": "rel_protect",
+      "keywords": [
+        "hurt them by being close",
+        "better if I stay away",
+        "my distance protects"
+      ],
+      "weight": 2.0
+    },
+    {
+      "field": "rel_truth_a",
+      "keywords": [
+        "I stay away because I care",
+        "distance is how I love"
+      ],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "consequence": "insights.relationship.distance.distance_as_love.consequence",
+    "risk": "insights.relationship.distance.distance_as_love.risk",
+    "pattern": "insights.relationship.distance.distance_as_love.pattern",
+    "pattern_name": "insights.patterns.relationship.distance.distance_as_love.name",
+    "pattern_insight": "insights.patterns.relationship.distance.distance_as_love.insight"
+  }
+}

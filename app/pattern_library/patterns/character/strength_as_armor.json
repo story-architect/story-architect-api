@@ -1,0 +1,36 @@
+{
+  "pattern_key": "character.vulnerability.strength_as_armor",
+  "version": 1,
+  "family": "vulnerability",
+  "scope": "character",
+  "created_at": "2026-06-17",
+  "updated_at": "2026-06-17",
+  "trigger_fields": ["char_lie", "char_fear"],
+  "rules": [
+    {
+      "field": "char_lie",
+      "keywords": ["strong", "never weak", "handle it", "don't need help", "fine"],
+      "weight": 2.0
+    },
+    {
+      "field": "char_fear",
+      "keywords": ["weak", "pitied", "burden", "helpless"],
+      "weight": 1.5
+    }
+  ],
+  "insight_keys": {
+    "narrative_consequence": "insights.character.vulnerability.strength_as_armor.narrative_consequence",
+    "conflict_created": "insights.character.vulnerability.strength_as_armor.conflict_created",
+    "pressure_point": "insights.character.vulnerability.strength_as_armor.pressure_point",
+    "transformation_path": "insights.character.vulnerability.strength_as_armor.transformation_path",
+    "consequence": "insights.character.vulnerability.strength_as_armor.consequence",
+    "relationship_pattern": "insights.character.vulnerability.strength_as_armor.relationship_pattern",
+    "inciting_relationship": "insights.character.vulnerability.strength_as_armor.inciting_relationship",
+    "central_conflict": "insights.character.vulnerability.strength_as_armor.central_conflict",
+    "dramatic_potential": "insights.character.vulnerability.strength_as_armor.dramatic_potential",
+    "pattern_name": "insights.patterns.vulnerability.strength_as_armor.name",
+    "pattern_insight": "insights.patterns.vulnerability.strength_as_armor.insight",
+    "pattern_supporting_text": "insights.patterns.vulnerability.strength_as_armor.supporting_text",
+    "pattern_next_hint": "insights.patterns.vulnerability.strength_as_armor.next_discovery_hint"
+  }
+}
