@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.attributes import flag_modified
 
-from app.api.dependencies import get_db
-from app.models import Character, CharacterArchitectureReport, Relationship, RelationshipArchitectureReport
+from app.api.dependencies import get_db, get_current_user
+from app.models import Character, CharacterArchitectureReport, Relationship, RelationshipArchitectureReport, Story, User
 from app.schemas.report import (
     CharacterArchitectureReportResponse,
     RelationshipArchitectureReportResponse,
@@ -22,8 +22,8 @@ router = APIRouter()
 
 
 @router.post("/characters/{character_id}/generate-report", response_model=CharacterArchitectureReportResponse)
-def generate_report_for_character(character_id: UUID, db: Session = Depends(get_db)):
-    character = db.query(Character).filter(Character.id == character_id).first()
+def generate_report_for_character(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
     if not character:
         raise HTTPException(status_code=404, detail="Character not found")
 
@@ -44,9 +44,12 @@ def generate_report_for_character(character_id: UUID, db: Session = Depends(get_
 
 
 @router.get("/characters/{character_id}/report", response_model=CharacterArchitectureReportResponse)
-def get_character_report(character_id: UUID, db: Session = Depends(get_db)):
+def get_character_report(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     report = (
-        db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
+        db.query(CharacterArchitectureReport)
+        .join(Character).join(Story)
+        .filter(CharacterArchitectureReport.character_id == character_id, Story.user_id == current_user.id)
+        .first()
     )
     if not report:
         raise HTTPException(status_code=404, detail="Report not found for this character")
@@ -55,9 +58,9 @@ def get_character_report(character_id: UUID, db: Session = Depends(get_db)):
 
 @router.patch("/characters/{report_id}/interpretations", response_model=CharacterArchitectureReportResponse)
 def update_character_interpretations(
-    report_id: UUID, interpretations: ReportInterpretationUpdate, db: Session = Depends(get_db)
+    report_id: UUID, interpretations: ReportInterpretationUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
 ):
-    report = db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.id == report_id).first()
+    report = db.query(CharacterArchitectureReport).join(Character).join(Story).filter(CharacterArchitectureReport.id == report_id, Story.user_id == current_user.id).first()
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
 
@@ -109,8 +112,8 @@ def update_character_interpretations(
 
 
 @router.post("/relationships/{relationship_id}/generate-report", response_model=RelationshipArchitectureReportResponse)
-def generate_report_for_relationship(relationship_id: UUID, db: Session = Depends(get_db)):
-    relationship = db.query(Relationship).filter(Relationship.id == relationship_id).first()
+def generate_report_for_relationship(relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    relationship = db.query(Relationship).join(Story).filter(Relationship.id == relationship_id, Story.user_id == current_user.id).first()
     if not relationship:
         raise HTTPException(status_code=404, detail="Relationship not found")
 
@@ -130,10 +133,11 @@ def generate_report_for_relationship(relationship_id: UUID, db: Session = Depend
 
 
 @router.get("/relationships/{relationship_id}/report", response_model=RelationshipArchitectureReportResponse)
-def get_relationship_report(relationship_id: UUID, db: Session = Depends(get_db)):
+def get_relationship_report(relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     report = (
         db.query(RelationshipArchitectureReport)
-        .filter(RelationshipArchitectureReport.relationship_id == relationship_id)
+        .join(Relationship).join(Story)
+        .filter(RelationshipArchitectureReport.relationship_id == relationship_id, Story.user_id == current_user.id)
         .first()
     )
     if not report:

@@ -4,8 +4,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.api.dependencies import get_db
-from app.models import Character, CharacterArchitectureReport, Story
+from app.api.dependencies import get_db, get_current_user
+from app.models import Character, CharacterArchitectureReport, Story, User
 from app.schemas.character import CharacterCreate, CharacterPulseResponse, CharacterResponse, CharacterUpdate
 from app.schemas.report import (
     NarrativeConsequenceResponse,
@@ -22,8 +22,8 @@ router = APIRouter()
 
 
 @router.post("/stories/{story_id}/characters", response_model=CharacterResponse)
-def create_character_for_story(story_id: UUID, character_in: CharacterCreate, db: Session = Depends(get_db)):
-    story = db.query(Story).filter(Story.id == story_id).first()
+def create_character_for_story(story_id: UUID, character_in: CharacterCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
 
@@ -36,8 +36,8 @@ def create_character_for_story(story_id: UUID, character_in: CharacterCreate, db
 
 
 @router.get("/stories/{story_id}/characters", response_model=List[CharacterResponse])
-def get_characters(story_id: UUID, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    story = db.query(Story).filter(Story.id == story_id).first()
+def get_characters(story_id: UUID, skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
     characters = (
@@ -52,16 +52,16 @@ def get_characters(story_id: UUID, skip: int = 0, limit: int = 100, db: Session 
 
 
 @router.get("/characters/{character_id}", response_model=CharacterResponse)
-def get_character(character_id: UUID, db: Session = Depends(get_db)):
-    character = db.query(Character).filter(Character.id == character_id).first()
+def get_character(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
     if not character:
         raise HTTPException(status_code=404, detail="Character not found")
     return character
 
 
 @router.put("/characters/{character_id}", response_model=CharacterResponse)
-def update_character(character_id: UUID, character_in: CharacterUpdate, db: Session = Depends(get_db)):
-    character = db.query(Character).filter(Character.id == character_id).first()
+def update_character(character_id: UUID, character_in: CharacterUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
     if not character:
         raise HTTPException(status_code=404, detail="Character not found")
     update_data = character_in.model_dump(exclude_unset=True)
@@ -73,8 +73,8 @@ def update_character(character_id: UUID, character_in: CharacterUpdate, db: Sess
 
 
 @router.delete("/characters/{character_id}", response_model=CharacterResponse)
-def delete_character(character_id: UUID, db: Session = Depends(get_db)):
-    character = db.query(Character).filter(Character.id == character_id).first()
+def delete_character(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
     if not character:
         raise HTTPException(status_code=404, detail="Character not found")
     db.delete(character)
@@ -83,7 +83,11 @@ def delete_character(character_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/characters/{character_id}/story-engine", response_model=StoryEngineResponse)
-def get_story_engine(character_id: UUID, db: Session = Depends(get_db)):
+def get_story_engine(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
+    if not character:
+        raise HTTPException(status_code=404, detail="Character not found")
+        
     report = (
         db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
     )
@@ -100,7 +104,11 @@ def get_story_engine(character_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/characters/{character_id}/why-this-matters", response_model=WhyThisMattersResponse)
-def get_why_this_matters(character_id: UUID, db: Session = Depends(get_db)):
+def get_why_this_matters(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
+    if not character:
+        raise HTTPException(status_code=404, detail="Character not found")
+
     report = (
         db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
     )
@@ -116,7 +124,11 @@ def get_why_this_matters(character_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/characters/{character_id}/narrative-consequence", response_model=NarrativeConsequenceResponse)
-def get_narrative_consequence(character_id: UUID, db: Session = Depends(get_db)):
+def get_narrative_consequence(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
+    if not character:
+        raise HTTPException(status_code=404, detail="Character not found")
+
     report = (
         db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
     )
@@ -141,7 +153,11 @@ def get_narrative_consequence(character_id: UUID, db: Session = Depends(get_db))
 
 
 @router.get("/characters/{character_id}/where-story-begins", response_model=WhereStoryBeginsResponse)
-def get_where_story_begins(character_id: UUID, db: Session = Depends(get_db)):
+def get_where_story_begins(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
+    if not character:
+        raise HTTPException(status_code=404, detail="Character not found")
+
     report = (
         db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
     )
@@ -157,7 +173,11 @@ def get_where_story_begins(character_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/characters/{character_id}/pattern-emerging", response_model=PatternEmergingResponse)
-def get_pattern_emerging(character_id: UUID, db: Session = Depends(get_db)):
+def get_pattern_emerging(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
+    if not character:
+        raise HTTPException(status_code=404, detail="Character not found")
+
     report = (
         db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
     )
@@ -178,8 +198,8 @@ def get_pattern_emerging(character_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/characters/{character_id}/pulse", response_model=CharacterPulseResponse)
-def get_character_pulse(character_id: UUID, db: Session = Depends(get_db)):
-    character = db.query(Character).filter(Character.id == character_id).first()
+def get_character_pulse(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    character = db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first()
     if not character:
         raise HTTPException(status_code=404, detail="Character not found")
 

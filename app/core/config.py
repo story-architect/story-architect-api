@@ -15,6 +15,11 @@ class Settings(BaseSettings):
     # SonarQube
     SONAR_TOKEN: str | None = None
 
+    # Security
+    SECRET_KEY: str = "changethisinproduction-storyarchitect"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days for dev
+
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=True, extra="ignore")
 
 

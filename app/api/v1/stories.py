@@ -4,8 +4,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.api.dependencies import get_db
-from app.models import Character, DiscoveryEvent, Relationship, Story
+from app.api.dependencies import get_db, get_current_user
+from app.models import Character, DiscoveryEvent, Relationship, Story, User
 from app.schemas.discovery import DiscoveryEventResponse
 from app.schemas.story import (
     ActivityFeedItemResponse,
@@ -21,8 +21,10 @@ router = APIRouter()
 
 
 @router.post("", response_model=StoryResponse)
-def create_story(story_in: StoryCreate, db: Session = Depends(get_db)):
-    story = Story(**story_in.model_dump())
+def create_story(story_in: StoryCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story_data = story_in.model_dump()
+    story_data["user_id"] = current_user.id
+    story = Story(**story_data)
     db.add(story)
     db.commit()
     db.refresh(story)
@@ -30,23 +32,23 @@ def create_story(story_in: StoryCreate, db: Session = Depends(get_db)):
 
 
 @router.get("", response_model=StoryListResponse)
-def get_stories(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    total = db.query(Story).count()
-    stories = db.query(Story).order_by(Story.updated_at.desc()).offset(skip).limit(limit).all()
+def get_stories(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    total = db.query(Story).filter(Story.user_id == current_user.id).count()
+    stories = db.query(Story).filter(Story.user_id == current_user.id).order_by(Story.updated_at.desc()).offset(skip).limit(limit).all()
     return {"items": stories, "total": total, "skip": skip, "limit": limit}
 
 
 @router.get("/{story_id}", response_model=StoryResponse)
-def get_story(story_id: UUID, db: Session = Depends(get_db)):
-    story = db.query(Story).filter(Story.id == story_id).first()
+def get_story(story_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
     return story
 
 
 @router.put("/{story_id}", response_model=StoryResponse)
-def update_story(story_id: UUID, story_in: StoryUpdate, db: Session = Depends(get_db)):
-    story = db.query(Story).filter(Story.id == story_id).first()
+def update_story(story_id: UUID, story_in: StoryUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
     update_data = story_in.model_dump(exclude_unset=True)
@@ -58,8 +60,8 @@ def update_story(story_id: UUID, story_in: StoryUpdate, db: Session = Depends(ge
 
 
 @router.delete("/{story_id}", response_model=StoryResponse)
-def delete_story(story_id: UUID, db: Session = Depends(get_db)):
-    story = db.query(Story).filter(Story.id == story_id).first()
+def delete_story(story_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
     db.delete(story)
@@ -68,7 +70,11 @@ def delete_story(story_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/{story_id}/latest-discovery", response_model=LatestDiscoveryResponse)
-def get_latest_discovery(story_id: UUID, db: Session = Depends(get_db)):
+def get_latest_discovery(story_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+        
     event = (
         db.query(DiscoveryEvent)
         .filter(DiscoveryEvent.story_id == story_id)
@@ -87,7 +93,11 @@ def get_latest_discovery(story_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/{story_id}/discovery-journal", response_model=List[DiscoveryEventResponse])
-def get_discovery_journal(story_id: UUID, db: Session = Depends(get_db)):
+def get_discovery_journal(story_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+
     events = (
         db.query(DiscoveryEvent)
         .filter(DiscoveryEvent.story_id == story_id)
@@ -99,7 +109,11 @@ def get_discovery_journal(story_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/{story_id}/activity-feed", response_model=List[ActivityFeedItemResponse])
-def get_activity_feed(story_id: UUID, db: Session = Depends(get_db)):
+def get_activity_feed(story_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+
     events = (
         db.query(DiscoveryEvent)
         .filter(DiscoveryEvent.story_id == story_id)
@@ -120,7 +134,11 @@ def get_activity_feed(story_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.get("/{story_id}/next-discovery", response_model=NextDiscoveryResponse)
-def get_next_discovery(story_id: UUID, db: Session = Depends(get_db)):
+def get_next_discovery(story_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+
     # Calculate simple next discovery hint
     # For now, just a basic heuristic:
     chars = db.query(Character).filter(Character.story_id == story_id).count()
