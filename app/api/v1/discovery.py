@@ -29,7 +29,9 @@ def get_discovery_questions(flow_type: FlowTypeEnum = Query(...), db: Session = 
 
 
 @router.post("/answers", response_model=DiscoveryAnswerResponse)
-def create_discovery_answer(answer_in: DiscoveryAnswerCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):  # noqa: C901
+def create_discovery_answer(
+    answer_in: DiscoveryAnswerCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):  # noqa: C901
     # Validate story
     if not db.query(Story).filter(Story.id == answer_in.story_id, Story.user_id == current_user.id).first():
         raise HTTPException(status_code=404, detail="Story not found")
@@ -111,24 +113,48 @@ def create_discovery_answer(answer_in: DiscoveryAnswerCreate, db: Session = Depe
 
 
 @router.get("/characters/{character_id}/answers", response_model=List[DiscoveryAnswerResponse])
-def get_character_answers(character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    if not db.query(Character).join(Story).filter(Character.id == character_id, Story.user_id == current_user.id).first():
+def get_character_answers(
+    character_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    if (
+        not db.query(Character)
+        .join(Story)
+        .filter(Character.id == character_id, Story.user_id == current_user.id)
+        .first()
+    ):
         raise HTTPException(status_code=404, detail="Character not found")
     answers = db.query(DiscoveryAnswer).filter(DiscoveryAnswer.character_id == character_id).all()
     return answers
 
 
 @router.get("/relationships/{relationship_id}/answers", response_model=List[DiscoveryAnswerResponse])
-def get_relationship_answers(relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    if not db.query(Relationship).join(Story).filter(Relationship.id == relationship_id, Story.user_id == current_user.id).first():
+def get_relationship_answers(
+    relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    if (
+        not db.query(Relationship)
+        .join(Story)
+        .filter(Relationship.id == relationship_id, Story.user_id == current_user.id)
+        .first()
+    ):
         raise HTTPException(status_code=404, detail="Relationship not found")
     answers = db.query(DiscoveryAnswer).filter(DiscoveryAnswer.relationship_id == relationship_id).all()
     return answers
 
 
 @router.put("/answers/{answer_id}", response_model=DiscoveryAnswerResponse)
-def update_discovery_answer(answer_id: UUID, answer_in: DiscoveryAnswerUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    answer = db.query(DiscoveryAnswer).join(Story).filter(DiscoveryAnswer.id == answer_id, Story.user_id == current_user.id).first()
+def update_discovery_answer(
+    answer_id: UUID,
+    answer_in: DiscoveryAnswerUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    answer = (
+        db.query(DiscoveryAnswer)
+        .join(Story)
+        .filter(DiscoveryAnswer.id == answer_id, Story.user_id == current_user.id)
+        .first()
+    )
     if not answer:
         raise HTTPException(status_code=404, detail="Answer not found")
 

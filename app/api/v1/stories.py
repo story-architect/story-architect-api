@@ -32,9 +32,18 @@ def create_story(story_in: StoryCreate, db: Session = Depends(get_db), current_u
 
 
 @router.get("", response_model=StoryListResponse)
-def get_stories(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def get_stories(
+    skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
     total = db.query(Story).filter(Story.user_id == current_user.id).count()
-    stories = db.query(Story).filter(Story.user_id == current_user.id).order_by(Story.updated_at.desc()).offset(skip).limit(limit).all()
+    stories = (
+        db.query(Story)
+        .filter(Story.user_id == current_user.id)
+        .order_by(Story.updated_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
     return {"items": stories, "total": total, "skip": skip, "limit": limit}
 
 
@@ -47,7 +56,9 @@ def get_story(story_id: UUID, db: Session = Depends(get_db), current_user: User 
 
 
 @router.put("/{story_id}", response_model=StoryResponse)
-def update_story(story_id: UUID, story_in: StoryUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def update_story(
+    story_id: UUID, story_in: StoryUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
     story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
@@ -74,7 +85,7 @@ def get_latest_discovery(story_id: UUID, db: Session = Depends(get_db), current_
     story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
-        
+
     event = (
         db.query(DiscoveryEvent)
         .filter(DiscoveryEvent.story_id == story_id)
@@ -93,7 +104,9 @@ def get_latest_discovery(story_id: UUID, db: Session = Depends(get_db), current_
 
 
 @router.get("/{story_id}/discovery-journal", response_model=List[DiscoveryEventResponse])
-def get_discovery_journal(story_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def get_discovery_journal(
+    story_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
     story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")

@@ -15,7 +15,12 @@ router = APIRouter()
 
 
 @router.post("/stories/{story_id}/relationships", response_model=RelationshipResponse)
-def create_relationship(story_id: UUID, relationship_in: RelationshipCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def create_relationship(
+    story_id: UUID,
+    relationship_in: RelationshipCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
@@ -42,7 +47,13 @@ def create_relationship(story_id: UUID, relationship_in: RelationshipCreate, db:
 
 
 @router.get("/stories/{story_id}/relationships", response_model=List[RelationshipResponse])
-def get_relationships_for_story(story_id: UUID, skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def get_relationships_for_story(
+    story_id: UUID,
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     story = db.query(Story).filter(Story.id == story_id, Story.user_id == current_user.id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
@@ -59,16 +70,33 @@ def get_relationships_for_story(story_id: UUID, skip: int = 0, limit: int = 100,
 
 
 @router.get("/relationships/{relationship_id}", response_model=RelationshipResponse)
-def get_relationship(relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    relationship = db.query(Relationship).join(Story).filter(Relationship.id == relationship_id, Story.user_id == current_user.id).first()
+def get_relationship(
+    relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    relationship = (
+        db.query(Relationship)
+        .join(Story)
+        .filter(Relationship.id == relationship_id, Story.user_id == current_user.id)
+        .first()
+    )
     if not relationship:
         raise HTTPException(status_code=404, detail="Relationship not found")
     return relationship
 
 
 @router.put("/relationships/{relationship_id}", response_model=RelationshipResponse)
-def update_relationship(relationship_id: UUID, relationship_in: RelationshipUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    relationship = db.query(Relationship).join(Story).filter(Relationship.id == relationship_id, Story.user_id == current_user.id).first()
+def update_relationship(
+    relationship_id: UUID,
+    relationship_in: RelationshipUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    relationship = (
+        db.query(Relationship)
+        .join(Story)
+        .filter(Relationship.id == relationship_id, Story.user_id == current_user.id)
+        .first()
+    )
     if not relationship:
         raise HTTPException(status_code=404, detail="Relationship not found")
     update_data = relationship_in.model_dump(exclude_unset=True)
@@ -80,8 +108,15 @@ def update_relationship(relationship_id: UUID, relationship_in: RelationshipUpda
 
 
 @router.delete("/relationships/{relationship_id}", response_model=RelationshipResponse)
-def delete_relationship(relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    relationship = db.query(Relationship).join(Story).filter(Relationship.id == relationship_id, Story.user_id == current_user.id).first()
+def delete_relationship(
+    relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    relationship = (
+        db.query(Relationship)
+        .join(Story)
+        .filter(Relationship.id == relationship_id, Story.user_id == current_user.id)
+        .first()
+    )
     if not relationship:
         raise HTTPException(status_code=404, detail="Relationship not found")
     db.delete(relationship)
@@ -90,8 +125,15 @@ def delete_relationship(relationship_id: UUID, db: Session = Depends(get_db), cu
 
 
 @router.get("/relationships/{relationship_id}/consequence", response_model=RelationshipConsequenceResponse)
-def get_relationship_consequence(relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    relationship = db.query(Relationship).join(Story).filter(Relationship.id == relationship_id, Story.user_id == current_user.id).first()
+def get_relationship_consequence(
+    relationship_id: UUID, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    relationship = (
+        db.query(Relationship)
+        .join(Story)
+        .filter(Relationship.id == relationship_id, Story.user_id == current_user.id)
+        .first()
+    )
     if not relationship:
         raise HTTPException(status_code=404, detail="Relationship not found")
 

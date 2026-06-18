@@ -15,6 +15,7 @@ from app.schemas.user import UserCreate, UserRead
 
 router = APIRouter()
 
+
 @router.post("/register", response_model=UserRead)
 @limiter.limit("5/minute")
 def register(
@@ -53,26 +54,23 @@ def login_access_token(
         raise HTTPException(status_code=400, detail="Incorrect email or password")
     elif not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
-    
+
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(user.id, expires_delta=access_token_expires)
-    
+
     response.set_cookie(
         key="refresh_token",
-        value=access_token, # Using same token for refresh in dev for simplicity
+        value=access_token,  # Using same token for refresh in dev for simplicity
         httponly=True,
         secure=True,
         samesite="strict",
-        max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
+        max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
 
 @router.post("/refresh", response_model=Token)
-def refresh_token(
-    request: Request,
-    db: Session = Depends(deps.get_db)
-) -> Any:
+def refresh_token(request: Request, db: Session = Depends(deps.get_db)) -> Any:
     refresh_token = request.cookies.get("refresh_token")
     if not refresh_token:
         raise HTTPException(status_code=401, detail="Not authenticated")
