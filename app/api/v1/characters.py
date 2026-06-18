@@ -218,18 +218,18 @@ def get_pattern_emerging(
     if not character:
         raise HTTPException(status_code=404, detail="Character not found")
 
-    report = (
-        db.query(CharacterArchitectureReport).filter(CharacterArchitectureReport.character_id == character_id).first()
-    )
-    if not report:
-        report = generate_character_report(db, character_id)
-
-    answers = {"char_lie": report.protective_lie or "", "char_wound": report.deepest_fear or ""}
+    answers = {
+        "char_lie": get_answer_text(db, "char_lie", character_id=character_id),
+        "char_wound": get_answer_text(db, "char_wound", character_id=character_id),
+        "char_fear": get_answer_text(db, "char_fear", character_id=character_id),
+        "char_consequence": get_answer_text(db, "char_consequence", character_id=character_id),
+        "char_relationship_pattern": get_answer_text(db, "char_relationship_pattern", character_id=character_id),
+    }
 
     fields = get_pattern_emerging_fields(db, character_id, answers)
 
     return PatternEmergingResponse(
-        title="A Pattern Is Emerging",
+        title="Emerging Understanding",
         pattern_name=fields["pattern_name"],
         insight=fields["insight"],
         supporting_text=fields["supporting_text"],

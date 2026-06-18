@@ -20,6 +20,15 @@ from app.pattern_library.engine import (
     detect_relationship_pattern,
 )
 
+UNDISCOVERED_VALUES = {"", "Not discovered yet."}
+
+
+def _clean_answers(answers: dict) -> dict:
+    return {
+        key: "" if not isinstance(value, str) or value.strip() in UNDISCOVERED_VALUES else value
+        for key, value in answers.items()
+    }
+
 
 def get_character_deterministic_fields(db: Session, character_id: UUID, answers: dict) -> dict:
     """
@@ -30,7 +39,7 @@ def get_character_deterministic_fields(db: Session, character_id: UUID, answers:
 
     Returns a dict of i18n key strings plus pattern metadata.
     """
-    result: PatternResult = detect_character_pattern(answers)
+    result: PatternResult = detect_character_pattern(_clean_answers(answers))
 
     keys = result.final_insight_keys
 
@@ -73,7 +82,7 @@ def get_relationship_deterministic_fields(db: Session, relationship_id: UUID, an
 
     answers: dict mapping question_key -> answer_text
     """
-    result: PatternResult = detect_relationship_pattern(answers)
+    result: PatternResult = detect_relationship_pattern(_clean_answers(answers))
 
     keys = result.final_insight_keys
 
@@ -95,7 +104,7 @@ def get_pattern_emerging_fields(db: Session, character_id: UUID, answers: dict) 
     Uses the same pattern engine — returns the pattern_name, insight, etc.
     from the detected pattern's insight_keys.
     """
-    result: PatternResult = detect_character_pattern(answers)
+    result: PatternResult = detect_character_pattern(_clean_answers(answers))
     keys = result.final_insight_keys
 
     return {

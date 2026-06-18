@@ -156,9 +156,10 @@ def test_pattern_emerging_insights(client: TestClient, db: Session, test_user):
     db.add(char)
     db.commit()
 
-    q_fear = DiscoveryQuestion(flow_type="CHARACTER", question_key="char_fear", question_text="Fear?", order_index=1)
-    q_lie = DiscoveryQuestion(flow_type="CHARACTER", question_key="char_lie", question_text="Lie?", order_index=2)
-    db.add_all([q_fear, q_lie])
+    q_wound = DiscoveryQuestion(flow_type="CHARACTER", question_key="char_wound", question_text="Wound?", order_index=1)
+    q_fear = DiscoveryQuestion(flow_type="CHARACTER", question_key="char_fear", question_text="Fear?", order_index=2)
+    q_lie = DiscoveryQuestion(flow_type="CHARACTER", question_key="char_lie", question_text="Lie?", order_index=3)
+    db.add_all([q_wound, q_fear, q_lie])
     db.commit()
 
     # Default fallback
@@ -185,15 +186,15 @@ def test_pattern_emerging_insights(client: TestClient, db: Session, test_user):
     assert res.status_code == 200
     assert res.json()["pattern_name"] == "insights.patterns.conditional_worth.name"
 
-    # Custom answer overrides and matches 'abandon'
-    ans_fear = DiscoveryAnswer(
+    # Custom answer overrides and matches abandonment through the actual wound field.
+    ans_wound = DiscoveryAnswer(
         story_id=story.id,
         character_id=char.id,
-        question_id=q_fear.id,
+        question_id=q_wound.id,
         selected_answer="Ignored",
-        custom_answer="fear of being abandoned",
+        custom_answer="They were abandoned without warning.",
     )
-    db.add(ans_fear)
+    db.add(ans_wound)
 
     # Let's change lie so it doesn't match first (protective lie takes precedence if it matches, but "I will be okay" won't match)
     ans_lie.selected_answer = "I will be okay."

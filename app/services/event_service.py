@@ -4,7 +4,19 @@ from typing import Optional
 from sqlalchemy.orm import Session
 
 from app.models.discovery import DiscoveryEvent, EventTypeEnum
-from app.services.insight_generator import get_character_deterministic_fields, get_pattern_emerging_fields
+from app.services.insight_generator import (
+    get_character_deterministic_fields,
+    get_pattern_emerging_fields,
+)
+
+PATTERN_SYNTHESIS_QUESTIONS = ("char_wound", "char_fear", "char_lie")
+
+
+def has_pattern_synthesis_inputs(answers: dict) -> bool:
+    return all(
+        (answers.get(question_key) or "").strip() and answers.get(question_key) != "Not discovered yet."
+        for question_key in PATTERN_SYNTHESIS_QUESTIONS
+    )
 
 
 def create_event(
@@ -41,7 +53,11 @@ def handle_character_created(db: Session, story_id: uuid.UUID, character_id: uui
 
 
 def handle_relationship_created(
-    db: Session, story_id: uuid.UUID, relationship_id: uuid.UUID, char_a_name: str, char_b_name: str
+    db: Session,
+    story_id: uuid.UUID,
+    relationship_id: uuid.UUID,
+    char_a_name: str,
+    char_b_name: str,
 ):
     create_event(
         db,
@@ -133,10 +149,14 @@ def handle_question_answered(
             "char_relationship_pattern": get_answer_text(db, "char_relationship_pattern", character_id=character_id),
         }
 
-        # Check pattern emerging
-        pattern_fields = get_pattern_emerging_fields(db, character_id, answers)
+        # Check pattern emerging only after the discovery has enough material to synthesize.
+        if has_pattern_synthesis_inputs(answers):
+            pattern_fields = get_pattern_emerging_fields(db, character_id, answers)
+        else:
+            pattern_fields = None
+
         # Note: 'insights.patterns.emotional_defense.name' is the fallback pattern key
-        if pattern_fields["pattern_name"] != "insights.patterns.emotional_defense.name":
+        if pattern_fields and pattern_fields["pattern_name"] != "insights.patterns.emotional_defense.name":
             # Check if this exact pattern was already recorded
             existing_patterns = (
                 db.query(DiscoveryEvent)
@@ -158,6 +178,9 @@ def handle_question_answered(
                     event_metadata={
                         "pattern_key": pattern_fields["pattern_name"],
                         "insight_key": pattern_fields["insight"],
+                        "pattern_insight": pattern_fields["insight"],
+                        "supporting_text": pattern_fields["supporting_text"],
+                        "next_discovery_hint": pattern_fields["next_discovery_hint"],
                     },
                 )
                 unlocked_events.append(new_event)
