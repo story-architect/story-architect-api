@@ -4,9 +4,9 @@ from sqlalchemy.orm import Session
 from app.models import Character, DiscoveryAnswer, DiscoveryQuestion, Relationship, Story
 
 
-def test_character_insights_missing_answers(client: TestClient, db: Session):
+def test_character_insights_missing_answers(client: TestClient, db: Session, test_user):
     # Setup
-    story = Story(title="Test Story")
+    story = Story(title="Test Story", user_id=test_user.id)
     db.add(story)
     db.commit()
     db.refresh(story)
@@ -25,8 +25,8 @@ def test_character_insights_missing_answers(client: TestClient, db: Session):
     assert data["protective_lie"] == "Not discovered yet."
 
 
-def test_character_insights_with_answers_and_custom(client: TestClient, db: Session):
-    story = Story(title="Test Story")
+def test_character_insights_with_answers_and_custom(client: TestClient, db: Session, test_user):
+    story = Story(title="Test Story", user_id=test_user.id)
     db.add(story)
     db.commit()
 
@@ -87,8 +87,8 @@ def test_character_insights_with_answers_and_custom(client: TestClient, db: Sess
     assert "insights.character.perfection.central_conflict" in data["central_conflict"]
 
 
-def test_relationship_insights(client: TestClient, db: Session):
-    story = Story(title="Test Story")
+def test_relationship_insights(client: TestClient, db: Session, test_user):
+    story = Story(title="Test Story", user_id=test_user.id)
     db.add(story)
     db.commit()
 
@@ -127,8 +127,8 @@ def test_relationship_insights(client: TestClient, db: Session):
     assert "insights.relationship.distance" in data["relationship_risk"]  # Generated from 'distance' logic
 
 
-def test_existing_report_endpoints_still_work(client: TestClient, db: Session):
-    story = Story(title="Test Story")
+def test_existing_report_endpoints_still_work(client: TestClient, db: Session, test_user):
+    story = Story(title="Test Story", user_id=test_user.id)
     db.add(story)
     db.commit()
 
@@ -147,8 +147,8 @@ def test_existing_report_endpoints_still_work(client: TestClient, db: Session):
     assert res2.json()["id"] == data["id"]
 
 
-def test_pattern_emerging_insights(client: TestClient, db: Session):
-    story = Story(title="Pattern Story")
+def test_pattern_emerging_insights(client: TestClient, db: Session, test_user):
+    story = Story(title="Pattern Story", user_id=test_user.id)
     db.add(story)
     db.commit()
 

@@ -4,8 +4,8 @@ from starlette.testclient import TestClient
 from app.models import Character, DiscoveryAnswer, DiscoveryQuestion, Story
 
 
-def test_dramatic_architecture_overrides_and_regeneration(client: TestClient, db: Session):
-    story = Story(title="Dramatic Story")
+def test_dramatic_architecture_overrides_and_regeneration(client: TestClient, db: Session, test_user):
+    story = Story(title="Dramatic Story", user_id=test_user.id)
     db.add(story)
     db.commit()
 
