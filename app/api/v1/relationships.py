@@ -4,7 +4,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.api.dependencies import get_db, get_current_user
+from app.api.dependencies import get_current_user, get_db
 from app.models import Character, Relationship, RelationshipArchitectureReport, Story, User
 from app.schemas.relationship import RelationshipCreate, RelationshipResponse, RelationshipUpdate
 from app.schemas.report import RelationshipConsequenceResponse

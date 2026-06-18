@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.attributes import flag_modified
 
-from app.api.dependencies import get_db, get_current_user
+from app.api.dependencies import get_current_user, get_db
 from app.models import Character, CharacterArchitectureReport, Relationship, RelationshipArchitectureReport, Story, User
 from app.schemas.report import (
     CharacterArchitectureReportResponse,

@@ -4,8 +4,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
-from app.api.dependencies import get_db, get_current_user
-from app.models import User, Story, Character, DiscoveryAnswer, DiscoveryQuestion, FlowTypeEnum, Relationship
+from app.api.dependencies import get_current_user, get_db
+from app.models import Character, DiscoveryAnswer, DiscoveryQuestion, FlowTypeEnum, Relationship, Story, User
 from app.schemas.discovery import (
     DiscoveryAnswerCreate,
     DiscoveryAnswerResponse,
@@ -17,31 +17,19 @@ from app.services.event_service import handle_question_answered
 router = APIRouter()
 
 
-@router.get("/questions", response_model=List[DiscoveryQuestionResponse])
-def get_discovery_questions(flow_type: FlowTypeEnum = Query(...), db: Session = Depends(get_db)):
-    questions = (
-        db.query(DiscoveryQuestion)
-        .filter(DiscoveryQuestion.flow_type == flow_type)
-        .order_by(DiscoveryQuestion.order_index)
-        .all()
-    )
-    return questions
-
-
-@router.post("/answers", response_model=DiscoveryAnswerResponse)
-def create_discovery_answer(
-    answer_in: DiscoveryAnswerCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
-):  # noqa: C901
-    # Validate story
-    if not db.query(Story).filter(Story.id == answer_in.story_id, Story.user_id == current_user.id).first():
+def _validate_story(db: Session, story_id: UUID, user_id: UUID) -> None:
+    if not db.query(Story).filter(Story.id == story_id, Story.user_id == user_id).first():
         raise HTTPException(status_code=404, detail="Story not found")
 
-    # Validate question
-    question = db.query(DiscoveryQuestion).filter(DiscoveryQuestion.id == answer_in.question_id).first()
+
+def _get_discovery_question(db: Session, question_id: UUID) -> DiscoveryQuestion:
+    question = db.query(DiscoveryQuestion).filter(DiscoveryQuestion.id == question_id).first()
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
+    return question
 
-    # Validate either character or relationship is provided based on flow_type
+
+def _validate_answer_target(db: Session, answer_in: DiscoveryAnswerCreate, question: DiscoveryQuestion) -> None:
     if question.flow_type == FlowTypeEnum.CHARACTER_DISCOVERY:
         if not answer_in.character_id:
             raise HTTPException(status_code=400, detail="character_id is required for character discovery questions")
@@ -63,10 +51,10 @@ def create_discovery_answer(
         ):
             raise HTTPException(status_code=400, detail="Relationship not found in this story")
 
-    # Upsert logic - if an answer already exists for this question + character/relationship combination, update it instead
-    existing_answer = None
+
+def _get_existing_answer(db: Session, answer_in: DiscoveryAnswerCreate) -> DiscoveryAnswer | None:
     if answer_in.character_id:
-        existing_answer = (
+        return (
             db.query(DiscoveryAnswer)
             .filter(
                 DiscoveryAnswer.character_id == answer_in.character_id,
@@ -74,8 +62,8 @@ def create_discovery_answer(
             )
             .first()
         )
-    elif answer_in.relationship_id:
-        existing_answer = (
+    if answer_in.relationship_id:
+        return (
             db.query(DiscoveryAnswer)
             .filter(
                 DiscoveryAnswer.relationship_id == answer_in.relationship_id,
@@ -83,19 +71,44 @@ def create_discovery_answer(
             )
             .first()
         )
+    return None
 
+
+def _upsert_discovery_answer(db: Session, answer_in: DiscoveryAnswerCreate) -> DiscoveryAnswer:
+    existing_answer = _get_existing_answer(db, answer_in)
     if existing_answer:
         existing_answer.selected_answer = answer_in.selected_answer
         existing_answer.custom_answer = answer_in.custom_answer
         db.commit()
         db.refresh(existing_answer)
-        final_answer = existing_answer
-    else:
-        answer = DiscoveryAnswer(**answer_in.model_dump())
-        db.add(answer)
-        db.commit()
-        db.refresh(answer)
-        final_answer = answer
+        return existing_answer
+
+    answer = DiscoveryAnswer(**answer_in.model_dump())
+    db.add(answer)
+    db.commit()
+    db.refresh(answer)
+    return answer
+
+
+@router.get("/questions", response_model=List[DiscoveryQuestionResponse])
+def get_discovery_questions(flow_type: FlowTypeEnum = Query(...), db: Session = Depends(get_db)):
+    questions = (
+        db.query(DiscoveryQuestion)
+        .filter(DiscoveryQuestion.flow_type == flow_type)
+        .order_by(DiscoveryQuestion.order_index)
+        .all()
+    )
+    return questions
+
+
+@router.post("/answers", response_model=DiscoveryAnswerResponse)
+def create_discovery_answer(
+    answer_in: DiscoveryAnswerCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    _validate_story(db, answer_in.story_id, current_user.id)
+    question = _get_discovery_question(db, answer_in.question_id)
+    _validate_answer_target(db, answer_in, question)
+    final_answer = _upsert_discovery_answer(db, answer_in)
 
     answer_val = final_answer.custom_answer or final_answer.selected_answer or ""
     unlocked = handle_question_answered(
